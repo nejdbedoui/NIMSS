@@ -1,0 +1,5 @@
+app_problem:
+    resource: '..\src\Routing\config\problem.yaml'
+    prefix: /problem
+
+    

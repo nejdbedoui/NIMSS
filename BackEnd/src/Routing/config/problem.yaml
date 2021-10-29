@@ -1,0 +1,4 @@
+problem_list:
+    path: /list/{id}
+    defaults: { _controller: "Controller:Extractor:problem"}
+    methods: GET
