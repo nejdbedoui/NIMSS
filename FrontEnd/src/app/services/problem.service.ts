@@ -7,21 +7,25 @@ import { Injectable } from '@angular/core';
 })
 export class ProblemService {
   public url: string;
-  public url1: string;
+  
 
   constructor(private _http: HttpClient) {
-    this.url = "http://127.0.0.1:8000/extractor";
-    this.url1 = "http://127.0.0.1:8000/newC";
+    this.url = "http://127.0.0.1:8000";
+    
    }
    getNew(){
-    return this._http.get(this.url);
+    return this._http.get(`${this.url}/extractor`);
   }
   
-    create(compl){
-      const json 	= JSON.stringify(compl);
-      let body = new HttpParams();
-      body = body.set('json', json);
-      
-      return this._http.post<any>(this.url1,body);
-    }
+  create(compl){
+    const json 	= JSON.stringify(compl);
+    let body = new HttpParams();
+    body = body.set('json', json);
+    
+    return this._http.post<any>(`${this.url}/newC`,body);
+  }
+
+  getType(){
+    return this._http.get(`${this.url}/dashboard`);
+  }
 }

@@ -1,11 +1,11 @@
-
 <form  #taskNewForm="ngForm" (ngSubmit)="onSubmit();">
     <div class="form-group">
         <label for="exampleFormControlSelect1">How can we help you ?</label>
-        <select class="form-control" name="status" #status="ngModel" [(ngModel)]="Rec.type">
+        <select class="form-control" name="status" #status="ngModel" [(ngModel)]="Rec.type" >
+          
           <option>phone problems</option>
           <option>informations</option>
-          <option>internet problems</option>
+          <option selected="selected">internet problems</option>
         </select>
       </div>
     <div class="form-group">

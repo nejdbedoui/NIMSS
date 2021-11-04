@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Reclamation } from '../models/reclamation';
-import { CreateproblemService } from '../services/createproblem.service';
+import { ProblemService } from '../services/problem.service';
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-createproblem',
@@ -10,7 +11,7 @@ import { CreateproblemService } from '../services/createproblem.service';
 export class CreateproblemComponent implements OnInit {
   public Rec:Reclamation;
   rectest:Reclamation;
-  constructor(private _problemservice: CreateproblemService) { }
+  constructor(private _problemservice: ProblemService,private router: Router) { }
 
   ngOnInit(): void {
     this.Rec = new Reclamation(1,'','','New',new Date());
@@ -18,6 +19,7 @@ export class CreateproblemComponent implements OnInit {
   onSubmit(){
     this._problemservice.create(this.Rec).subscribe(
       data=>{console.log(data);}
-    );}
+    );
+    this.router.navigate(['/list'])}
     
 }

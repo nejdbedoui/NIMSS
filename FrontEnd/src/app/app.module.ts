@@ -4,9 +4,11 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ProblemComponent } from './compnents/problem.component';
+import { ProblemComponent } from './components/problem.component';
 import { FormsModule } from '@angular/forms';
-import { CreateproblemComponent } from './compnents/createproblem.component';
+import { CreateproblemComponent } from './components/createproblem.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { DashbordComponent } from './components/dashbord.component';
 
 
 @NgModule({
@@ -14,6 +16,7 @@ import { CreateproblemComponent } from './compnents/createproblem.component';
     AppComponent,
     ProblemComponent,
     CreateproblemComponent,
+    DashbordComponent,
    
     
   ],
@@ -21,7 +24,8 @@ import { CreateproblemComponent } from './compnents/createproblem.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgApexchartsModule
     
   ],
   providers: [],

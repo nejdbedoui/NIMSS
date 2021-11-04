@@ -4,3 +4,4 @@
 app:
     resource: '..\src\Routing\routing.yaml'
     prefix: /
+

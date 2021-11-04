@@ -65,4 +65,28 @@ class ExtractorController extends AbstractController
         return new jsonResponse($data);
     }
     
+  /**
+     * @Route("/dashboard", name="dashboard")
+     */
+    public function typeAction(Request $request): Response{
+    $em = $this->getDoctrine()->getManager();
+    $new = count($em->getRepository(Reclamation::class)->findBy(array(
+        'statut'=>'New'
+    )));
+    $todo = count($em->getRepository(Reclamation::class)->findBy(array(
+        'statut'=>'Treated'
+    )));
+    $finished = count($em->getRepository(Reclamation::class)->findBy(array(
+        'statut'=>'Inprogress'
+    )));
+    $data = array(
+        'New'=>$new,
+        'Treated'	=>$todo,
+        'Inprogress'	=>$finished
+    );
+
+return new jsonResponse($data);
+
+    
+}
 }
