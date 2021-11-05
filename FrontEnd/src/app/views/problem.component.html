@@ -1,4 +1,3 @@
-<p>problem works!</p>
 <table >
     <tr>
         <th>type</th>
@@ -13,20 +12,3 @@
     <td>{{user.id_user}}</td>
 </tr>
 </table>
-
-<form  #taskNewForm="ngForm" (ngSubmit)="onSubmit();">
-    <div class="form-group">
-        <label for="exampleFormControlSelect1">How can we help you ?</label>
-        <select class="form-control" name="status" #status="ngModel" [(ngModel)]="Rec.type">
-          <option>phone problems</option>
-          <option>informations</option>
-          <option>internet problems</option>
-        </select>
-      </div>
-    <div class="form-group">
-      <label for="exampleFormControlTextarea1">Example textarea</label>
-      <textarea class="form-control" rows="3" name="description" #description="ngModel" [(ngModel)]="Rec.description"></textarea>
-    </div>
-    <button type="button" class="btn btn-danger">Danger</button>
-    <input type="submit" value="Send" name="" class="btn btn-success">
-  </form>

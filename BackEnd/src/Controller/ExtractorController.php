@@ -33,6 +33,32 @@ class ExtractorController extends AbstractController
         return new jsonResponse($data);
         
     }
+
+ /**
+     * @Route("/extractor1/{id}", name="extractor id")
+     */
+    public function problelistmAction($id): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository(Reclamation::class)->findBy(array(
+            'idu'=>$id
+        ));
+
+        $data = array();    
+        foreach($repository as $key=>$rec){
+            $data[$key]['type']= $rec->getType();
+            $data[$key]['description']= $rec->getDescription();
+            $data[$key]['statut']= $rec->getStatut();
+            $data[$key]['date_creation']= $rec->getDateCreation()->format('d/m/y');
+            $data[$key]['id_user']= $rec->getIdu()->getID();
+        }
+
+        return new jsonResponse($data);
+        
+    }
+
     /**
      * @Route("/newC", name="egh", methods="POST")
      */
@@ -65,4 +91,51 @@ class ExtractorController extends AbstractController
         return new jsonResponse($data);
     }
     
+  /**
+     * @Route("/dashboard", name="dashboard")
+     */
+    public function typeAction(Request $request): Response{
+    $em = $this->getDoctrine()->getManager();
+    $new = count($em->getRepository(Reclamation::class)->findBy(array(
+        'statut'=>'New'
+    )));
+    $todo = count($em->getRepository(Reclamation::class)->findBy(array(
+        'statut'=>'Treated'
+    )));
+    $finished = count($em->getRepository(Reclamation::class)->findBy(array(
+        'statut'=>'Inprogress'
+    )));
+    $data = array(
+        'New'=>$new,
+        'Treated'	=>$todo,
+        'Inprogress'	=>$finished
+    );
+
+return new jsonResponse($data);
+
+    
+}
+/**
+     * @Route("/login", name="login", methods="POST")
+     */
+    public function login(Request $request): Response{
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $json = $request->get('json');
+        $params = json_decode($json);
+        $user = $repository->findOneBy(['email' => $params->email]);
+
+
+        $userarray = array(
+            "id" => $user->getId(),
+            "email" => $user->getEmail(),
+            "name" => $user->getFullName(),
+            "phone"=>$user->getPhoneNumber()
+        );
+
+        if($user!=null)
+        return new jsonResponse($userarray);
+        else
+        return new jsonResponse('SIKE');
+
+    }
 }
