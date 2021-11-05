@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProblemService } from '../services/problem.service';
 
 
@@ -12,17 +13,27 @@ import { ProblemService } from '../services/problem.service';
 export class ProblemComponent implements OnInit {
   
   Test;
-  constructor(private _problemservice: ProblemService) {
-  
+  public identity;
+  constructor(private _problemservice: ProblemService,private router: Router) {
+    this.identity = this._problemservice.getIdentity();
    }
 
   ngOnInit(): void {
-    this.getNew();
+    if(this.identity == null){
+			this.router.navigate(['/login']);
+		}else{
+      console.log(this.identity);
+    this.getList();
+    }
   }
-  getNew(){
-  this._problemservice.getNew().subscribe(values=>{this.Test=values});
+  getAll(){
+  this._problemservice.getAll().subscribe(values=>{this.Test=values});
 }
-
+getList(){
+  const id=this._problemservice.getIdentity().id;
+  this._problemservice.getList(id).subscribe(values=>{this.Test=values});
+  
+}
 }
 
 

@@ -11,15 +11,25 @@ import {Router} from "@angular/router"
 export class CreateproblemComponent implements OnInit {
   public Rec:Reclamation;
   rectest:Reclamation;
-  constructor(private _problemservice: ProblemService,private router: Router) { }
+  public identity: any;
+  constructor(private _problemservice: ProblemService,private router: Router) {
+    this.identity = this._problemservice.getIdentity();
+   }
+
 
   ngOnInit(): void {
+    if(this.identity == null){
+			this.router.navigate(['/login']);
+		}else{
     this.Rec = new Reclamation(1,'','','New',new Date());
-  }
+  }}
   onSubmit(){
+    if(this.identity == null){
+			this.router.navigate(['/login']);
+		}else{
     this._problemservice.create(this.Rec).subscribe(
       data=>{console.log(data);}
     );
     this.router.navigate(['/list'])}
-    
+  }
 }

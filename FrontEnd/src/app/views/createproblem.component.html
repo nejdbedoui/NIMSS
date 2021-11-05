@@ -12,6 +12,6 @@
       <label for="exampleFormControlTextarea1">Example textarea</label>
       <textarea class="form-control" rows="3" name="description" #description="ngModel" [(ngModel)]="Rec.description"></textarea>
     </div>
-    <button type="button" class="btn btn-danger">Danger</button>
+    <button type="button" class="btn btn-danger" [routerLink]="['/']">Cancel</button>
     <input type="submit" value="Send" name="" class="btn btn-success">
   </form>

@@ -1,6 +1,40 @@
-<ul><li><a [routerLink]="['/add']">Add problem</a></li>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+          <img src="assets\n.png" alt="" width="70" height="50">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <li><a [routerLink]="['/list']">list</a></li>
-    <li><a [routerLink]="['/dashbord']">dashbord</a></li>
-</ul>
+      <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['/home']">Home
+              <span class="visually-hidden">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/add']"  *ngIf="identity">Add problem</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/list'] "  *ngIf="identity">List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/dashbord']"  *ngIf="identity">dashbord</a>
+          </li>
+
+
+
+        </ul>
+        <form class="d-flex">
+
+          <button class="btn btn-primary my-2 my-sm-0" [routerLink]="['/login']" >Login</button>
+          <input type="button" value="Logout" class="btn btn-danger" (click)='logout()' />
+        </form>
+      </div>
+    </div>
+</nav>
+
 <router-outlet></router-outlet>

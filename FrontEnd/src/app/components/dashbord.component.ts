@@ -1,5 +1,6 @@
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   ApexNonAxisChartSeries,
   ApexResponsive,
@@ -24,9 +25,13 @@ export type ChartOptions = {
 export class DashbordComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
-  
-  constructor(private _problemService: ProblemService) {
-    
+  public identity: any;
+  constructor(private _problemService: ProblemService,private router: Router) {
+    this.identity = this._problemService.getIdentity();
+    if(this.identity == null){
+			this.router.navigate(['/login']);
+		}else{
+      
     this._problemService.getType().subscribe(
       response => {
         this.chartOptions = {
@@ -51,7 +56,7 @@ export class DashbordComponent implements OnInit {
         };
       });
 
-  }
+  }}
 
   ngOnInit(): void {
 
