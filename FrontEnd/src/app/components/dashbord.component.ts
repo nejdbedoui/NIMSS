@@ -26,12 +26,14 @@ export class DashbordComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
   public identity: any;
+
+
   constructor(private _problemService: ProblemService,private router: Router) {
     this.identity = this._problemService.getIdentity();
     if(this.identity == null){
 			this.router.navigate(['/login']);
 		}else{
-      
+     
     this._problemService.getType().subscribe(
       response => {
         this.chartOptions = {

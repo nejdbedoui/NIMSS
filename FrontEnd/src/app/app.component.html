@@ -30,8 +30,8 @@
         </ul>
         <form class="d-flex">
 
-          <button class="btn btn-primary my-2 my-sm-0" [routerLink]="['/login']" >Login</button>
-          <input type="button" value="Logout" class="btn btn-danger" (click)='logout()' />
+          <button class="btn btn-primary my-2 my-sm-0" [routerLink]="['/login'] "*ngIf="!identity" >Login</button>
+          <input type="button" value="Logout" class="btn btn-danger" *ngIf="identity" (click)='logout()' />
         </form>
       </div>
     </div>

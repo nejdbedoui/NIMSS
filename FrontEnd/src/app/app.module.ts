@@ -11,6 +11,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { DashbordComponent } from './components/dashbord.component';
 import { HomeComponent } from './components/home.component';
 import { LoginComponent } from './components/login.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { LoginComponent } from './components/login.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    BrowserAnimationsModule
     
   ],
   providers: [],

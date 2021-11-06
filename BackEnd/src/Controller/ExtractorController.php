@@ -28,13 +28,14 @@ class ExtractorController extends AbstractController
             $data[$key]['statut']= $rec->getStatut();
             $data[$key]['date_creation']= $rec->getDateCreation()->format('d/m/y');
             $data[$key]['id_user']= $rec->getIdu()->getID();
+            $data[$key]['stat']= 'success';
         }
-
+        
         return new jsonResponse($data);
         
     }
 
- /**
+    /**
      * @Route("/extractor1/{id}", name="extractor id")
      */
     public function problelistmAction($id): Response
@@ -53,11 +54,14 @@ class ExtractorController extends AbstractController
             $data[$key]['statut']= $rec->getStatut();
             $data[$key]['date_creation']= $rec->getDateCreation()->format('d/m/y');
             $data[$key]['id_user']= $rec->getIdu()->getID();
+            $data[$key]['stat']= 'success';
         }
-
+        
         return new jsonResponse($data);
         
     }
+
+
 
     /**
      * @Route("/newC", name="egh", methods="POST")
