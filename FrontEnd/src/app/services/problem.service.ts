@@ -45,4 +45,7 @@ export class ProblemService {
 
     return this.identity;
   }
+  deleteprob(id){
+    return this._http.get(`${this.url}/supp/${id}`);
+  }
 }
