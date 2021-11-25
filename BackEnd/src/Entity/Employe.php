@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EmployeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,22 @@ class Employe
      * @ORM\Column(type="string", length=255)
      */
     private $role;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="idEmploye")
+     */
+    private $ratings;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Report::class, mappedBy="idEmploye")
+     */
+    private $reports;
+
+    public function __construct()
+    {
+        $this->ratings = new ArrayCollection();
+        $this->reports = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +138,66 @@ class Employe
     public function setRole(string $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setIdEmploye($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getIdEmploye() === $this) {
+                $rating->setIdEmploye(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Report[]
+     */
+    public function getReports(): Collection
+    {
+        return $this->reports;
+    }
+
+    public function addReport(Report $report): self
+    {
+        if (!$this->reports->contains($report)) {
+            $this->reports[] = $report;
+            $report->setIdEmploye($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReport(Report $report): self
+    {
+        if ($this->reports->removeElement($report)) {
+            // set the owning side to null (unless already changed)
+            if ($report->getIdEmploye() === $this) {
+                $report->setIdEmploye(null);
+            }
+        }
 
         return $this;
     }

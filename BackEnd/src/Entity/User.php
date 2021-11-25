@@ -49,9 +49,21 @@ class User
      */
     private $idu;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="idClient")
+     */
+    private $ratings;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Report::class, mappedBy="idClient")
+     */
+    private $reports;
+
     public function __construct()
     {
         $this->idu = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
+        $this->reports = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,6 +155,66 @@ class User
             // set the owning side to null (unless already changed)
             if ($idu->getIdu() === $this) {
                 $idu->setIdu(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setIdClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getIdClient() === $this) {
+                $rating->setIdClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Report[]
+     */
+    public function getReports(): Collection
+    {
+        return $this->reports;
+    }
+
+    public function addReport(Report $report): self
+    {
+        if (!$this->reports->contains($report)) {
+            $this->reports[] = $report;
+            $report->setIdClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReport(Report $report): self
+    {
+        if ($this->reports->removeElement($report)) {
+            // set the owning side to null (unless already changed)
+            if ($report->getIdClient() === $this) {
+                $report->setIdClient(null);
             }
         }
 
