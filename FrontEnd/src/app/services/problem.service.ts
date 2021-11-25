@@ -48,4 +48,8 @@ export class ProblemService {
   deleteprob(id){
     return this._http.get(`${this.url}/supp/${id}`);
   }
+  getProblem(id){
+    return this._http.get<any>(`${this.url}/detail/${id}`);
+
+  }
 }

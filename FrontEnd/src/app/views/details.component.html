@@ -1,0 +1,34 @@
+<div class="all-prob">
+    <div class="center"  *ngIf="loading == 'show'">
+        <img class="center" src="assets/YCZH.gif" />
+    </div>
+
+<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+    <table class="table table-striped">
+        <thead>
+          <tr >
+            <th scope="col">Type</th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
+            <th scope="col">User Name</th>
+            <th scope="col">date creation</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+                
+                <td>{{problem[0][0].type}}</td>
+                <td>{{problem[0][0].description}}</td>
+                <td>{{problem[0][0].statut}}</td>
+                <td>{{problem[0].user}}</td>
+                <td><span *ngIf="problem[0][0].date_creation!=null">{{problem[0][0].date_creation.date | date:'mediumDate'}}</span></td>
+                
+
+        
+        </tr>
+            
+        </tbody>
+      </table>
+    </div>
+</div>

@@ -33,7 +33,10 @@ class ExtractorController extends AbstractController
             $data[$key]['stat']= 'success';
         }
         
-        return new jsonResponse($data);
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
         
     }
 
@@ -60,7 +63,10 @@ class ExtractorController extends AbstractController
             $data[$key]['stat']= 'success';
         }
         
-        return new jsonResponse($data);
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
         
     }
     
@@ -96,7 +102,10 @@ class ExtractorController extends AbstractController
             'msg'	=>'detail'
         );
 
-        return new jsonResponse($data);
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
     
   /**
@@ -119,7 +128,10 @@ class ExtractorController extends AbstractController
         'Inprogress'	=>$finished
     );
 
-return new jsonResponse($data);
+    $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
 
     
 }
@@ -140,7 +152,10 @@ return new jsonResponse($data);
             'phone'=>$user->getPhoneNumber(),
             "role"=>'user'
         );
-        return new jsonResponse($userarray);
+        $response = new jsonResponse($userarray);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
         else{
             $repository = $this->getDoctrine()->getRepository(Employe::class);
@@ -156,10 +171,16 @@ return new jsonResponse($data);
                 "role"=>$user->getRole()
             );
             
-        return new jsonResponse($userarray);
+            $response = new jsonResponse($userarray);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+                return $response;
         
         }
-        return new jsonResponse('SIKE');
+        $response = new jsonResponse('SIKE');
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
     /**
@@ -178,14 +199,20 @@ return new jsonResponse($data);
             $data = array(
                 'status'=>'success',
             );
-            return new jsonResponse($data);
+            $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
         }
         else
         {
             $data = array(
                 'status'=>'error',
             );
-             return new jsonResponse($data);
+            $response = new jsonResponse($data);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+                return $response;
         }
     }
       /**
@@ -209,11 +236,46 @@ return new jsonResponse($data);
             $em->persist($rec);
             $em->flush();
             
-            return new jsonResponse('success');
+            $response = new jsonResponse('success');
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
         }
         else
         {
-             return new jsonResponse('SIKE');
+            $response = new jsonResponse('SIKE');
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+                return $response;
         }
+    }
+
+     /**
+     * @Route("/detail/{id}", name="Details")
+     */
+
+    public function getProblem(Request $request,$id=null): Response{
+        
+        $em = $this->getDoctrine()->getManager();
+        $dql = "SELECT R,U.Full_name as user FROM App\Entity\Reclamation R LEFT JOIN App\Entity\User U"
+                ." WITH IDENTITY(R.idu,'id') = U.id"
+                ." WHERE (R.id=:id)";
+        $query = $em->createQuery($dql);
+
+        $query->setParameter('id', $id);
+
+        $problem = $query->getArrayResult();
+        $data = array(
+            'status'=>'success',
+            'code'	=>200,
+            'data'	=>$problem,
+            'msg'	=>'Task detail'
+        );
+
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+
     }
 }
