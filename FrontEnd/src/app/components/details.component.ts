@@ -10,7 +10,7 @@ import { ProblemService } from '../services/problem.service';
 })
 export class DetailsComponent implements OnInit {
 
-  constructor(private _problemservice: ProblemService,private _route: ActivatedRoute) { }
+  constructor(private _problemservice: ProblemService,private _route: ActivatedRoute,private router: Router) { }
 
   public problem : Reclamation;
 
@@ -32,6 +32,7 @@ export class DetailsComponent implements OnInit {
   update(){
     this._problemservice.updateProblem(this.problem).subscribe(value=>{
       console.log(value);
+      this.router.navigate(['/list']);
     });
   }
 

@@ -5,6 +5,6 @@ export class Reclamation {
         public description: string,
         public status: string,
         public date_creation: Date,
-        public user_id: number,
+        public user_id:number,
         public user : string){}
 }
