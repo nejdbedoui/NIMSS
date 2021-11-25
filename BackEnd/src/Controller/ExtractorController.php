@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Reclamation;
-use App\Entity\Rapport;
 use App\Entity\User;
 use App\Entity\Employe;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,7 +33,10 @@ class ExtractorController extends AbstractController
             $data[$key]['stat']= 'success';
         }
         
-        return new jsonResponse($data);
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
         
     }
 
@@ -61,7 +63,10 @@ class ExtractorController extends AbstractController
             $data[$key]['stat']= 'success';
         }
         
-        return new jsonResponse($data);
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
         
     }
     
@@ -97,7 +102,10 @@ class ExtractorController extends AbstractController
             'msg'	=>'detail'
         );
 
-        return new jsonResponse($data);
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
     
   /**
@@ -120,7 +128,10 @@ class ExtractorController extends AbstractController
         'Inprogress'	=>$finished
     );
 
-return new jsonResponse($data);
+    $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
 
     
 }
@@ -141,7 +152,10 @@ return new jsonResponse($data);
             'phone'=>$user->getPhoneNumber(),
             "role"=>'user'
         );
-        return new jsonResponse($userarray);
+        $response = new jsonResponse($userarray);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
         else{
             $repository = $this->getDoctrine()->getRepository(Employe::class);
@@ -157,10 +171,16 @@ return new jsonResponse($data);
                 "role"=>$user->getRole()
             );
             
-        return new jsonResponse($userarray);
+            $response = new jsonResponse($userarray);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+                return $response;
         
         }
-        return new jsonResponse('SIKE');
+        $response = new jsonResponse('SIKE');
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
     /**
@@ -179,14 +199,20 @@ return new jsonResponse($data);
             $data = array(
                 'status'=>'success',
             );
-            return new jsonResponse($data);
+            $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
         }
         else
         {
             $data = array(
                 'status'=>'error',
             );
-             return new jsonResponse($data);
+            $response = new jsonResponse($data);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+                return $response;
         }
     }
       /**
@@ -210,88 +236,81 @@ return new jsonResponse($data);
             $em->persist($rec);
             $em->flush();
             
-            return new jsonResponse('success');
+            $response = new jsonResponse('success');
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
         }
         else
         {
-             return new jsonResponse('SIKE');
+            $response = new jsonResponse('SIKE');
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+                return $response;
         }
     }
+
+     /**
+     * @Route("/detail/{id}", name="Details")
+     */
+
+    public function getProblem(Request $request,$id=null): Response{
+        
+        $em = $this->getDoctrine()->getManager();
+        $dql = "SELECT R,U.Full_name as user FROM App\Entity\Reclamation R LEFT JOIN App\Entity\User U"
+                ." WITH IDENTITY(R.idu,'id') = U.id"
+                ." WHERE (R.id=:id)";
+        $query = $em->createQuery($dql);
+
+        $query->setParameter('id', $id);
+
+        $problem = $query->getArrayResult();
+        $data = array(
+            'status'=>'success',
+            'code'	=>200,
+            'data'	=>$problem,
+            'msg'	=>'Task detail'
+        );
+
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+
+    }
+
     /**
-     * @Route("/newR", name="report", methods="POST")
+     * @Route("/update", name="updatefgh", methods="POST")
      */
     public function newReport(Request $request): Response{
         $em = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()->getRepository(Rapport::class);
-        
+        $repository = $this->getDoctrine()->getRepository(Reclamation::class);
+
 
         $json = $request->get('json');
         $params = json_decode($json);
-        $createdAt = new \Datetime('now');
-
-        $rapport = new Rapport();
-        $user = $repository->findOneBy(['id' =>$params->id]);
-        $rapport->setIdEmploye($params->emp);
-        $rapport->setIdProblem($params->prob);
-        $rapport->setDescription($params->description);
-        $rapport->setCreationDate($createdAt);
-
-        $em->persist($rapport);
-		$em->flush();
-
+        $rec = $repository->findOneBy(['id' =>$params->id]);
+        if($params->statut == $rec->getStatut()){
+            $data = array(
+                'status'=>'Nothing changed.',
+                'code'    =>69
+            );
+        }
+        else{
+        $rec->setStatut($params->statut);
+        $em->persist($rec);
+        $em->flush();
         $data = array(
             'status'=>'success',
-            'code'	=>200,
-            'data'	=>$rapport,
+            'code'    =>200,
         );
-    }
+        }
+
 
     
-    /**
-     * @Route("/newRating", name="rating", methods="POST")
-     */
-    public function newRating(Request $request): Response{
-        $em = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()->getRepository(Rating::class);
-        
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
 
-        $json = $request->get('json');
-        $params = json_decode($json);
-
-        $rate = new Rating();
-        $user = $repository->findOneBy(['id' =>$params->id]);
-        $rate->setIdClient($params->client);
-        $rate->setIdEmploye($params->emp);
-        $rate->setIdticket($params->prob);
-        $rate->setRating($params->rate);
-
-        $em->persist($rate);
-		$em->flush();
-
-        $data = array(
-            'status'=>'success',
-            'code'	=>200,
-            'data'	=>$rate,
-        );
+        return $response;
     }
-    /**
-     * @Route("/rating/{id}", name="showrating", methods="POST")
-     */
-    public function ExtractRating(Request $request): Response{
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository(Rating::class)->findBy(array(
-            'idticket'=>$id
-        ));
-        $data = array();    
-        foreach($repository as $key=>$rate){
-            $data[$key]['idClient']= $rate->getIdClient();
-            $data[$key]['idEmployer']= $rate->getIdEmployer();
-            $data[$key]['idticket']= $rate->getIdticket();
-            $data[$key]['rating']= $rate->getRating();
-            $data[$key]['stat']= 'success';
-        }
-        
-        return new jsonResponse($data);
-    }
-        
 }
