@@ -10,17 +10,32 @@ import { ProblemService } from './services/problem.service';
 export class AppComponent {
   title = 'FrontEnd';
   public identity;
-  
+  public admin;
+  public employe;
+  public user;
+ 
   constructor(
   	private _userService:ProblemService
   ){
   	this.identity = this._userService.getIdentity();
+    
   }
+  ngOnInit(){
+    
+    if(this._userService.getIdentity()['role']=='admin')
+  this.admin= true
+  else if(this._userService.getIdentity()['role']=='employe')
+  this.employe= true
+  else if(this._userService.getIdentity()['role']=='user')
+  this.user= true
+  }
+  
   logout(){
     
     localStorage.removeItem('identity');
     this.identity = null;
     window.location.href ="home";
+    
   }
  
 }

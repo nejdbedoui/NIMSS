@@ -1,6 +1,6 @@
 export class Reclamation {
     constructor(
-        public id: number,
+        public id: string,
         public type: string,
         public description: string,
         public status: string,

@@ -1,14 +1,41 @@
-<table >
-    <tr>
-        <th>type</th>
-        <th>description</th>
-        <th>statut</th>
-        <th>id user</th>
-    </tr>
-<tr *ngFor="let user of Test">
-    <td>{{user.type}}</td>
-    <td>{{user.description}}</td>
-    <td>{{user.statut}}</td>
-    <td>{{user.id_user}}</td>
-</tr>
-</table>
+<div class="all-prob">
+    <div class="center"  *ngIf="loading == 'show'">
+        <img class="center" src="assets/YCZH.gif" />
+    </div>
+
+<div fxLayoutAlign="center center" fxFlexFill class="main-div" *ngIf="loading == 'hide'">
+    <table class="table table-striped">
+        <thead>
+          <tr >
+            <th scope="col">Type</th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
+            <th scope="col">User ID</th>
+            <th scope="col">date creation</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let problem of Test">
+                
+                <td>{{problem.type}}</td>
+                <td>{{problem.description}}</td>
+                <td>{{problem.statut}}</td>
+                <td>{{problem.id_user}}</td>
+                <td>{{problem.date_creation}}</td>
+                
+               
+              <td >
+            <a  class="btn btn-warning">Edit</a>
+            
+
+          </td> 
+          <td><a (click)=deleteProb(problem.id) role="button" class="btn btn-danger" data-toggle="modal">Delete</a></td>
+        </tr>
+            
+        </tbody>
+      </table>
+    </div>
+</div>
