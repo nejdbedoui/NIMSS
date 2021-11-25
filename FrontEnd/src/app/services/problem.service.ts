@@ -48,4 +48,15 @@ export class ProblemService {
   deleteprob(id){
     return this._http.get(`${this.url}/supp/${id}`);
   }
+  getProblem(id){
+    return this._http.get<any>(`${this.url}/detail/${id}`);
+
+  }
+  updateProblem(problem){
+    const json     = JSON.stringify(problem[0][0]);
+    let body = new HttpParams()
+    .set('json', json);
+    return this._http.post<any>(`${this.url}/update`,body);
+
+  }
 }
