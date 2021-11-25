@@ -91,10 +91,7 @@ export class DashbordComponent implements OnInit {
     this._problemService.getType().subscribe(
       response => {
         this.chartOptions2 = {
-          series: [
-            
-
-          ],
+          series: [],
           chart: {
             type: "bar",
             height: 350
