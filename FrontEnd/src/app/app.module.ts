@@ -13,6 +13,9 @@ import { HomeComponent } from './components/home.component';
 import { LoginComponent } from './components/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { DetailsComponent } from './components/details.component';
+
+
 
 
 @NgModule({
@@ -23,6 +26,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     DashbordComponent,
     HomeComponent,
     LoginComponent,
+    DetailsComponent,
    
    
     

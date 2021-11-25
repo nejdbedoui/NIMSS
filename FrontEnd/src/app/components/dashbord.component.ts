@@ -100,8 +100,8 @@ export class DashbordComponent implements OnInit {
               name: "Revenue",
               data: [response['New'], response['Inprogress'], response['Treated'],,,,,,,,,,,,,]
             },
-
           ],
+
           chart: {
             type: "bar",
             height: 350
