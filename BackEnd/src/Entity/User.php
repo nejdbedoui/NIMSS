@@ -190,34 +190,4 @@ class User
 
         return $this;
     }
-
-    /**
-     * @return Collection|Report[]
-     */
-    public function getReports(): Collection
-    {
-        return $this->reports;
-    }
-
-    public function addReport(Report $report): self
-    {
-        if (!$this->reports->contains($report)) {
-            $this->reports[] = $report;
-            $report->setIdClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReport(Report $report): self
-    {
-        if ($this->reports->removeElement($report)) {
-            // set the owning side to null (unless already changed)
-            if ($report->getIdClient() === $this) {
-                $report->setIdClient(null);
-            }
-        }
-
-        return $this;
-    }
 }

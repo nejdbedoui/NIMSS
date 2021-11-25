@@ -314,4 +314,34 @@ class ExtractorController extends AbstractController
         return $response;
     }
 
+
+    /**
+     * @Route("/newR", name="report", methods="POST")
+     */
+    public function newR(Request $request): Response{
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(Report::class);
+        
+
+        $json = $request->get('json');
+        $params = json_decode($json);
+        $createdAt = new \Datetime('now');
+
+        $rapport = new Report();
+        $user = $repository->findOneBy(['id' =>$params->id]);
+        $rapport->setIdEmploye($params->emp);
+        $rapport->setIdProblem($params->prob);
+        $rapport->setDescription($params->description);
+        $rapport->setCreationDate($createdAt);
+
+        $em->persist($rapport);
+		$em->flush();
+
+        $data = array(
+            'status'=>'success',
+            'code'	=>200,
+            'data'	=>$rapport,
+        );
+    }
+
 }
