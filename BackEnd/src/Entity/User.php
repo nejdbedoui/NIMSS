@@ -49,9 +49,15 @@ class User
      */
     private $idu;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="idclient")
+     */
+    private $ratings;
+
     public function __construct()
     {
         $this->idu = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,6 +149,36 @@ class User
             // set the owning side to null (unless already changed)
             if ($idu->getIdu() === $this) {
                 $idu->setIdu(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setIdclient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getIdclient() === $this) {
+                $rating->setIdclient(null);
             }
         }
 
