@@ -23,11 +23,11 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProblem();
-    console.log(this.identity);
+    console.log(this.identity.id);
 
     this._route.params.forEach((params: Params)=>{
-      let id = +params['id'];
-     this.Report = new Rapport('',this.identity['id'],id);
+      let idf = +params['id'];
+     this.Report = new Rapport('',this.identity.id,idf);
       
       })
 
@@ -54,6 +54,7 @@ export class DetailsComponent implements OnInit {
 
   
 onSubmit(){
+
 this._problemservice.createReport(this.Report).subscribe(value=>{
   console.log(value);
 })
