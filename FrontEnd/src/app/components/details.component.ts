@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { RapportService } from 'NIMSS/FrontEnd/src/app/services/rapport.service';
+import { Rapport } from '../models/rapport';
 import { Reclamation } from '../models/reclamation';
 import { ProblemService } from '../services/problem.service';
 
@@ -9,14 +11,28 @@ import { ProblemService } from '../services/problem.service';
   styleUrls: ['../css/details.component.css']
 })
 export class DetailsComponent implements OnInit {
-
-  constructor(private _problemservice: ProblemService,private _route: ActivatedRoute,private router: Router) { }
-
   public problem : Reclamation;
+  public Report : Rapport;
+  public identity;
+  public id;
+
+  constructor(private _problemservice: ProblemService,private _rapportservice: RapportService,private _route: ActivatedRoute,private router: Router) {
+    this.identity = _problemservice.getIdentity();
+   }
+
 
   ngOnInit(): void {
     this.getProblem();
-  }
+    console.log(this.identity);
+
+    this._route.params.forEach((params: Params)=>{
+      let id = +params['id'];
+     this.Report = new Rapport('',this.identity['id'],id);
+      
+      })
+
+    };
+  
 
   getProblem(){
     this._route.params.forEach((params: Params)=>{
@@ -36,4 +52,10 @@ export class DetailsComponent implements OnInit {
     });
   }
 
+  
+onSubmit(){
+this._problemservice.createReport(this.Report).subscribe(value=>{
+  console.log(value);
+})
+}
 }

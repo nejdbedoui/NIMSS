@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -11,4 +11,11 @@ export class RapportService {
   }
 
 
+  createReport(report){
+    const json 	= JSON.stringify(report);
+    let body = new HttpParams();
+    body = body.set('json', json);
+    
+    return this._http.post<any>(`${this.url}/newR`,body);
+  }
 }
