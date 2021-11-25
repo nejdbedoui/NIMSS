@@ -282,7 +282,7 @@ class ExtractorController extends AbstractController
     /**
      * @Route("/update", name="updatefgh", methods="POST")
      */
-    public function newReport(Request $request): Response{
+    public function updaterec(Request $request): Response{
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository(Reclamation::class);
 
@@ -314,6 +314,7 @@ class ExtractorController extends AbstractController
         return $response;
     }
 
+
     /**
      * @Route("/newR", name="report", methods="POST")
      */
@@ -342,4 +343,5 @@ class ExtractorController extends AbstractController
             'data'	=>$rapport,
         );
     }
+
 }

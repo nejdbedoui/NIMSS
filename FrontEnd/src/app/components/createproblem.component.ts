@@ -24,7 +24,7 @@ export class CreateproblemComponent implements OnInit {
     if(this.identity == null){
 			this.router.navigate(['/login']);
 		}else{
-    this.Rec = new Reclamation(this.identity['id'],'','','New',new Date());
+    this.Rec = new Reclamation(this.identity['id'],'','','New',new Date(),null,null);
   }}
   onSubmit(){
     if(this.identity == null){
