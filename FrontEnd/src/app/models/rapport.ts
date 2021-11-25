@@ -1,10 +1,6 @@
-export class Reclamation {
+export class Rapport {
     constructor(
-        public id: string,
-        public type: string,
-        public description: string,
-        public status: string,
-        public date_creation: Date,
-        public userid: number,
-        public user : string){}
+        public description:string,
+        public idEmploye: number,
+        public idProbleme: number){}
 }

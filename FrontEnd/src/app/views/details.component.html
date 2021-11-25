@@ -35,3 +35,12 @@
       </table>
     </div>
 </div>
+
+<form #updateForm="ngForm"  #taskNewForm="ngForm" (ngSubmit)="onSubmit();">
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Report</label>
+    <textarea class="form-control" rows="3" name="description" #description="ngModel" [(ngModel)]="Report.description"  required></textarea>
+    <span *ngIf="!description.valid && description.touched">you have to describe your problem</span>
+  </div>
+  <input type="submit" value="Send" name="send" class="btn btn-success" [disabled]="!updateForm.form.valid">
+</form>
