@@ -1,10 +1,12 @@
 <br><br><br><br>
 <div class="all-prob">
+
     <div class="center"  *ngIf="loading == 'show'">
         <img class="center" src="assets/YCZH.gif" />
     </div>
 
 <div fxLayoutAlign="center center" fxFlexFill class="main-div" *ngIf="loading == 'hide'">
+
     <table class="table table-striped">
         <thead>
           <tr >
@@ -48,3 +50,12 @@
       </table>
     </div>
 </div>
+
+<form #updateForm="ngForm"  #taskNewForm="ngForm" (ngSubmit)="onSubmit();">
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Report</label>
+    <textarea class="form-control" rows="3" name="description" #description="ngModel" [(ngModel)]="Report.description"  required></textarea>
+    <span *ngIf="!description.valid && description.touched">you have to describe your problem</span>
+  </div>
+  <input type="submit" value="Send" name="send" class="btn btn-success" [disabled]="!updateForm.form.valid">
+</form>
