@@ -9,7 +9,7 @@ import { ProblemService } from './services/problem.service';
 })
 export class AppComponent {
   title = 'FrontEnd';
-  public identity;
+  public identity=null;
   public admin;
   public employe;
   public user;
@@ -21,14 +21,14 @@ export class AppComponent {
     
   }
   ngOnInit(){
-    
+    if(this.identity != null){
     if(this._userService.getIdentity()['role']=='admin')
   this.admin= true
   else if(this._userService.getIdentity()['role']=='employe')
   this.employe= true
   else if(this._userService.getIdentity()['role']=='user')
   this.user= true
-  }
+  }}
   
   logout(){
     

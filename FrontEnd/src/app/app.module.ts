@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailsComponent } from './components/details.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +25,7 @@ import { DetailsComponent } from './components/details.component';
     HomeComponent,
     LoginComponent,
     DetailsComponent,
+   
    
     
   ],

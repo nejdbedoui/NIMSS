@@ -1,25 +1,42 @@
 
-<table>
-<tr><th><div id="chart">
-  <apx-chart
-    [series]="chartOptions2.series"
-    [chart]="chartOptions2.chart"
-    [xaxis]="chartOptions2.xaxis"
-    [stroke]="chartOptions2.stroke"
-    [markers]="chartOptions2.markers"
-    [fill]="chartOptions2.fill"
-    [title]="chartOptions2.title"
-  ></apx-chart>
-</div></th></tr>
-<tr><td>
-<div id="chart">
-    <apx-chart
-      [series]="chartOptions.series"
-      [chart]="chartOptions.chart"
-      [labels]="chartOptions.labels"
-      [responsive]="chartOptions.responsive"
-    ></apx-chart>
-  </div>
-</td>
-</tr>
+
+<table id='sep'>
+  <thead>
+      <tr>
+          <th ></th>
+          <th ></th>
+          <th ></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><div id="chart">
+            <apx-chart
+              [series]="chartOptions2.series2"
+              [chart]="chartOptions2.chart"
+              [xaxis]="chartOptions2.xaxis"
+              [stroke]="chartOptions2.stroke"
+              [markers]="chartOptions2.markers"
+              [fill]="chartOptions2.fill"
+              [title]="chartOptions2.title"
+            ></apx-chart>
+          </div></td>
+
+          
+          
+      </tr>
+      <tr>
+        <td colspan="3">
+          <div id="chart">
+              <apx-chart
+                [series]="chartOptions.series"
+                [chart]="chartOptions.chart"
+                [labels]="chartOptions.labels"
+                [responsive]="chartOptions.responsive"
+              ></apx-chart>
+            </div></td>
+        
+    </tr>
+      
+  </tbody>
 </table>
