@@ -50,9 +50,15 @@ class Reclamation
      */
     private $ratings;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Report::class, mappedBy="idReclamation")
+     */
+    private $reports;
+
     public function __construct()
     {
         $this->ratings = new ArrayCollection();
+        $this->reports = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,6 +150,36 @@ class Reclamation
             // set the owning side to null (unless already changed)
             if ($rating->getIdReclamation() === $this) {
                 $rating->setIdReclamation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Report[]
+     */
+    public function getReports(): Collection
+    {
+        return $this->reports;
+    }
+
+    public function addReport(Report $report): self
+    {
+        if (!$this->reports->contains($report)) {
+            $this->reports[] = $report;
+            $report->setIdReclamation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReport(Report $report): self
+    {
+        if ($this->reports->removeElement($report)) {
+            // set the owning side to null (unless already changed)
+            if ($report->getIdReclamation() === $this) {
+                $report->setIdReclamation(null);
             }
         }
 
