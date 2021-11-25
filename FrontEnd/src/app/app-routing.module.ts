@@ -14,7 +14,6 @@ const routes: Routes = [
   {path: 'add',component : CreateproblemComponent},
   {path: 'dashbord',component : DashbordComponent},
   {path: 'login',component : LoginComponent},
-  
   { path: '**', component: HomeComponent }
 ];
 

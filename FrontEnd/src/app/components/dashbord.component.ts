@@ -91,15 +91,8 @@ export class DashbordComponent implements OnInit {
     this._problemService.getType().subscribe(
       response => {
         this.chartOptions2 = {
-          series2: [
-            {
-              name: "Net Profit",
-              data: [response['New'], response['Inprogress'], response['Treated'],,,,,,,,,,,,,]
-            },
-            {
-              name: "Revenue",
-              data: [response['New'], response['Inprogress'], response['Treated'],,,,,,,,,,,,,]
-            },
+          series: [
+            
 
           ],
           chart: {
