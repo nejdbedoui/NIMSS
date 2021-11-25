@@ -23,6 +23,7 @@ import { ProblemService } from '../services/problem.service';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
+  series2:ApexAxisChartSeries;
   chart: ApexChart;
   responsive: ApexResponsive[];
   labels: any;
@@ -90,14 +91,14 @@ export class DashbordComponent implements OnInit {
     this._problemService.getType().subscribe(
       response => {
         this.chartOptions2 = {
-          series: [
+          series2: [
             {
               name: "Net Profit",
-              data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+              data: [response['New'], response['Inprogress'], response['Treated'],,,,,,,,,,,,,]
             },
             {
               name: "Revenue",
-              data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+              data: [response['New'], response['Inprogress'], response['Treated'],,,,,,,,,,,,,]
             },
 
           ],
@@ -122,6 +123,7 @@ export class DashbordComponent implements OnInit {
           },
           xaxis: {
             categories: [
+              "Janv",
               "Feb",
               "Mar",
               "Apr",
@@ -130,7 +132,9 @@ export class DashbordComponent implements OnInit {
               "Jul",
               "Aug",
               "Sep",
-              "Oct"
+              "Oct",
+              "Nov",
+              "Dec"
             ]
           },
           yaxis: {

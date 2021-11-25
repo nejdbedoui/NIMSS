@@ -21,8 +21,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmit(){
-   
-    
     this._problemservice.login(this.user).subscribe(
       data=>{
         this.identity = data;
