@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Reclamation;
 use App\Entity\User;
+use App\Entity\Report;
 use App\Entity\Employe;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -320,17 +321,17 @@ class ExtractorController extends AbstractController
      */
     public function newR(Request $request): Response{
         $em = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()->getRepository(Report::class);
         
-
         $json = $request->get('json');
         $params = json_decode($json);
         $createdAt = new \Datetime('now');
-
+        $repemp = $this->getDoctrine()->getRepository(Employe::class);
+        $reprec = $this->getDoctrine()->getRepository(Reclamation::class);
+        $emp = $repemp->findOneBy(['id' =>$params->idEmploye]);
+        $rec = $reprec->findOneBy(['id' =>$params->idProbleme]);
         $rapport = new Report();
-        $user = $repository->findOneBy(['id' =>$params->id]);
-        $rapport->setIdEmploye($params->emp);
-        $rapport->setIdProblem($params->prob);
+        $rapport->setIdEmploye($emp);
+        $rapport->setidReclamation($rec);
         $rapport->setDescription($params->description);
         $rapport->setCreationDate($createdAt);
 
@@ -340,8 +341,11 @@ class ExtractorController extends AbstractController
         $data = array(
             'status'=>'success',
             'code'	=>200,
-            'data'	=>$rapport,
         );
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
 }
