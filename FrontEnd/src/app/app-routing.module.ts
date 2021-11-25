@@ -9,6 +9,7 @@ import { DetailsComponent } from './components/details.component';
 
 
 
+
 const routes: Routes = [
   {path: 'list',component : ProblemComponent},
   {path: 'add',component : CreateproblemComponent},

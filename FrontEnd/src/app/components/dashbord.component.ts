@@ -23,6 +23,7 @@ import { ProblemService } from '../services/problem.service';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
+  series2:ApexAxisChartSeries;
   chart: ApexChart;
   responsive: ApexResponsive[];
   labels: any;
@@ -112,6 +113,7 @@ export class DashbordComponent implements OnInit {
           },
           xaxis: {
             categories: [
+              "Janv",
               "Feb",
               "Mar",
               "Apr",
@@ -120,7 +122,9 @@ export class DashbordComponent implements OnInit {
               "Jul",
               "Aug",
               "Sep",
-              "Oct"
+              "Oct",
+              "Nov",
+              "Dec"
             ]
           },
           yaxis: {
