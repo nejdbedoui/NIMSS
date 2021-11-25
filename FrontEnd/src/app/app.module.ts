@@ -12,7 +12,7 @@ import { DashbordComponent } from './components/dashbord.component';
 import { HomeComponent } from './components/home.component';
 import { LoginComponent } from './components/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { EditComponent } from './components/edit.component';
+
 
 
 @NgModule({
@@ -23,7 +23,7 @@ import { EditComponent } from './components/edit.component';
     DashbordComponent,
     HomeComponent,
     LoginComponent,
-    EditComponent,
+   
    
     
   ],
