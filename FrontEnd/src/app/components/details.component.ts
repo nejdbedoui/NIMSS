@@ -29,5 +29,10 @@ export class DetailsComponent implements OnInit {
     });
     
   }
+  update(){
+    this._problemservice.updateProblem(this.problem).subscribe(value=>{
+      console.log(value);
+    });
+  }
 
 }

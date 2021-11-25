@@ -278,4 +278,39 @@ class ExtractorController extends AbstractController
         return $response;
 
     }
+
+    /**
+     * @Route("/update", name="updatefgh", methods="POST")
+     */
+    public function newReport(Request $request): Response{
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(Reclamation::class);
+
+
+        $json = $request->get('json');
+        $params = json_decode($json);
+        $rec = $repository->findOneBy(['id' =>$params->id]);
+        if($params->statut == $rec->getStatut()){
+            $data = array(
+                'status'=>'Nothing changed.',
+                'code'    =>69
+            );
+        }
+        else{
+        $rec->setStatut($params->statut);
+        $em->persist($rec);
+        $em->flush();
+        $data = array(
+            'status'=>'success',
+            'code'    =>200,
+        );
+        }
+
+
+    
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+    }
 }

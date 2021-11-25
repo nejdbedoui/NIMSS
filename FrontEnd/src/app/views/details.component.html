@@ -12,6 +12,7 @@
             <th scope="col">Status</th>
             <th scope="col">User Name</th>
             <th scope="col">date creation</th>
+            <th scope="col"></th>
             
           </tr>
         </thead>
@@ -20,10 +21,15 @@
                 
                 <td>{{problem[0][0].type}}</td>
                 <td>{{problem[0][0].description}}</td>
-                <td>{{problem[0][0].statut}}</td>
+                <td><select class="form-select" [(ngModel)]="problem[0][0].statut">
+                    <option value="New">New</option>
+                    <option value="Inprogress">In progress</option>
+                    <option value="Treated">Treated</option>
+                  </select></td>
                 <td>{{problem[0].user}}</td>
                 <td><span *ngIf="problem[0][0].date_creation!=null">{{problem[0][0].date_creation.date | date:'mediumDate'}}</span></td>
-                
+
+                <td><a (click)=update() role="button" class="btn btn-danger" data-toggle="modal">Update</a></td>
 
         
         </tr>
