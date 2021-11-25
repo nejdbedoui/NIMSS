@@ -1,6 +1,12 @@
 <br><br><br><br>
 <div class="all-prob">
-<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+
+    <div class="center"  *ngIf="loading == 'show'">
+        <img class="center" src="assets/YCZH.gif" />
+    </div>
+
+<div fxLayoutAlign="center center" fxFlexFill class="main-div" *ngIf="loading == 'hide'">
+
     <table class="table table-striped">
         <thead>
           <tr >
@@ -18,11 +24,20 @@
                 
                 <td>{{problem[0][0].type}}</td>
                 <td>{{problem[0][0].description}}</td>
-                <td><select class="form-select" [(ngModel)]="problem[0][0].statut">
+                <td *ngIf="admin"><select class="form-select" [(ngModel)]="problem[0][0].statut">
                     <option value="New">New</option>
                     <option value="Inprogress">In progress</option>
                     <option value="Treated">Treated</option>
                   </select></td>
+                  <td *ngIf="user"><span class="p-2 mb-2 bg-primary text-white "  *ngIf="problem[0][0].statut === 'Inprogress'">
+                    Inprogress
+                  </span>
+                  <span class="p-2 mb-2 bg-success text-white" *ngIf="problem[0][0].statut === 'Treated'">
+                    Treated
+                  </span>
+                  <span class="p-2 mb-2 bg-danger text-white" *ngIf="problem[0][0].statut === 'New'">
+                    New
+                  </span> </td>
                 <td>{{problem[0].user}}</td>
                 <td><span *ngIf="problem[0][0].date_creation!=null">{{problem[0][0].date_creation.date | date:'mediumDate'}}</span></td>
 
