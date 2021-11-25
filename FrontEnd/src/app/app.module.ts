@@ -13,6 +13,7 @@ import { HomeComponent } from './components/home.component';
 import { LoginComponent } from './components/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailsComponent } from './components/details.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 
@@ -35,7 +36,8 @@ import { DetailsComponent } from './components/details.component';
     HttpClientModule,
     FormsModule,
     NgApexchartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatFormFieldModule,
     
   ],
   providers: [],
