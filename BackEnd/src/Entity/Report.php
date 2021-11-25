@@ -30,7 +30,7 @@ class Report
 
     /**
      * @ORM\ManyToOne(targetEntity=Reclamation::class, inversedBy="reports")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $idReclamation;
 
