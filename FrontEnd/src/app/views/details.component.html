@@ -24,7 +24,7 @@
                 
                 <td>{{problem[0][0].type}}</td>
                 <td>{{problem[0][0].description}}</td>
-                <td *ngIf="admin"><select class="form-select" [(ngModel)]="problem[0][0].statut">
+                <td *ngIf="employe "><select class="form-select" [(ngModel)]="problem[0][0].statut">
                     <option value="New">New</option>
                     <option value="Inprogress">In progress</option>
                     <option value="Treated">Treated</option>
@@ -41,7 +41,7 @@
                 <td>{{problem[0].user}}</td>
                 <td><span *ngIf="problem[0][0].date_creation!=null">{{problem[0][0].date_creation.date | date:'mediumDate'}}</span></td>
 
-                <td><a (click)=update() role="button" class="btn btn-danger" data-toggle="modal">Update</a></td>
+                <td><a *ngIf="employe " (click)=update() role="button" class="btn btn-danger" data-toggle="modal">Update</a></td>
 
         
         </tr>
@@ -51,11 +51,59 @@
     </div>
 </div>
 
-<form #updateForm="ngForm"  #taskNewForm="ngForm" (ngSubmit)="onSubmit();">
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1">Report</label>
-    <textarea class="form-control" rows="3" name="description" #description="ngModel" [(ngModel)]="Report.description"  required></textarea>
-    <span *ngIf="!description.valid && description.touched">you have to describe your problem</span>
-  </div>
-  <input type="submit" value="Send" name="send" class="btn btn-success" [disabled]="!updateForm.form.valid">
-</form>
+<div class="all-prob">
+  
+<br><br>
+<div fxLayoutAlign="center center" fxFlexFill class="main-div" *ngIf="loading == 'hide'">
+
+          <div *ngFor="let report of report" >
+              <div class="card p-3 color" >
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="user d-flex flex-row align-items-center"> <img src="https://i.imgur.com/hczKIze.jpg" width="40" class="user-img rounded-circle mr-2">
+                       <span><small class="font-weight-bold text-primary">james_olesenn</small>
+                       </span> 
+                      </div> <small>{{report.date_creation}}</small>
+                      
+                </div>
+                <div class="action d-flex justify-content-between mt-2 align-items-center">
+                    <div class="reply px-4"> {{report.desc}} </div>
+                    
+                    
+                    <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
+                </div>
+              </div><br>
+              
+            </div>
+            
+           
+            <div class="center1" *ngIf="user">
+              <h3 class="center1">Rate our services :</h3>
+            <div class="rate">
+              
+              <input type="radio" id="star5" name="rate" value="5" />
+              <label for="star5" title="text">5 stars</label>
+              <input type="radio" id="star4" name="rate" value="4" />
+              <label for="star4" title="text">4 stars</label>
+              <input type="radio" id="star3" name="rate" value="3" />
+              <label for="star3" title="text">3 stars</label>
+              <input type="radio" id="star2" name="rate" value="2" />
+              <label for="star2" title="text">2 stars</label>
+              <input type="radio" id="star5" name="rate" value="1" />
+              <label for="star1" title="text">1 star</label>
+            </div><br>
+          </div>
+  
+    <form *ngIf="employe "  #updateForm="ngForm"  #taskNewForm="ngForm" (ngSubmit)="onSubmit();">
+      
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Report</label>
+        <textarea class="form-control" rows="3" name="description" #description="ngModel" [(ngModel)]="Report.description"  required></textarea>
+        <span *ngIf="!description.valid && description.touched">you have to describe your problem</span>
+      </div>
+      <input type="submit" value="Send" name="send" class="btn btn-success" [disabled]="!updateForm.form.valid">
+    </form>
+    </div>
+
+
+   
+</div>
