@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Reclamation;
 use App\Entity\User;
+use App\Entity\Report;
 use App\Entity\Employe;
 use App\Entity\Report;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -338,10 +339,12 @@ class ExtractorController extends AbstractController
 
         $data = array(
             'status'=>'success',
+
             'code'    =>200,
         );
         $response = new jsonResponse($data);
     $response->headers->set('Access-Control-Allow-Origin', '');
+
 
         return $response;
     }
