@@ -27,10 +27,11 @@ export class ProblemComponent implements OnInit {
 		}else{
       console.log(this.identity);
       const ELEMENT_DATA: [] =this.Test;
-      if(this._problemservice.getIdentity()['role']=='admin')
-    this.getAll();
-    else if(this._problemservice.getIdentity()['role']=='user')
+      
+     if(this._problemservice.getIdentity()['role']=='user')
     this.getList();
+    else
+    this.getAll();
     }
   }
   getAll(){

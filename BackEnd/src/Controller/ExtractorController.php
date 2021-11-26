@@ -9,11 +9,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Reclamation;
 use App\Entity\User;
 use App\Entity\Employe;
+use App\Entity\Report;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ExtractorController extends AbstractController
-{
-    /**
+{/**
      * @Route("/extractor", name="extractor")
      */
     public function problemAction(): Response
@@ -314,34 +314,59 @@ class ExtractorController extends AbstractController
         return $response;
     }
 
-
-    /**
+   /**
      * @Route("/newR", name="report", methods="POST")
-     */
+    */
     public function newR(Request $request): Response{
         $em = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()->getRepository(Report::class);
-        
 
         $json = $request->get('json');
         $params = json_decode($json);
         $createdAt = new \Datetime('now');
-
+        $repemp = $this->getDoctrine()->getRepository(Employe::class);
+        $reprec = $this->getDoctrine()->getRepository(Reclamation::class);
+        $emp = $repemp->findOneBy(['id' =>$params->idEmploye]);
+        $rec = $reprec->findOneBy(['id' =>$params->idProbleme]);
         $rapport = new Report();
-        $user = $repository->findOneBy(['id' =>$params->id]);
-        $rapport->setIdEmploye($params->emp);
-        $rapport->setIdProblem($params->prob);
+        $rapport->setIdEmploye($emp);
+        $rapport->setidReclamation($rec);
         $rapport->setDescription($params->description);
         $rapport->setCreationDate($createdAt);
 
         $em->persist($rapport);
-		$em->flush();
+        $em->flush();
 
         $data = array(
             'status'=>'success',
-            'code'	=>200,
-            'data'	=>$rapport,
+            'code'    =>200,
         );
-    }
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '');
 
+        return $response;
+    }
+    /**
+     * @Route("/allreports", name="allreports")
+     */
+    public function reportAction(): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $repository = $this->getDoctrine()->getRepository(Report::class)->findall();
+
+        $data = array();    
+        foreach($repository as $key=>$rec){
+            $data[$key]['id_em']= $rec->getIdEmploye();
+            $data[$key]['desc']= $rec->getDescription();
+            $data[$key]['id_rec']= $rec->getIdReclamation();
+            $data[$key]['date_creation']= $rec->getCreationDate()->format('d/m/y');
+            $data[$key]['stat']= 'success';
+        }
+        
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+        
+    }
 }
