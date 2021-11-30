@@ -4,7 +4,7 @@ import { RapportService } from '../services/rapport.service';
 import { Rapport } from '../models/rapport';
 import { Reclamation } from '../models/reclamation';
 import { ProblemService } from '../services/problem.service';
-import { runInThisContext } from 'vm';
+
 
 @Component({
   selector: 'app-details',
@@ -17,10 +17,12 @@ report;
   public Report : Rapport;
   public identity;
   public id;
+  public idr;
 loading: string;
   public admin=false;
   public employe=false;
   public user=false;
+  public show;
   constructor(private _problemservice: ProblemService,private _userService:ProblemService,private _rapportservice: RapportService,private _route: ActivatedRoute,private router: Router) {
     this.identity = _problemservice.getIdentity();
    }
@@ -40,10 +42,11 @@ loading: string;
     console.log(this.identity);
 
     this._route.params.forEach((params: Params)=>{
-      let id = +params['id'];
+     let id = +params['id'];
      this.Report = new Rapport('',this.identity['id'],id);
      this.getProblem();
      this.getall();
+     
       })
       
       
@@ -55,6 +58,8 @@ loading: string;
     this.loading = 'show';
     this._route.params.forEach((params: Params)=>{
       let id = +params['id'];
+      this.idr=id;
+      console.log('id u',id);
       this._problemservice.getProblem(id).subscribe(value =>{
         this.problem = value['data'];
         console.log(value['data']);
@@ -67,7 +72,7 @@ loading: string;
   update(){
     
     this._problemservice.updateProblem(this.problem).subscribe(value=>{
-      console.log(value);
+      
       this.router.navigate(['/list']);
     });
   }
@@ -75,18 +80,22 @@ loading: string;
   
 onSubmit(){
 this._problemservice.createReport(this.Report).subscribe(value=>{
-  console.log(value);
+  
 })
 }
 getall(){
   
-  this._rapportservice.getallrep().subscribe(values=>{
-    console.log(values[0].stat);
+  this._rapportservice.getallrep(this.idr).subscribe(values=>{
+    console.log('hahi',values[0].stat=='success');
     if(values[0].stat=='success'){
     this.report=values;
     console.log(this.report);
-    this.loading = 'hide';}});
-  this._rapportservice.getallrep().subscribe(values=>{this.report=values});
+    this.loading = 'hide';
+    this.show=true;}
+  else{
+this.show=false;
+this.loading = 'hide';}});
+  this._rapportservice.getallrep(this.idr).subscribe(values=>{this.report=values});
   
 }
 }

@@ -23,13 +23,13 @@
             <tr>
                 
                 <td>{{problem[0][0].type}}</td>
-                <td>{{problem[0][0].description}}</td>
+                <td>{{problem[0][0].description}} </td>
                 <td *ngIf="employe "><select class="form-select" [(ngModel)]="problem[0][0].statut">
                     <option value="New">New</option>
                     <option value="Inprogress">In progress</option>
                     <option value="Treated">Treated</option>
                   </select></td>
-                  <td *ngIf="user"><span class="p-2 mb-2 bg-primary text-white "  *ngIf="problem[0][0].statut === 'Inprogress'">
+                  <td *ngIf="user || admin"><span class="p-2 mb-2 bg-primary text-white "  *ngIf="problem[0][0].statut === 'Inprogress'">
                     Inprogress
                   </span>
                   <span class="p-2 mb-2 bg-success text-white" *ngIf="problem[0][0].statut === 'Treated'">
@@ -51,29 +51,52 @@
     </div>
 </div>
 
-<div class="all-prob">
-  
-<br><br>
-<div fxLayoutAlign="center center" fxFlexFill class="main-div" *ngIf="loading == 'hide'">
 
-          <div *ngFor="let report of report" >
-              <div class="card p-3 color" >
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="user d-flex flex-row align-items-center"> <img src="https://i.imgur.com/hczKIze.jpg" width="40" class="user-img rounded-circle mr-2">
-                       <span><small class="font-weight-bold text-primary">james_olesenn</small>
-                       </span> 
-                      </div> <small>{{report.date_creation}}</small>
-                      
+  
+
+<div fxLayoutAlign="center center" fxFlexFill class="main-div" *ngIf="loading == 'hide'">
+              <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" style="background-color: #ad655f;" *ngIf="show">
+              <section >
+                <div class="container my-5 py-5">
+                  <div class="row d-flex justify-content-center">
+                    <div class="col-md-12 col-lg-10">
+                      <div class="card text-dark"*ngFor="let report of report">
+                        <div class="card-body p-4" >
+                          <div class="d-flex flex-start"  >
+                            <img
+                              class="rounded-circle shadow-1-strong me-3"
+                              src="https://mdbootstrap.com/img/Photos/Avatars/img%20(23).jpg"
+                              alt="avatar"
+                              width="60"
+                              height="60"
+                            />
+                            <div>
+                              <h6 class="fw-bold mb-1">Maggie Marsh</h6>
+                              <div class="d-flex align-items-center mb-3">
+                                <p class="mb-0">
+                                  {{report.date_creation}}
+                                  <span class="badge bg-primary">Pending</span>
+                                </p>
+                                <a href="#!" class="link-muted"
+                                  ><i class="fas fa-pencil-alt ms-2"></i
+                                ></a>
+                                <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
+                                <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
+                              </div>
+                              <p class="mb-0">
+                                {{report.desc}}
+                              </p>
+                            </div>
+                            <br>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="action d-flex justify-content-between mt-2 align-items-center">
-                    <div class="reply px-4"> {{report.desc}} </div>
-                    
-                    
-                    <div class="icons align-items-center"> <i class="fa fa-star text-warning"></i> <i class="fa fa-check-circle-o check-icon"></i> </div>
-                </div>
-              </div><br>
-              
-            </div>
+              </section>
+            </cdk-virtual-scroll-viewport>
             
            
             <div class="center1" *ngIf="user">
@@ -92,18 +115,37 @@
               <label for="star1" title="text">1 star</label>
             </div><br>
           </div>
-  
-    <form *ngIf="employe "  #updateForm="ngForm"  #taskNewForm="ngForm" (ngSubmit)="onSubmit();">
-      
-      <div class="form-group">
-        <label for="exampleFormControlTextarea1">Report</label>
-        <textarea class="form-control" rows="3" name="description" #description="ngModel" [(ngModel)]="Report.description"  required></textarea>
-        <span *ngIf="!description.valid && description.touched">you have to describe your problem</span>
-      </div>
-      <input type="submit" value="Send" name="send" class="btn btn-success" [disabled]="!updateForm.form.valid">
-    </form>
+          <form *ngIf="employe || admin "  #updateForm="ngForm"  #taskNewForm="ngForm" (ngSubmit)="onSubmit();">
+            <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+              <div class="d-flex flex-start w-100">
+                <img
+                  class="rounded-circle shadow-1-strong me-3"
+                  src="https://mdbootstrap.com/img/Photos/Avatars/img%20(19).jpg"
+                  alt="avatar"
+                  width="40"
+                  height="40"
+                />
+                <div class="form-outline w-100">
+                  <textarea name="description" #description="ngModel" [(ngModel)]="Report.description"  required
+                    class="form-control"
+                    id="textAreaExample"
+                    rows="4"
+                    style="background: #fff;"
+                  ></textarea>
+                  <label class="form-label" for="textAreaExample">Message</label>
+                </div>
+              </div>
+              <div class="float-end mt-2 pt-1">
+                
+                <input  class="btn btn-primary btn-sm" type="submit" value="Post comment" name="send" [disabled]="!updateForm.form.valid">
+                <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+              </div>
+            </div>
+        
+          </form>
+   <br><br>
     </div>
 
 
    
-</div>
+

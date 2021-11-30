@@ -1,3 +1,4 @@
+<body class="hide">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
@@ -15,7 +16,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/add']"  *ngIf="identity && employe || admin">Add problem</a>
+            <a class="nav-link" [routerLink]="['/add']"  *ngIf="identity && user">Add problem</a>
           </li>
 
           <li class="nav-item">
@@ -38,3 +39,4 @@
 
 <div class="main">
 <router-outlet></router-outlet></div>
+</body>

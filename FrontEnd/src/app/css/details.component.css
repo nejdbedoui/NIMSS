@@ -42,6 +42,7 @@ img{
 .rate:not(:checked) > input {
     position:relative;
     top:-9999px;
+    visibility: hidden;
 }
 .rate:not(:checked) > label {
   
@@ -69,4 +70,18 @@ img{
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
     color: #c59b08;
+}
+
+.example-viewport {
+ 
+ height:480px ;
+  width: auto;
+ 
+}
+.example-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.example-item {
+  height: 50px;
 }

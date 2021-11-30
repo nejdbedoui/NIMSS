@@ -14,6 +14,8 @@ import { LoginComponent } from './components/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DetailsComponent } from './components/details.component';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 
 
 
@@ -39,6 +41,7 @@ import { DetailsComponent } from './components/details.component';
     NgApexchartsModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
+    ScrollingModule
     
   ],
   providers: [],
