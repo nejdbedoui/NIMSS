@@ -10,6 +10,7 @@ use App\Entity\Reclamation;
 use App\Entity\User;
 use App\Entity\Report;
 use App\Entity\Employe;
+
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ExtractorController extends AbstractController
@@ -355,17 +356,16 @@ class ExtractorController extends AbstractController
     public function reportAction(Request $request,$id=null): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $json = $request->get('json');
-        $params = json_decode($json);
         $repository = $this->getDoctrine()->getRepository(Report::class)->findBy(array('idReclamation' => $id), array('creationDate' => 'DESC'));
         $data = array();    
         if($repository)
         {
         foreach($repository as $key=>$rec){
-            $data[$key]['id_em']= $rec->getIdEmploye();
+            $data[$key]['nom']= $rec->getIdEmploye()->getFullName();
             $data[$key]['desc']= $rec->getDescription();
             $data[$key]['id_rec']= $rec->getIdReclamation();
             $data[$key]['date_creation']= $rec->getCreationDate()->format('d/m/y');
+            $data[$key]['role']= $rec->getIdEmploye()->getRole();
             $data[$key]['stat']= 'success';
         }
         

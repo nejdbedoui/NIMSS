@@ -6,6 +6,7 @@ import { DashbordComponent } from './components/dashbord.component';
 import { HomeComponent } from './components/home.component';
 import { LoginComponent } from './components/login.component';
 import { DetailsComponent } from './components/details.component';
+import { SignUpComponent } from './components/sign-up.component';
 
 
 
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'dashbord',component : DashbordComponent},
   {path: 'login',component : LoginComponent},
   {path: 'Details/:id',component : DetailsComponent},
+  {path: 'signup',component:SignUpComponent},
   { path: '**', component: HomeComponent }
 ];
 

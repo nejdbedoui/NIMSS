@@ -16,7 +16,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { DetailsComponent } from './components/details.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
-
+import {AngularFireStorageModule} from '@angular/fire/storage'
+import {AngularFireModule} from '@angular/fire';
+import { SignUpComponent } from './components/sign-up.component';
 
 
 
@@ -29,6 +31,7 @@ import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
     HomeComponent,
     LoginComponent,
     DetailsComponent,
+    SignUpComponent,
    
    
     
@@ -41,7 +44,17 @@ import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
     NgApexchartsModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
-    ScrollingModule
+    ScrollingModule,
+    AngularFireModule.initializeApp({
+      apiKey: "AIzaSyDIH51E4N0-u4BcvPfRJf-erxnPUV-2C5A",
+      authDomain: "nimss-7df5a.firebaseapp.com",
+      projectId: "nimss-7df5a",
+      storageBucket: "nimss-7df5a.appspot.com",
+      messagingSenderId: "890352696831",
+      appId: "1:890352696831:web:1ceda300d18d1dbe307bca",
+      measurementId: "G-7L0J935EWV"
+    }),
+    AngularFireStorageModule
     
   ],
   providers: [],

@@ -18,11 +18,14 @@ report;
   public identity;
   public id;
   public idr;
-loading: string;
+  loading: string;
   public admin=false;
   public employe=false;
   public user=false;
   public show;
+  public role;
+
+  
   constructor(private _problemservice: ProblemService,private _userService:ProblemService,private _rapportservice: RapportService,private _route: ActivatedRoute,private router: Router) {
     this.identity = _problemservice.getIdentity();
    }
@@ -36,7 +39,7 @@ loading: string;
   this.employe= true
   else if(this._userService.getIdentity()['role']=='user')
   this.user= true
-
+this.role=this._userService.getIdentity()['role'];
     
     
     
