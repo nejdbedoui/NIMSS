@@ -10,7 +10,6 @@ use App\Entity\Reclamation;
 use App\Entity\User;
 use App\Entity\Report;
 use App\Entity\Employe;
-use App\Entity\Report;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ExtractorController extends AbstractController
