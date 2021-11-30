@@ -34,6 +34,7 @@ class ExtractorController extends AbstractController
             $data[$key]['stat']= 'success';
         }
         
+        
         $response = new jsonResponse($data);
     $response->headers->set('Access-Control-Allow-Origin', '*');
 
@@ -266,7 +267,8 @@ class ExtractorController extends AbstractController
         $query->setParameter('id', $id);
 
         $problem = $query->getArrayResult();
-        $data = array(
+        
+            $data = array(
             'status'=>'success',
             'code'	=>200,
             'data'	=>$problem,
@@ -277,7 +279,7 @@ class ExtractorController extends AbstractController
     $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response;
-
+   
     }
 
     /**
@@ -343,21 +345,23 @@ class ExtractorController extends AbstractController
             'code'    =>200,
         );
         $response = new jsonResponse($data);
-    $response->headers->set('Access-Control-Allow-Origin', '');
 
+    $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response;
     }
     /**
-     * @Route("/allreports", name="allreports")
+     * @Route("/allreports/{id}", name="allreports")
      */
-    public function reportAction(): Response
+    public function reportAction(Request $request,$id=null): Response
     {
         $em = $this->getDoctrine()->getManager();
-
-        $repository = $this->getDoctrine()->getRepository(Report::class)->findall();
-
+        $json = $request->get('json');
+        $params = json_decode($json);
+        $repository = $this->getDoctrine()->getRepository(Report::class)->findBy(array('idReclamation' => $id), array('creationDate' => 'DESC'));
         $data = array();    
+        if($repository)
+        {
         foreach($repository as $key=>$rec){
             $data[$key]['id_em']= $rec->getIdEmploye();
             $data[$key]['desc']= $rec->getDescription();
@@ -370,6 +374,13 @@ class ExtractorController extends AbstractController
     $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response;
-        
+    }else{
+        $data = array();
+        $data[0]['stat']= '404';
+
+        $response = new jsonResponse($data);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }
     }
 }
