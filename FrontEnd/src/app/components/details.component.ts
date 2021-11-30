@@ -36,6 +36,7 @@ loading: string;
   this.employe= true
   else if(this._userService.getIdentity()['role']=='user')
   this.user= true
+
     
     
     
@@ -46,7 +47,7 @@ loading: string;
      this.Report = new Rapport('',this.identity['id'],id);
      this.getProblem();
      this.getall();
-     
+
       })
       
       
@@ -79,6 +80,7 @@ loading: string;
 
   
 onSubmit(){
+
 this._problemservice.createReport(this.Report).subscribe(value=>{
   
 })
