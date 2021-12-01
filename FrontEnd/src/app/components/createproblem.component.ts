@@ -11,7 +11,7 @@ import {Router} from "@angular/router"
 export class CreateproblemComponent implements OnInit {
 
   public Rec:Reclamation;
-  rectest:Reclamation;
+  
   public identity: any;
   constructor(private _problemservice: ProblemService,private router: Router) {
     this.identity = this._problemservice.getIdentity();
