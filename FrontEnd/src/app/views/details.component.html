@@ -64,17 +64,18 @@
                           <div class="d-flex flex-start"  >
                             <img
                               class="rounded-circle shadow-1-strong me-3"
-                              src="https://mdbootstrap.com/img/Photos/Avatars/img%20(23).jpg"
+                              src={{report.image}}
                               alt="avatar"
                               width="60"
                               height="60"
                             />
                             <div>
-                              <h6 class="fw-bold mb-1">{{report.nom}}</h6>
+                              <h6 class="fw-bold mb-1">{{report.date_creation}}</h6>
                               <div class="d-flex align-items-center mb-3">
                                 <p class="mb-0">
-                                  {{report.date_creation}}
-                                  <span class="badge bg-primary">{{report.role}}</span>
+                                  {{report.nom}}
+                                  <span *ngIf="report.role=='employe'" class="badge bg-primary">{{report.role}}</span>
+                                  <span *ngIf="report.role=='admin'" class="badge bg-danger">{{report.role}}</span>
                                 </p>
                                 <a href="#!" class="link-muted"
                                   ><i class="fas fa-pencil-alt ms-2"></i
@@ -119,7 +120,7 @@
               <div class="d-flex flex-start w-100">
                 <img
                   class="rounded-circle shadow-1-strong me-3"
-                  src="https://mdbootstrap.com/img/Photos/Avatars/img%20(19).jpg"
+                  src={{image}}
                   alt="avatar"
                   width="40"
                   height="40"
@@ -131,13 +132,12 @@
                     rows="4"
                     style="background: #fff;"
                   ></textarea>
-                  <label class="form-label" for="textAreaExample">Message</label>
                 </div>
               </div>
               <div class="float-end mt-2 pt-1">
                 
-                <input  class="btn btn-primary btn-sm" type="submit" value="Post comment" name="send" [disabled]="!updateForm.form.valid">
-                <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+                <input  class="btn btn-primary btn-sm" type="submit" value="Send comment" name="send" [disabled]="!updateForm.form.valid">
+                
               </div>
             </div>
         

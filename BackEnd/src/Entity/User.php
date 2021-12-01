@@ -40,7 +40,7 @@ class User
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=4000)
      */
     private $image;
 

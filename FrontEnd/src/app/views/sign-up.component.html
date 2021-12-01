@@ -1,3 +1,35 @@
-<div class="top"><label for="file">File:</label>
-<input type="file" (change)="handleFiles($event)" accept=".png,.jpg" />
-<button (click)="uploadFile()">Upload Image</button></div>
+<div class="top">
+
+    <form #updateForm="ngForm" #taskNewForm="ngForm" (ngSubmit)="onSubmit();">
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">How can we help you ?</label>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Full_name</label>
+            <input class="form-control" rows="3" name="Full_name" #Full_name="ngModel" [(ngModel)]="Us.Full_name"required>
+            <span *ngIf="!Full_name.valid && Full_name.touched"> Not valid Name<br></span>
+
+            <label for="exampleFormControlTextarea1">email</label>
+            <input class="form-control" rows="3" name="email" #email="ngModel" [(ngModel)]="Us.email" required>
+            <span *ngIf="!email.valid && email.touched">Not valid email<br></span>
+
+            <label for="exampleFormControlTextarea1">phone_number</label>
+            <input class="form-control" rows="3" name="phone_number" #phone_number="ngModel" [(ngModel)]="Us.phone_number" required>
+            <span *ngIf="!phone_number.valid && phone_number.touched">Not valid phone_number<br></span>
+
+            <label for="exampleFormControlTextarea1">password</label>
+            <input class="form-control" rows="3" name="password" #password="ngModel" [(ngModel)]="Us.password" required>
+            <span *ngIf="!password.valid && password.touched">Not valid password<br></span>
+
+            <label for="file">File:</label>
+            <input type="file"  (change)="handleFiles($event)" accept=".png,.jpg" />
+            <br>
+
+
+            <button type="button" class="btn btn-danger" [routerLink]="['/']">Cancel</button>
+            <input type="submit"  value="Send" name="send" class="btn btn-success" [disabled]="!updateForm.form.valid">
+        </div>
+
+    </form>
+</div>
+

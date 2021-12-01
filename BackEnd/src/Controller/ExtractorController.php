@@ -152,6 +152,7 @@ class ExtractorController extends AbstractController
             'email' => $user->getEmail(),
             'name' => $user->getFullName(),
             'phone'=>$user->getPhoneNumber(),
+            'image'=>$user->getImage(),
             "role"=>'user'
         );
         $response = new jsonResponse($userarray);
@@ -170,6 +171,7 @@ class ExtractorController extends AbstractController
                 'email' => $user->getEmail(),
                 'name' => $user->getFullName(),
                 'phone'=>$user->getPhoneNumber(),
+                'image'=>$user->getImage(),
                 "role"=>$user->getRole()
             );
             
@@ -366,6 +368,7 @@ class ExtractorController extends AbstractController
             $data[$key]['id_rec']= $rec->getIdReclamation();
             $data[$key]['date_creation']= $rec->getCreationDate()->format('d/m/y');
             $data[$key]['role']= $rec->getIdEmploye()->getRole();
+            $data[$key]['image']= $rec->getIdEmploye()->getImage();
             $data[$key]['stat']= 'success';
         }
         
@@ -382,4 +385,35 @@ class ExtractorController extends AbstractController
         return $response;
     }
     }
+
+
+
+    /**
+     * @Route("/signup", name="signup", methods="POST")
+     */
+    public function signupAction(Request $request): Response{
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $json = $request->get('json');
+        $params = json_decode($json);
+        $rec = new User();
+        $rec->setFullName($params->Full_name);
+        $rec->setEmail($params->email);
+        $rec->setPhoneNumber($params->phone_number);
+        $rec->setPassword($params->password);
+        $rec->setImage($params->image);
+        $em->persist($rec);
+		$em->flush();
+        $data = array(
+            'status'=>'success',
+            'code'	=>200,
+            'data'	=>$rec,
+            'msg'	=>'detail'
+        );
+
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }
+
 }

@@ -24,8 +24,9 @@ report;
   public user=false;
   public show;
   public role;
+  public image;
 
-  
+
   constructor(private _problemservice: ProblemService,private _userService:ProblemService,private _rapportservice: RapportService,private _route: ActivatedRoute,private router: Router) {
     this.identity = _problemservice.getIdentity();
    }
@@ -40,7 +41,7 @@ report;
   else if(this._userService.getIdentity()['role']=='user')
   this.user= true
 this.role=this._userService.getIdentity()['role'];
-    
+    this.image=this._userService.getIdentity()['image'];
     
     
     console.log(this.identity);
@@ -87,6 +88,10 @@ onSubmit(){
 this._problemservice.createReport(this.Report).subscribe(value=>{
   
 })
+this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+  this.router.navigate(['/Details/'+this.idr]);
+}); 
+
 }
 getall(){
   
