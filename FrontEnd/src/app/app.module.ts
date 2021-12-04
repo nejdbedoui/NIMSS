@@ -19,6 +19,8 @@ import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 import {AngularFireStorageModule} from '@angular/fire/storage'
 import {AngularFireModule} from '@angular/fire';
 import { SignUpComponent } from './components/sign-up.component';
+import { CardComponent } from './uiElem/card/card/card.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -32,6 +34,7 @@ import { SignUpComponent } from './components/sign-up.component';
     LoginComponent,
     DetailsComponent,
     SignUpComponent,
+    CardComponent,
    
    
     
@@ -54,7 +57,8 @@ import { SignUpComponent } from './components/sign-up.component';
       appId: "1:890352696831:web:1ceda300d18d1dbe307bca",
       measurementId: "G-7L0J935EWV"
     }),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    NgbModule
     
   ],
   providers: [],
