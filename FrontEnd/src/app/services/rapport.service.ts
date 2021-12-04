@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class RapportService {
   public url: string;
-  constructor(private _http: HttpClient) { 
-    this.url = "http://127.0.0.1:8000";
+  constructor(private _http: HttpClient) {
+    this.url = "https://127.0.0.1:8000";
   }
 
 
@@ -15,7 +15,7 @@ export class RapportService {
     const json 	= JSON.stringify(report);
     let body = new HttpParams();
     body = body.set('json', json);
-    
+
     return this._http.post<any>(`${this.url}/newR`,body);
   }
   getallrep(id){

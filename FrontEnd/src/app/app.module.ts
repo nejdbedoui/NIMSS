@@ -17,7 +17,12 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {AngularFireStorageModule} from '@angular/fire/storage'
 import {AngularFireModule} from '@angular/fire';
 import { SignUpComponent } from './components/sign-up.component';
+
 import { MaterialModule } from './material/material.module';
+
+import { CardComponent } from './uiElem/card/card/card.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 
@@ -31,6 +36,7 @@ import { MaterialModule } from './material/material.module';
     LoginComponent,
     DetailsComponent,
     SignUpComponent,
+    CardComponent,
    
    
     
@@ -54,7 +60,11 @@ import { MaterialModule } from './material/material.module';
       measurementId: "G-7L0J935EWV"
     }),
     AngularFireStorageModule,
+
     MaterialModule
+
+    NgbModule
+
     
   ],
   providers: [],

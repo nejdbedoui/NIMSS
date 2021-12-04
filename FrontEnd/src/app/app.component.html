@@ -1,32 +1,51 @@
 
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-          <img src="assets\n.png" alt="" width="70" height="50">
+        <img src="assets\n.png" alt="" width="70" height="50" />
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarColor02"
+        aria-controls="navbarColor02"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link " [routerLink]="['/home']">Home
-              <span class="visually-hidden" >(current)</span>
+            <a class="nav-link" [routerLink]="['/home']"
+              >Home
+              <span class="visually-hidden">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/add']"  *ngIf="identity && user">Add problem</a>
+            <a class="nav-link" [routerLink]="['/add']" *ngIf="identity && user"
+              >Add problem</a
+            >
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/list'] "  *ngIf="identity ">List</a>
+            <a class="nav-link" [routerLink]="['/list']" *ngIf="identity"
+              >List</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/dashbord']"  *ngIf="identity && employe || admin">dashbord</a>
+            <a
+              class="nav-link"
+              [routerLink]="['/dashbord']"
+              *ngIf="(identity && employe) || admin"
+              >dashbord</a
+            >
           </li>
-
-
         </ul>
         <div class="us pr-1" *ngIf="identity"> <img
           class="rounded-circle shadow-1-strong me-3"
@@ -38,6 +57,7 @@
     
         <span class="name1">{{name}}</span></div>
         <form class="d-flex">
+
        
           <button class="btn btn-primary my-2 my-sm-0" [routerLink]="['/login'] "*ngIf="!identity" >Login</button>
           <input type="button" value="Logout" class="btn btn-danger" *ngIf="identity" (click)='logout()' />
@@ -66,3 +86,4 @@
 <div class="main">
   
 <router-outlet></router-outlet></div>
+

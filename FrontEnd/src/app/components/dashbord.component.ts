@@ -1,4 +1,5 @@
 
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -21,6 +22,7 @@ import {
 } from "ng-apexcharts";
 import { ProblemService } from '../services/problem.service';
 
+
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
   series2:ApexAxisChartSeries;
@@ -38,6 +40,7 @@ export type ChartOptions = {
   tooltip: ApexTooltip;
   legend: ApexLegend;
 
+
 };
 
 @Component({
@@ -48,117 +51,35 @@ export type ChartOptions = {
 })
 export class DashbordComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
-  public chartOptions2: Partial<ChartOptions>;
   public identity: any;
   currentYear: Date;
+  public loading;
+  public newN:any;
+  public newP:any;
+  public inProgressN:any;
+  public inProgressP:any;
+  public TreatedN:any;
+  public TreatedP:any;
+  public response:any;
 
-
-
-  constructor(private _problemService: ProblemService, private router: Router) {
+  constructor(private _http: HttpClient,private _problemService: ProblemService, private router: Router) {
     this.identity = this._problemService.getIdentity();
 
     if (this.identity == null) {
       this.router.navigate(['/login']);
     } else {
-
-      this._problemService.getType().subscribe(
-        response => {
-          this.chartOptions = {
-            series: [response['New'], response['Inprogress'], response['Treated']],
-            chart: {
-              type: "donut"
-            },
-            labels: ["New", "Inprogress", "Treated"],
-            responsive: [
-              {
-                breakpoint: 480,
-                options: {
-                  chart: {
-                    width: 200
-                  },
-
-                  legend: {
-                    position: "bottom"
-                  }
-                }
-              }
-            ]
-          };
-        });
-
     }
-    this._problemService.getType().subscribe(
-      response => {
-        this.chartOptions2 = {
-          series2: [
-            {
-              name: "Net Profit",
-              data: [response['New'], response['Inprogress'], response['Treated'],,,,,,,,,,,,,]
-            },
-            {
-              name: "Revenue",
-              data: [response['New'], response['Inprogress'], response['Treated'],,,,,,,,,,,,,]
-            },
-          ],
-
-          chart: {
-            type: "bar",
-            height: 350
-          },
-          plotOptions: {
-            bar: {
-              horizontal: false,
-              columnWidth: "55%",
-              
-            }
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            show: true,
-            width: 2,
-            colors: ["transparent"]
-          },
-          xaxis: {
-            categories: [
-              "Janv",
-              "Feb",
-              "Mar",
-              "Apr",
-              "May",
-              "Jun",
-              "Jul",
-              "Aug",
-              "Sep",
-              "Oct",
-              "Nov",
-              "Dec"
-            ]
-          },
-          yaxis: {
-            title: {
-              text: "$ (thousands)"
-            }
-          },
-          fill: {
-            opacity: 1
-          },
-          tooltip: {
-            y: {
-              formatter: function (val) {
-                return "$ " + val + " thousands";
-              }
-            }
-          }
-        };
-      })
   }
 
 
   ngOnInit(): void {
-
+   this.response = this._problemService.getType()
+   this.newN = this.response["New"];
+   this.newP = Math.ceil((this.response["New"]*100)/(this.response["New"]+this.response["Inprogress"]+this.response["Treated"]));
+   this.inProgressN = this.response["Inprogress"];
+   this.inProgressP = Math.ceil((this.response["Inprogress"]*100)/(this.response["New"]+this.response["Inprogress"]+this.response["Treated"]));
+   this.TreatedN = this.response["Treated"];
+   this.TreatedP = Math.ceil((this.response["Treated"]*100)/(this.response["New"]+this.response["Inprogress"]+this.response["Treated"]));
   }
 
 }
