@@ -35,7 +35,8 @@
             <td >
               <a [routerLink]="['/Details',problem.id]" class="btn btn-warning">Details</a>
         </td> 
-        <td><a (click)=deleteProb(problem.id) role="button" class="btn btn-danger" data-toggle="modal">Delete</a></td>
+        <td><a (click)=deleteProb(problem.id) role="button" class="btn btn-danger" data-toggle="modal">Delete</a>
+        	<mat-icon style="color: red;">delete_forever</mat-icon></td>
       </tr>
       </tbody>
     </table>

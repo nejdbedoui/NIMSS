@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,10 +14,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DetailsComponent } from './components/details.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import {CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 import {AngularFireStorageModule} from '@angular/fire/storage'
 import {AngularFireModule} from '@angular/fire';
 import { SignUpComponent } from './components/sign-up.component';
+import { MaterialModule } from './material/material.module';
 
 
 
@@ -54,7 +53,8 @@ import { SignUpComponent } from './components/sign-up.component';
       appId: "1:890352696831:web:1ceda300d18d1dbe307bca",
       measurementId: "G-7L0J935EWV"
     }),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    MaterialModule
     
   ],
   providers: [],

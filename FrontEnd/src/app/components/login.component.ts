@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   public user;
   public identity: any;
   public ident;
+  public nope=false;
   constructor(private _problemservice: ProblemService,private router: Router) { 
       this.user = {
         "email" : "",
@@ -23,15 +24,25 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     this._problemservice.login(this.user).subscribe(
       data=>{
+        if(data['stat']=='404'){
+        this.nope=true;
+        }else{
+        this.nope=false;
         this.identity = data;
-        if(this.identity.lenght <= 1){
-                    console.log("Server error");
-                }
         localStorage.setItem('identity', JSON.stringify(this.identity));
         console.log(this._problemservice.getIdentity())
         window.location.href ="home";
+        }
       }
     );}
-    
-   
+    onclick()
+   {
+  
+    var x = (<HTMLInputElement>document.getElementById("floatingPassword"));
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+   }
 }

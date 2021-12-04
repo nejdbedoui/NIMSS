@@ -1,4 +1,4 @@
-<body class="hide">
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
@@ -28,15 +28,41 @@
 
 
         </ul>
+        <div class="us pr-1" *ngIf="identity"> <img
+          class="rounded-circle shadow-1-strong me-3"
+          src={{photo}}
+          alt="avatar"
+          width="40"
+          height="40"
+        />
+    
+        <span class="name1">{{name}}</span></div>
         <form class="d-flex">
-
+       
           <button class="btn btn-primary my-2 my-sm-0" [routerLink]="['/login'] "*ngIf="!identity" >Login</button>
           <input type="button" value="Logout" class="btn btn-danger" *ngIf="identity" (click)='logout()' />
         </form>
       </div>
     </div>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon style="color: white;">settings</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>dialpad</mat-icon>
+        <span>Redial</span>
+      </button>
+      <button mat-menu-item disabled>
+        <mat-icon>voicemail</mat-icon>
+        <span>Check voice mail</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+      </button>
+    </mat-menu>
 </nav>
 
 <div class="main">
+  
 <router-outlet></router-outlet></div>
-</body>

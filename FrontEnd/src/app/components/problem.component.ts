@@ -64,9 +64,9 @@ deleteProb(id){
     
   this._problemservice.deleteprob(id).subscribe(
     response => {
-      if(response['status'] == 'success'){
+      if(response['stat'] == 'success'){
         window.location.reload();
-      }else if(response['status'] == 'error'){
+      }else if(response['stat'] == '404'){
         alert('prob was not deleted');
       }
     },

@@ -96,10 +96,10 @@ this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).the
 getall(){
   
   this._rapportservice.getallrep(this.idr).subscribe(values=>{
-    console.log('hahi',values[0].stat=='success');
+    
     if(values[0].stat=='success'){
     this.report=values;
-    console.log(this.report);
+    
     this.loading = 'hide';
     this.show=true;}
   else{
@@ -107,5 +107,25 @@ this.show=false;
 this.loading = 'hide';}});
   this._rapportservice.getallrep(this.idr).subscribe(values=>{this.report=values});
   
+}
+
+
+delete(id){
+  console.log(id)
+  if(confirm("Are you sure to delete ")){
+    
+  this._problemservice.deleteR(id).subscribe(
+    response => {
+      if(response['stat'] == 'success'){
+        window.location.reload();
+      }else if(response['stat'] == '404'){
+        alert('prob was not deleted');
+      }
+    },
+    error =>{
+      console.log(<any>error);
+    }
+  );
+  }
 }
 }
