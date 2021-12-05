@@ -17,9 +17,11 @@ export class ProblemComponent implements OnInit {
   public identity;
   public loading;
   result: String;
+  token: any;
 
   constructor(private _problemservice: ProblemService,private router: Router,public dialog: MatDialog) {
     this.identity = this._problemservice.getIdentity();
+    this.token = this._problemservice.getToken();
     this.result='false';
    }
 
@@ -39,13 +41,13 @@ export class ProblemComponent implements OnInit {
   getAll(){
     this.loading = 'show';
     
-  this._problemservice.getAll().subscribe(values=>{
+  this._problemservice.getAll(this.token).subscribe(values=>{
     console.log(values[0].stat);
     if(values[0].stat=='success'){
     this.Test=values;
     console.log(this.Test);
     this.loading = 'hide';}});
-  this._problemservice.getAll().subscribe(values=>{this.Test=values});
+  this._problemservice.getAll(this.token).subscribe(values=>{this.Test=values});
     
 }
 getList(){

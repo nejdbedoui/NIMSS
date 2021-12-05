@@ -10,17 +10,22 @@ use App\Entity\Reclamation;
 use App\Entity\User;
 use App\Entity\Report;
 use App\Entity\Employe;
-
+use App\Services\JwtAuth;
+use PHPUnit\Framework\MockObject\Builder\Identity;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ExtractorController extends AbstractController
 {/**
      * @Route("/extractor", name="extractor")
      */
-    public function problemAction(): Response
+    public function problemAction(Request $request,JwtAuth $jwt_auth): Response
     {
         $em = $this->getDoctrine()->getManager();
-
+        $token = $request->get("authorization",null);
+        $authCheck = $jwt_auth->checkToken($token);
+        $identity = $jwt_auth->checkToken($token,true);
+        if($authCheck){
+            
         $repository = $this->getDoctrine()->getRepository(Reclamation::class)->findall();
 
         $data = array();   
@@ -33,6 +38,9 @@ class ExtractorController extends AbstractController
             $data[$key]['id_user']= $rec->getIdu()->getID();
             $data[$key]['id']= $rec->getId();
             $data[$key]['stat']= 'success';
+
+            //identit wa7adha timchich
+            //7ot nayik$identity->(il colonne)
         }
         
         
@@ -41,12 +49,20 @@ class ExtractorController extends AbstractController
 
         return $response;
     }else{
-    $data[0]['stat']= '404';
+    $data[0]['stat']= '3asba';
     $response = new jsonResponse($data);
     $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response;
     }
+}
+else{
+    $data[0]['stat']= 'Authorization not allowed';
+    $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+}
 }
 
     /**
@@ -177,61 +193,43 @@ class ExtractorController extends AbstractController
 /**
      * @Route("/login", name="login", methods="POST")
      */
-    public function login(Request $request): Response{
-        $repository = $this->getDoctrine()->getRepository(User::class);
+    public function login(Request $request, JwtAuth $jwt_auth): Response{
+    
+        $repository = $this->getDoctrine()->getRepository(Employe::class);
         $json = $request->get('json');
         $params = json_decode($json);
-        $user = $repository->findOneBy(['email' => $params->email,'password' => $params->password]);
 
-        if($user!=null){
-        $userarray = array(
-            'id' => $user->getId(),
-            'email' => $user->getEmail(),
-            'name' => $user->getFullName(),
-            'phone'=>$user->getPhoneNumber(),
-            'image'=>$user->getImage(),
-            "role"=>'user'
-        );
-        $response = new jsonResponse($userarray);
-    $response->headers->set('Access-Control-Allow-Origin', '*');
-
-        return $response;
-    }
-        else{
-            $repository = $this->getDoctrine()->getRepository(Employe::class);
-            $json = $request->get('json');
+        if($json!=null){
             $params = json_decode($json);
-            $user = $repository->findOneBy(['email' => $params->email,'password' => $params->password]);
-            if($user!=null){
-            $userarray = array(
-                'id' => $user->getId(),
-                'email' => $user->getEmail(),
-                'name' => $user->getFullName(),
-                'phone'=>$user->getPhoneNumber(),
-                'image'=>$user->getImage(),
-                "role"=>$user->getRole()
-            );
             
-            $response = new jsonResponse($userarray);
+            $email = (isset($params->email)) ? $params->email : null;
+            $password = (isset($params->password)) ? $params->password : null;
+            $getHash = (isset($params->getHash)) ? $params->getHash : null;
+            $pwd = hash('sha256', $password);
+            $user = $repository->findOneBy(['email' => $params->email,'password' => $pwd]);
+            if ($user!=null) {
+                if($getHash == null || $getHash == false){
+                    $signup = $jwt_auth->signup($email, $pwd);
+                }else{
+                    $signup = $jwt_auth->signup($email, $pwd, true);
+                }
+                
+                $response = new jsonResponse($signup);
+                $response->headers->set('Access-Control-Allow-Origin', '*');
+            
+                    return $response;
+            }
+            else{
+            $data=array(
+                'stat' => '404'
+            );
+            $response = new jsonResponse($data);
             $response->headers->set('Access-Control-Allow-Origin', '*');
         
                 return $response;
         }
-        $data=array(
-            'stat' => '404'
-        );
-        $response = new jsonResponse($data);
-    $response->headers->set('Access-Control-Allow-Origin', '*');
-
-        return $response;
-        }
-        $data=array(
-            'stat' => '404'
-        );
-        $response = new jsonResponse($data);
-    $response->headers->set('Access-Control-Allow-Origin', '*');
-
-        return $response;
+    
+    }
     }
     
     /**
@@ -489,14 +487,16 @@ class ExtractorController extends AbstractController
      */
     public function signupAction(Request $request): Response{
         $em = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()->getRepository(User::class);
+        $repository = $this->getDoctrine()->getRepository(Employe::class);
         $json = $request->get('json');
         $params = json_decode($json);
-        $rec = new User();
+        $password = hash('sha256',$params->password);
+        $rec = new Employe();
         $rec->setFullName($params->Full_name);
         $rec->setEmail($params->email);
         $rec->setPhoneNumber($params->phone_number);
-        $rec->setPassword($params->password);
+        $rec->setPassword($password);
+        $rec->setRole('admin');
         $rec->setImage($params->image);
         $em->persist($rec);
 		$em->flush();

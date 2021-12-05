@@ -8,23 +8,27 @@ import { Injectable } from '@angular/core';
 export class ProblemService {
   public url: string;
   identity: String;
+  token: any;
 
 
   constructor(private _http: HttpClient) {
     this.url = "http://127.0.0.1:8000";
 
    }
-   getAll(){
-    return this._http.get(`${this.url}/extractor`);
+   getAll(token){
+    let body = new HttpParams()
+    .set('authorization', token);
+    return this._http.post(`${this.url}/extractor`,body);
   }
   getList(id){
     return this._http.get(`${this.url}/extractor1/${id}`);
   }
 
-  create(compl){
+  create(compl,token){
     const json 	= JSON.stringify(compl);
-    let body = new HttpParams();
-    body = body.set('json', json);
+    let body = new HttpParams()
+    .set('json', json)
+    .set('authorization',token);
 
     return this._http.post<any>(`${this.url}/newC`,body);
   }
@@ -45,6 +49,11 @@ export class ProblemService {
 
     return this.identity;
   }
+  getToken(){
+		this.token = JSON.parse(localStorage.getItem('token'));
+
+		return this.token;
+	}
   deleteprob(id){
     return this._http.get(`${this.url}/supp/${id}`);
   }

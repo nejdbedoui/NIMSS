@@ -13,10 +13,12 @@ export class LoginComponent implements OnInit {
   public identity: any;
   public ident;
   public nope=false;
+  token: any;
   constructor(private _problemservice: ProblemService,private router: Router,public dialog: MatDialog) { 
       this.user = {
         "email" : "",
-        "password" : ""
+        "password" : "",
+        "getHash" : "true"
     };
     }
 
@@ -31,8 +33,26 @@ export class LoginComponent implements OnInit {
         this.nope=false;
         this.identity = data;
         localStorage.setItem('identity', JSON.stringify(this.identity));
-        console.log(this._problemservice.getIdentity())
-        window.location.href ="home";
+        console.log('identity'+ JSON.stringify(this.identity));
+        this.user.getHash = null;
+        this._problemservice.login(this.user).subscribe(
+          response => {
+            this.token = response;
+
+            if(this.identity.lenght <= 1){
+              console.log("Server error");
+            }{
+              if(!this.identity.status){
+                localStorage.setItem('token', JSON.stringify(this.token))
+                console.log("Token : "+JSON.stringify(this.token));										
+              }
+            }
+          },
+          error => {
+            console.log(<any>error);
+          }
+        );
+
         }
       }
     );}
