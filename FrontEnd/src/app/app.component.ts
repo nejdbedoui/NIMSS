@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { DialigComponent } from './dialig/dialig.component';
 import { ProblemService } from './services/problem.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css',
+]
 })
 export class AppComponent {
   title = 'FrontEnd';
@@ -13,6 +15,8 @@ export class AppComponent {
   public admin;
   public employe;
   public user;
+  public name;
+  public photo;
  
   constructor(
   	private _userService:ProblemService
@@ -28,13 +32,16 @@ export class AppComponent {
   this.employe= true
   else if(this._userService.getIdentity()['role']=='user')
   this.user= true
+  this.name=this._userService.getIdentity()['name'];
+  this.photo=this._userService.getIdentity()['image'];
   }}
   
   logout(){
-    
     localStorage.removeItem('identity');
     this.identity = null;
+    
     window.location.href ="home";
+    
     
   }
  

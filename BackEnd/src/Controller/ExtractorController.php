@@ -23,7 +23,8 @@ class ExtractorController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Reclamation::class)->findall();
 
-        $data = array();    
+        $data = array();   
+        if($repository) {
         foreach($repository as $key=>$rec){
             $data[$key]['type']= $rec->getType();
             $data[$key]['description']= $rec->getDescription();
@@ -39,8 +40,14 @@ class ExtractorController extends AbstractController
     $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response;
-        
+    }else{
+    $data[0]['stat']= '404';
+    $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
+}
 
     /**
      * @Route("/extractor1/{id}", name="extractor id")
@@ -54,7 +61,8 @@ class ExtractorController extends AbstractController
             'idu'=>$id
         ));
 
-        $data = array();    
+        $data = array();  
+        if($repository) { 
         foreach($repository as $key=>$rec){
             $data[$key]['type']= $rec->getType();
             $data[$key]['description']= $rec->getDescription();
@@ -67,8 +75,14 @@ class ExtractorController extends AbstractController
         
         $response = new jsonResponse($data);
     $response->headers->set('Access-Control-Allow-Origin', '*');
-
         return $response;
+    }else{
+        $data[0]['stat']= '404';
+        $response = new jsonResponse($data);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+    
+            return $response;
+        }
         
     }
     
@@ -88,6 +102,7 @@ class ExtractorController extends AbstractController
 
         $rec = new Reclamation();
         $user = $repository->findOneBy(['id' =>$params->id]);
+        if($user){
         $rec->setIdu($user);
         $rec->settype($params->type);
         $rec->setDescription($params->description);
@@ -108,6 +123,17 @@ class ExtractorController extends AbstractController
     $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response;
+    }else{
+        $data = array(
+            'stat'=>'404',
+        );
+        $response = new jsonResponse($data);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+    
+            return $response;
+        }
+        
+        
     }
     
   /**
@@ -124,6 +150,7 @@ class ExtractorController extends AbstractController
     $finished = count($em->getRepository(Reclamation::class)->findBy(array(
         'statut'=>'Inprogress'
     )));
+    if($new && $todo && $finished){
     $data = array(
         'New'=>$new,
         'Treated'	=>$todo,
@@ -134,9 +161,19 @@ class ExtractorController extends AbstractController
     $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response;
-
+    }else{
+        $data = array(
+            'stat'=>'404',
+        );
+        $response = new jsonResponse($data);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
     
-}
+            return $response;
+        }
+        
+    }
+
+
 /**
      * @Route("/login", name="login", methods="POST")
      */
@@ -165,7 +202,7 @@ class ExtractorController extends AbstractController
             $json = $request->get('json');
             $params = json_decode($json);
             $user = $repository->findOneBy(['email' => $params->email,'password' => $params->password]);
-            if($user!=null)
+            if($user!=null){
             $userarray = array(
                 'id' => $user->getId(),
                 'email' => $user->getEmail(),
@@ -179,14 +216,24 @@ class ExtractorController extends AbstractController
             $response->headers->set('Access-Control-Allow-Origin', '*');
         
                 return $response;
-        
         }
-        $response = new jsonResponse('SIKE');
+        $data=array(
+            'stat' => '404'
+        );
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+        }
+        $data=array(
+            'stat' => '404'
+        );
+        $response = new jsonResponse($data);
     $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response;
     }
-
+    
     /**
      * @Route("/supp/{id}", name="supp")
      */
@@ -201,7 +248,7 @@ class ExtractorController extends AbstractController
             $em->remove($rec);
             $em->flush();
             $data = array(
-                'status'=>'success',
+                'stat'=>'success',
             );
             $response = new jsonResponse($data);
     $response->headers->set('Access-Control-Allow-Origin', '*');
@@ -211,7 +258,7 @@ class ExtractorController extends AbstractController
         else
         {
             $data = array(
-                'status'=>'error',
+                'stat'=>'404',
             );
             $response = new jsonResponse($data);
             $response->headers->set('Access-Control-Allow-Origin', '*');
@@ -219,6 +266,41 @@ class ExtractorController extends AbstractController
                 return $response;
         }
     }
+
+
+ /**
+     * @Route("/deleteR/{id}", name="deleteR")
+     */
+    public function deleteR($id): Response{
+        $em = $this->getDoctrine()->getManager();
+
+        $em = $this->getDoctrine()->getManager();
+        $rec = $em->getRepository(Report::class)->findOneBy(['id' => $id]);
+
+        if($rec!=null)
+        {
+            $em->remove($rec);
+            $em->flush();
+            $data = array(
+                'stat'=>'success',
+            );
+            $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+        }
+        else
+        {
+            $data = array(
+                'stat'=>'404',
+            );
+            $response = new jsonResponse($data);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+                return $response;
+        }
+    }
+
       /**
      * @Route("/editRec", name="edit")
      */
@@ -247,7 +329,10 @@ class ExtractorController extends AbstractController
         }
         else
         {
-            $response = new jsonResponse('SIKE');
+            $data = array(
+                'stat'=>'404',
+            );
+            $response = new jsonResponse($data);
             $response->headers->set('Access-Control-Allow-Origin', '*');
         
                 return $response;
@@ -269,7 +354,7 @@ class ExtractorController extends AbstractController
         $query->setParameter('id', $id);
 
         $problem = $query->getArrayResult();
-        
+        if($problem){
             $data = array(
             'status'=>'success',
             'code'	=>200,
@@ -281,6 +366,16 @@ class ExtractorController extends AbstractController
     $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response;
+    }else
+        {
+            $data = array(
+                'stat'=>'404',
+            );
+            $response = new jsonResponse($data);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+                return $response;
+        }
    
     }
 
@@ -297,8 +392,7 @@ class ExtractorController extends AbstractController
         $rec = $repository->findOneBy(['id' =>$params->id]);
         if($params->statut == $rec->getStatut()){
             $data = array(
-                'status'=>'Nothing changed.',
-                'code'    =>69
+                'stat'=>'404',
             );
         }
         else{
@@ -365,7 +459,7 @@ class ExtractorController extends AbstractController
         foreach($repository as $key=>$rec){
             $data[$key]['nom']= $rec->getIdEmploye()->getFullName();
             $data[$key]['desc']= $rec->getDescription();
-            $data[$key]['id_rec']= $rec->getIdReclamation();
+            $data[$key]['id']= $rec->getIdReclamation();
             $data[$key]['date_creation']= $rec->getCreationDate()->format('d/m/y');
             $data[$key]['role']= $rec->getIdEmploye()->getRole();
             $data[$key]['image']= $rec->getIdEmploye()->getImage();
@@ -383,8 +477,10 @@ class ExtractorController extends AbstractController
         $response = new jsonResponse($data);
         $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
+    
     }
     }
+    
 
 
 
@@ -416,4 +512,38 @@ class ExtractorController extends AbstractController
         return $response;
     }
 
+/**
+     * @Route("/allreports2", name="allreports2")
+     */
+    public function allreports2(Request $request,$id=null): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(Report::class)->findall();
+        $data = array();    
+        if($repository)
+        {
+        foreach($repository as $key=>$rec){
+            $data[$key]['nom']= $rec->getIdEmploye()->getFullName();
+            $data[$key]['desc']= $rec->getDescription();
+            $data[$key]['id']= $rec->getIdReclamation();
+            $data[$key]['date_creation']= $rec->getCreationDate()->format('d/m/y');
+            $data[$key]['role']= $rec->getIdEmploye()->getRole();
+            $data[$key]['image']= $rec->getIdEmploye()->getImage();
+            $data[$key]['stat']= 'success';
+        }
+        
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+    }else{
+        $data = array();
+        $data[0]['stat']= '404';
+
+        $response = new jsonResponse($data);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }
+    }
+    
 }

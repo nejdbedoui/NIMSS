@@ -1,42 +1,88 @@
-<body class="hide">
+
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+
+      <a class="navbar-brand">
           <img src="assets\n.png" alt="" width="70" height="50">
+
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarColor02"
+        aria-controls="navbarColor02"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link " [routerLink]="['/home']">Home
+
+            <a class="nav-link " [routerLink]="['/home'] " *ngIf="identity && user">Home
               <span class="visually-hidden" >(current)</span>
+
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/add']"  *ngIf="identity && user">Add problem</a>
+            <a class="nav-link" [routerLink]="['/add']" *ngIf="identity && user"
+              >Add problem</a
+            >
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/list'] "  *ngIf="identity ">List</a>
+            <a class="nav-link" [routerLink]="['/list']" *ngIf="identity"
+              >List</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/dashbord']"  *ngIf="identity && employe || admin">dashbord</a>
+            <a
+              class="nav-link"
+              [routerLink]="['/dashbord']"
+              *ngIf="(identity && employe) || admin"
+              >dashbord</a
+            >
           </li>
-
-
         </ul>
+        <div class="us pr-1" *ngIf="identity"> <img
+          class="rounded-circle shadow-1-strong me-3"
+          src={{photo}}
+          alt="avatar"
+          width="40"
+          height="40"
+        />
+    
+        <span class="name1">{{name}}</span></div>
         <form class="d-flex">
 
+       
           <button class="btn btn-primary my-2 my-sm-0" [routerLink]="['/login'] "*ngIf="!identity" >Login</button>
-          <input type="button" value="Logout" class="btn btn-danger" *ngIf="identity" (click)='logout()' />
+          
         </form>
       </div>
     </div>
+    <button *ngIf="identity" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon style="color: white;">settings</mat-icon>
+    </button>
+    <mat-menu  #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>account_circle</mat-icon>
+        <span>Profile</span>
+      </button>
+      <button  (click)='logout()'  mat-menu-item >
+        <mat-icon color="warn">exit_to_app</mat-icon>
+        <span style="color: #F44336;">Log Out</span>
+      </button>
+    </mat-menu>
 </nav>
 
 <div class="main">
+  
 <router-outlet></router-outlet></div>
-</body>
+

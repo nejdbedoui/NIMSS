@@ -20,22 +20,46 @@
           <tr *ngFor="let problem of Test">
               <td>{{problem.type}}</td>
               <td >
-                <span class="p-2 mb-2 bg-primary text-white "  *ngIf="problem.statut === 'Inprogress'">
-                  Inprogress
-                </span>
-                <span class="p-2 mb-2 bg-success text-white" *ngIf="problem.statut === 'Treated'">
-                  Treated
-                </span>
-                <span class="p-2 mb-2 bg-danger text-white" *ngIf="problem.statut === 'New'">
-                  New
-                </span>
-              </td>
+               
+               
+               
+
+                <div *ngIf="problem.statut === 'Treated'" class="example-button-container">
+                  <button mat-mini-fab color="success" aria-label="Example icon button with a filter list icon">
+                    <mat-icon>done_outline</mat-icon>
+                  </button>
+                </div>
+
+                <div *ngIf="problem.statut === 'Inprogress'" class="example-button-container">
+                  <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
+                    <mat-icon>hourglass_empty</mat-icon>
+                  </button>
+                </div>
+
+                <div *ngIf="problem.statut === 'New'" class="example-button-container">
+                  <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
+                    <mat-icon>visibility_off</mat-icon>
+                  </button>
+                </div>
               
               <td>{{problem.date_creation}}</td>
             <td >
-              <a [routerLink]="['/Details',problem.id]" class="btn btn-warning">Details</a>
+              
+              
+              <div class="example-button-container">
+                <button  [routerLink]="['/Details',problem.id]" mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
+                  <mat-icon>info</mat-icon>
+                </button>
+              </div>
         </td> 
-        <td><a (click)=deleteProb(problem.id) role="button" class="btn btn-danger" data-toggle="modal">Delete</a></td>
+        <td>
+        	<div class="example-button-container">
+            <button (click)="openDialog(problem.id)" mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
+              <mat-icon >delete</mat-icon>
+            </button>
+          </div>
+          
+         </td>
       </tr>
       </tbody>
     </table>

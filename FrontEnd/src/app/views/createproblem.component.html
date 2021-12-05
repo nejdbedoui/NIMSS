@@ -1,22 +1,7 @@
-<form #updateForm="ngForm"  #taskNewForm="ngForm" (ngSubmit)="onSubmit();">
+<form #updateForm="ngForm"  #taskNewForm="ngForm" (ngSubmit)="onSubmit();" class="top">
     <div class="form-group">
         <label for="exampleFormControlSelect1">How can we help you ?</label>
 
-        <form #updateForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7 no-padding">
-          <h4>Update Status</h4>
-              <mat-form-field appearance="fill">
-              <mat-label>status</mat-label>
-                <select matNativeControl required>
-                    <option value="volvo">New</option>
-                    <option value="saab">Treated</option>
-                    <option value="mercedes">In Progress</option>
-                 </select>
-              </mat-form-field>
-          <input type="submit" value="Update" class="btn btn-primary" />
-      </form>
-
-
-        
         <select required class="form-control" name="status" #status="ngModel" [(ngModel)]="Rec.type" required>
           <option>phone problems</option>
           <option>informations</option>

@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProblemService } from '../services/problem.service';
 
-
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { DialigComponent } from '../dialig/dialig.component';
 
 
 @Component({
@@ -16,9 +16,11 @@ export class ProblemComponent implements OnInit {
   Test;
   public identity;
   public loading;
+  result: String;
 
-  constructor(private _problemservice: ProblemService,private router: Router) {
+  constructor(private _problemservice: ProblemService,private router: Router,public dialog: MatDialog) {
     this.identity = this._problemservice.getIdentity();
+    this.result='false';
    }
 
   ngOnInit(): void {
@@ -60,13 +62,13 @@ getList(){
 }
 deleteProb(id){
   console.log(id)
-  if(confirm("Are you sure to delete ")){
+  if(this.result=='true'){
     
   this._problemservice.deleteprob(id).subscribe(
     response => {
-      if(response['status'] == 'success'){
+      if(response['stat'] == 'success'){
         window.location.reload();
-      }else if(response['status'] == 'error'){
+      }else if(response['stat'] == '404'){
         alert('prob was not deleted');
       }
     },
@@ -75,6 +77,20 @@ deleteProb(id){
     }
   );
   }
+}
+openDialog(id): void {
+  const dialogRef = this.dialog.open(DialigComponent, {
+    width: '350px',
+    data: {result: this.result}
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+    this.result = result;
+    this.deleteProb(id);
+    console.log(this.result)
+  });
+  
 }
 
 }
