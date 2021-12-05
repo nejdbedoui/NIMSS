@@ -1,3 +1,4 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
@@ -88,6 +89,20 @@ export class DashbordComponent implements OnInit {
       this.inProgressP = Math.floor((this.inProgressN * 100) / (this.newN + this.inProgressN + this.treatedN));
       this.treatedP = Math.floor((this.treatedN * 100) / (this.newN + this.inProgressN + this.treatedN));
     });
+
+
+    this._rapportService.getallrep().subscribe(data => {
+      this.ticket = Object.values(data)
+      this.ticketToShow = this.ticket.slice(0, 5)
+    })
+
+    setInterval(() => {
+      this.ticket = _.shuffle(this.ticket);
+      this.ticketToShow = this.ticket.slice(0, 5)
+    }, 20000);
+
+
+
 
     this._rapportService.getallrep().subscribe(data => {
       this.ticket = Object.values(data)

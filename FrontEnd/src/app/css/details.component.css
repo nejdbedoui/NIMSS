@@ -1,11 +1,11 @@
 .center {
-   
+
     text-align: center;
   }
   .center1{
    display: flex;
    justify-content: center;
-  
+
   }
   span{
     border-radius: 25px;
@@ -26,18 +26,18 @@
     margin-left: auto;
     margin-right: auto;
   }
-  
+
 .color{
   background-color: #F0F8FF;
 }
 img{
   margin-right: 4px;
 }
-  
+
 .rate {
   float:left;
     height: 46px;
-    
+
 }
 .rate:not(:checked) > input {
     position:relative;
@@ -45,7 +45,7 @@ img{
     visibility: hidden;
 }
 .rate:not(:checked) > label {
-  
+
     float:right;
     width:1em;
     overflow:hidden;
@@ -58,11 +58,11 @@ img{
     content: '★ ';
 }
 .rate > input:checked ~ label {
-    color: #ffc700;    
+    color: #ffc700;
 }
 .rate:not(:checked) > label:hover,
 .rate:not(:checked) > label:hover ~ label {
-    color: #deb217;  
+    color: #deb217;
 }
 .rate > input:checked + label:hover,
 .rate > input:checked + label:hover ~ label,
@@ -73,10 +73,10 @@ img{
 }
 
 .example-viewport {
- 
+
  height:480px ;
   width: auto;
- 
+
 }
 .example-viewport::-webkit-scrollbar {
   display: none;

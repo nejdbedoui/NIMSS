@@ -1,17 +1,20 @@
-#img{
-    height: 100px;
-    width: 100px;
+#img {
+  height: 100px;
+  width: 100px;
 }
-nav{
+
+nav {
   overflow: hidden;
   background-color: #333;
+
   position: auto; 
   top: 0; 
   width: 100%; 
+
   z-index: 100;
 }
-.main{
-    z-index: 0;
+.main {
+  z-index: 0;
 }
 .name1{
     color: white;

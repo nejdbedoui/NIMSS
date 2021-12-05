@@ -477,8 +477,10 @@ class ExtractorController extends AbstractController
         $response = new jsonResponse($data);
         $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
+    
     }
     }
+    
 
 
 
@@ -509,6 +511,7 @@ class ExtractorController extends AbstractController
     $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
+
 /**
      * @Route("/allreports2", name="allreports2")
      */
