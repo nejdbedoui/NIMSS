@@ -85,17 +85,24 @@ export class DetailsComponent implements OnInit {
 
   onSubmit() {
 
-    this._problemservice.createReport(this.Report).subscribe(value => {
 
-    })
-    this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/Details/' + this.idr]);
-    });
+}
+getall(){
+  
+  this._rapportservice.getrep(this.idr).subscribe(values=>{
+    
+    if(values[0].stat=='success'){
+    this.report=values;
+    
+    this.loading = 'hide';
+    this.show=true;}
+  else{
+this.show=false;
+this.loading = 'hide';}});
+  this._rapportservice.getrep(this.idr).subscribe(values=>{this.report=values});
+  
+}
 
-  }
-  getall() {
-
-    this._rapportservice.getrep(this.idr).subscribe(values => {
 
       if (values[0].stat == 'success') {
         this.report = values;

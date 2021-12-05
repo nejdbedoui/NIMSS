@@ -511,39 +511,39 @@ class ExtractorController extends AbstractController
     $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
-    /**
+
+/**
      * @Route("/allreports2", name="allreports2")
      */
- public function allreports2(Request $request,$id=null): Response
- {
-     $em = $this->getDoctrine()->getManager();
-     $repository = $this->getDoctrine()->getRepository(Report::class)->findall();
-     $data = array();    
-     if($repository)
-     {
-     foreach($repository as $key=>$rec){
-         $data[$key]['nom']= $rec->getIdEmploye()->getFullName();
-         $data[$key]['desc']= $rec->getDescription();
-         $data[$key]['id']= $rec->getIdReclamation();
-         $data[$key]['date_creation']= $rec->getCreationDate()->format('d/m/y');
-         $data[$key]['role']= $rec->getIdEmploye()->getRole();
-         $data[$key]['image']= $rec->getIdEmploye()->getImage();
-         $data[$key]['stat']= 'success';
-     }
-     
-     $response = new jsonResponse($data);
- $response->headers->set('Access-Control-Allow-Origin', '*');
+    public function allreports2(Request $request,$id=null): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(Report::class)->findall();
+        $data = array();    
+        if($repository)
+        {
+        foreach($repository as $key=>$rec){
+            $data[$key]['nom']= $rec->getIdEmploye()->getFullName();
+            $data[$key]['desc']= $rec->getDescription();
+            $data[$key]['id']= $rec->getIdReclamation();
+            $data[$key]['date_creation']= $rec->getCreationDate()->format('d/m/y');
+            $data[$key]['role']= $rec->getIdEmploye()->getRole();
+            $data[$key]['image']= $rec->getIdEmploye()->getImage();
+            $data[$key]['stat']= 'success';
+        }
+        
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
 
-     return $response;
- }else{
-     $data = array();
-     $data[0]['stat']= '404';
+        return $response;
+    }else{
+        $data = array();
+        $data[0]['stat']= '404';
 
-     $response = new jsonResponse($data);
-     $response->headers->set('Access-Control-Allow-Origin', '*');
-     return $response;
- }
- }
-    
+        $response = new jsonResponse($data);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
     }
-
+    }
+    
+}

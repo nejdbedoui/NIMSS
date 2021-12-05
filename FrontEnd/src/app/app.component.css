@@ -6,9 +6,11 @@
 nav {
   overflow: hidden;
   background-color: #333;
-  position: auto;
-  top: 0;
-  width: 100%;
+
+  position: auto; 
+  top: 0; 
+  width: 100%; 
+
   z-index: 100;
 }
 .main {

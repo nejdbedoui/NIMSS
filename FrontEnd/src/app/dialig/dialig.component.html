@@ -1,0 +1,8 @@
+<p>Would you like to delete the selected item?</p>
+
+
+<div mat-dialog-actions class="center">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    
+    <a  mat-button [mat-dialog-close]="data.result" cdkFocusInitial  role="button" class="btn btn-danger" data-toggle="modal">Delete</a>
+  </div>

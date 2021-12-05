@@ -90,6 +90,20 @@ export class DashbordComponent implements OnInit {
       this.treatedP = Math.floor((this.treatedN * 100) / (this.newN + this.inProgressN + this.treatedN));
     });
 
+
+    this._rapportService.getallrep().subscribe(data => {
+      this.ticket = Object.values(data)
+      this.ticketToShow = this.ticket.slice(0, 5)
+    })
+
+    setInterval(() => {
+      this.ticket = _.shuffle(this.ticket);
+      this.ticketToShow = this.ticket.slice(0, 5)
+    }, 20000);
+
+
+
+
     this._rapportService.getallrep().subscribe(data => {
       this.ticket = Object.values(data)
       this.ticketToShow = this.ticket.slice(0, 5)
@@ -103,5 +117,4 @@ export class DashbordComponent implements OnInit {
 
 
   }
-
 }

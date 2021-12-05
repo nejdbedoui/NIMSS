@@ -20,9 +20,14 @@ import { SignUpComponent } from './components/sign-up.component';
 
 import { MaterialModule } from './material/material.module';
 
+
 import { CardComponent } from './uiElem/card/card/card.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+
+
+import { DialigComponent } from './dialig/dialig.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -36,9 +41,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     DetailsComponent,
     SignUpComponent,
+
     CardComponent,
 
 
+
+
+    DialigComponent,
+   
+   
+    
 
   ],
   imports: [
@@ -61,10 +73,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     }),
     AngularFireStorageModule,
 
+
     MaterialModule,
 
     NgbModule
 
+
+
+    MaterialModule,
+    ReactiveFormsModule
+    
 
   ],
   providers: [],

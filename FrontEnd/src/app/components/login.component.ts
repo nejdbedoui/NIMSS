@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProblemService } from '../services/problem.service';
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { SignUpComponent } from './sign-up.component';
 @Component({
   selector: 'app-login',
   templateUrl: '../views/login.component.html',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   public identity: any;
   public ident;
   public nope=false;
-  constructor(private _problemservice: ProblemService,private router: Router) { 
+  constructor(private _problemservice: ProblemService,private router: Router,public dialog: MatDialog) { 
       this.user = {
         "email" : "",
         "password" : ""
@@ -45,4 +46,16 @@ export class LoginComponent implements OnInit {
       x.type = "password";
     }
    }
+   openDialog(): void {
+    const dialogRef = this.dialog.open(SignUpComponent, {
+      width: '350px',
+      
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+     
+    });
+    
+  }
 }

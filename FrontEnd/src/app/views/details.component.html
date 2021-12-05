@@ -27,15 +27,24 @@
                     <option value="Inprogress">In progress</option>
                     <option value="Treated">Treated</option>
                   </select></td>
-                  <td *ngIf="user || admin"><span class="p-2 mb-2 bg-primary text-white "  *ngIf="problem[0][0].statut === 'Inprogress'">
-                    Inprogress
-                  </span>
-                  <span class="p-2 mb-2 bg-success text-white" *ngIf="problem[0][0].statut === 'Treated'">
-                    Treated
-                  </span>
-                  <span class="p-2 mb-2 bg-danger text-white" *ngIf="problem[0][0].statut === 'New'">
-                    New
-                  </span> </td>
+                 
+                  <td *ngIf="user || admin"> <div *ngIf="problem[0][0].statut === 'Treated'" class="example-button-container">
+                    <button mat-mini-fab color="success" aria-label="Example icon button with a filter list icon">
+                      <mat-icon>done_outline</mat-icon>
+                    </button>
+                  </div>
+  
+                  <div *ngIf="problem[0][0].statut === 'Inprogress'" class="example-button-container">
+                    <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
+                      <mat-icon>hourglass_empty</mat-icon>
+                    </button>
+                  </div>
+  
+                  <div *ngIf="problem[0][0].statut === 'New'" class="example-button-container">
+                    <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
+                      <mat-icon>visibility_off</mat-icon>
+                    </button>
+                  </div> </td>
                 <td>{{problem[0].user}}</td>
                 <td><span *ngIf="problem[0][0].date_creation!=null">{{problem[0][0].date_creation.date | date:'mediumDate'}}</span></td>
 
