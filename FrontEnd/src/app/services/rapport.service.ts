@@ -11,14 +11,17 @@ export class RapportService {
   }
 
 
-  createReport(report){
-    const json 	= JSON.stringify(report);
+  createReport(report) {
+    const json = JSON.stringify(report);
     let body = new HttpParams();
     body = body.set('json', json);
 
-    return this._http.post<any>(`${this.url}/newR`,body);
+    return this._http.post<any>(`${this.url}/newR`, body);
   }
-  getallrep(id){
+  getrep(id) {
     return this._http.get(`${this.url}/allreports/${id}`);
+  }
+  getallrep() {
+    return this._http.get(`${this.url}/allreports2`);
   }
 }

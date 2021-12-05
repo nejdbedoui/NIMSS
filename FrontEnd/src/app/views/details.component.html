@@ -1,4 +1,3 @@
-<br><br><br><br>
 <div class="all-prob">
 
     <div class="center"  *ngIf="loading == 'show'">
@@ -20,7 +19,7 @@
         </thead>
         <tbody>
             <tr>
-                
+
                 <td>{{problem[0][0].type}}</td>
                 <td>{{problem[0][0].description}} </td>
                 <td *ngIf="employe "><select class="form-select" [(ngModel)]="problem[0][0].statut">
@@ -42,16 +41,16 @@
 
                 <td><a *ngIf="employe " (click)=update() role="button" class="btn btn-danger" data-toggle="modal">Update</a></td>
 
-        
+
         </tr>
-            
+
         </tbody>
       </table>
     </div>
 </div>
 
 
-  
+
 
 <div fxLayoutAlign="center center" fxFlexFill class="main-div" *ngIf="loading == 'hide'">
               <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" style="background-color: #ad655f;" *ngIf="show">
@@ -86,7 +85,7 @@
                               <p class="mb-0">
                                 {{report.desc}}
                               </p>
-                             <!--  <a (click)=delete(report.id) role="button"  data-toggle="modal">Delete</a> -->  
+                             <!--  <a (click)=delete(report.id) role="button"  data-toggle="modal">Delete</a> -->
                                </div>
                             <br>
                           </div>
@@ -98,12 +97,12 @@
                 </div>
               </section>
             </cdk-virtual-scroll-viewport>
-            
-           
+
+
             <div class="center1" *ngIf="user">
               <h3 class="center1">Rate our services :</h3>
             <div class="rate">
-              
+
               <input type="radio" id="star5" name="rate" value="5" />
               <label for="star5" title="text">5 stars</label>
               <input type="radio" id="star4" name="rate" value="4" />
@@ -136,16 +135,16 @@
                 </div>
               </div>
               <div class="float-end mt-2 pt-1">
-                
+
                 <input  class="btn btn-primary btn-sm" type="submit" value="Send comment" name="send" [disabled]="!updateForm.form.valid">
-                
+
               </div>
             </div>
-        
+
           </form>
    <br><br>
     </div>
 
 
-   
+
 

@@ -10,18 +10,12 @@
         </div>
 
         <div class="col-3 text-right">
-          <p class="m-b-0">{{ newP }}</p>
+          <p class="m-b-0">{{ newP }}%</p>
         </div>
       </div>
       <div class="progress m-t-30" style="height: 7px">
-        <div
-          class="progress-bar progress-c-theme"
-          role="progressbar"
-          style="width: 50%"
-          aria-valuenow="50"
-          aria-valuemin="0"
-          aria-valuemax="100"
-        ></div>
+        <mat-progress-bar mode="determinate" color="warn" value={{newP}}></mat-progress-bar>
+
       </div>
     </app-card>
   </div>
@@ -35,18 +29,11 @@
           </h3>
         </div>
         <div class="col-3 text-right">
-          <p class="m-b-0">{{ inProgressP }}</p>
+          <p class="m-b-0">{{ inProgressP }}%</p>
         </div>
       </div>
       <div class="progress m-t-30" style="height: 7px">
-        <div
-          class="progress-bar progress-c-theme2"
-          role="progressbar"
-          style="width: 35%"
-          aria-valuenow="35"
-          aria-valuemin="0"
-          aria-valuemax="100"
-        ></div>
+        <mat-progress-bar mode="determinate" value={{inProgressP}}></mat-progress-bar>
       </div>
     </app-card>
   </div>
@@ -55,23 +42,17 @@
       <h2 class="mb-4">Treated</h2>
       <div class="row d-flex align-items-center">
         <div class="col-9">
-          <h3 class="f-w-300 d-flex align-items-center m-b-0">
-            {{ TreatedN }}
+          <h3 cl
+          ass="f-w-300 d-flex align-items-center m-b-0">
+            {{ treatedN }}
           </h3>
         </div>
         <div class="col-3 text-right">
-          <p class="m-b-0">{{ TreatedP }}</p>
+          <p class="m-b-0">{{ treatedP }}%</p>
         </div>
       </div>
       <div class="progress m-t-30" style="height: 7px">
-        <div
-          class="progress-bar progress-c-theme"
-          role="progressbar"
-          style="width: 70%"
-          aria-valuenow="70"
-          aria-valuemin="0"
-          aria-valuemax="100"
-        ></div>
+        <mat-progress-bar mode="determinate" value={{treatedP}}></mat-progress-bar>
       </div>
     </app-card>
   </div>
@@ -80,19 +61,19 @@
       <div class="row align-items-center justify-content-center m-b-20">
         <div class="col-6">
           <h2 class="f-w-300 d-flex align-items-center float-left m-0">
-            4.7 <i class="fas fa-star f-10 m-l-10 text-c-yellow"></i>
+            5 <mat-icon>star</mat-icon>
           </h2>
         </div>
         <div class="col-6">
           <h6 class="d-flex align-items-center float-right m-0">
-            0.4 <i class="fas fa-caret-up text-c-green f-22 m-l-10"></i>
+            1 <mat-icon>star</mat-icon>
           </h6>
         </div>
       </div>
       <div class="row">
         <div class="col-xl-12">
           <h6 class="align-items-center float-left">
-            <i class="fas fa-star f-10 m-r-10 text-c-yellow"></i>5
+            <mat-icon>star</mat-icon>5
           </h6>
           <h6 class="align-items-center float-right">384</h6>
           <div class="progress m-t-30 m-b-20" style="height: 6px">
@@ -108,7 +89,7 @@
         </div>
         <div class="col-xl-12">
           <h6 class="align-items-center float-left">
-            <i class="fas fa-star f-10 m-r-10 text-c-yellow"></i>4
+            <mat-icon>star</mat-icon>4
           </h6>
           <h6 class="align-items-center float-right">145</h6>
           <div class="progress m-t-30 m-b-20" style="height: 6px">
@@ -124,7 +105,7 @@
         </div>
         <div class="col-xl-12">
           <h6 class="align-items-center float-left">
-            <i class="fas fa-star f-10 m-r-10 text-c-yellow"></i>3
+            <mat-icon>star</mat-icon>3
           </h6>
           <h6 class="align-items-center float-right">24</h6>
           <div class="progress m-t-30 m-b-20" style="height: 6px">
@@ -140,7 +121,7 @@
         </div>
         <div class="col-xl-12">
           <h6 class="align-items-center float-left">
-            <i class="fas fa-star f-10 m-r-10 text-c-yellow"></i>2
+            <mat-icon>star</mat-icon>2
           </h6>
           <h6 class="align-items-center float-right">1</h6>
           <div class="progress m-t-30 m-b-20" style="height: 6px">
@@ -156,7 +137,7 @@
         </div>
         <div class="col-xl-12">
           <h6 class="align-items-center float-left">
-            <i class="fas fa-star f-10 m-r-10 text-c-yellow"></i>1
+            <mat-icon>star</mat-icon>1
           </h6>
           <h6 class="align-items-center float-right">0</h6>
           <div class="progress m-t-30 m-b-20" style="height: 6px">
@@ -175,138 +156,59 @@
   </div>
   <div class="col-xl-8 col-md-6">
     <app-card
-      cardTitle="Recent Users"
+      cardTitle="Recent ticket"
       cardClass="Recent-Users"
       blockClass="px-0 py-3"
     >
       <div class="table-responsive">
         <table class="table table-hover">
           <tbody>
-            <tr class="unread">
+            <tr class="unread" *ngFor="let ticket of ticketToShow">
               <td>
-                <img
-                  class="rounded-circle"
-                  style="width: 40px"
-                  src="assets/images/user/avatar-1.jpg"
-                  alt="activity-user"
-                />
-              </td>
-              <td>
-                <h6 class="mb-1">Isabella Christensen</h6>
-                <p class="m-0">Lorem Ipsum is simply dummy</p>
-              </td>
-              <td>
-                <h6 class="text-muted">
-                  <i class="fas fa-circle text-c-green f-10 m-r-15"></i>11 MAY
-                  12:56
-                </h6>
-              </td>
-              <td>
-                <a href="javascript:" class="label theme-bg2 text-white f-12"
-                  >Reject</a
-                ><a href="javascript:" class="label theme-bg text-white f-12"
-                  >Approve</a
-                >
-              </td>
-            </tr>
-            <tr class="unread">
-              <td>
-                <img
-                  class="rounded-circle"
-                  style="width: 40px"
-                  src="assets/images/user/avatar-2.jpg"
-                  alt="activity-user"
-                />
-              </td>
-              <td>
-                <h6 class="mb-1">Mathilde Andersen</h6>
-                <p class="m-0">Lorem Ipsum is simply</p>
-              </td>
-              <td>
-                <h6 class="text-muted">
-                  <i class="fas fa-circle text-c-red f-10 m-r-15"></i>11 MAY
-                  10:35
-                </h6>
-              </td>
-              <td>
-                <a href="javascript:" class="label theme-bg2 text-white f-12"
-                  >Reject</a
-                ><a href="javascript:" class="label theme-bg text-white f-12"
-                  >Approve</a
-                >
-              </td>
-            </tr>
-            <tr class="unread">
-              <td>
-                <img
-                  class="rounded-circle"
-                  style="width: 40px"
-                  src="assets/images/user/avatar-3.jpg"
-                  alt="activity-user"
-                />
-              </td>
-              <td>
-                <h6 class="mb-1">Karla Sorensen</h6>
-                <p class="m-0">Lorem Ipsum is simply dummy</p>
+                <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" style="background-color: #ad655f;" >
+                  <section >
+
+                          <div class="card text-dark">
+                            <div class="card-body p-4" >
+                              <div class="d-flex flex-start"  >
+                                <img
+                                  class="rounded-circle shadow-1-strong me-3"
+                                  src={{ticket.image}}
+                                  alt="avatar"
+                                  width="60"
+                                  height="60"
+                                />
+                                <div>
+                                  <h6 class="fw-bold mb-1">{{ticket.date_creation}}</h6>
+                                  <div class="d-flex align-items-center mb-3">
+                                    <p class="mb-0">
+                                      {{ticket.nom}}
+
+                                      <span  class="badge bg-danger">{{ticket.role}}</span>
+                                    </p>
+                                    <a href="#!" class="link-muted"
+                                      ><i class="fas fa-pencil-alt ms-2"></i
+                                    ></a>
+                                    <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i>a</a>
+                                    <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
+                                  </div>
+                                  <p class="mb-0">
+                                    {{ticket.desc}}
+                                  </p>
+
+                                   </div>
+                                <br>
+                              </div>
+                            </div>
+
+                          </div>
+
+                  </section>
+                </cdk-virtual-scroll-viewport>
               </td>
               <td>
                 <h6 class="text-muted">
-                  <i class="fas fa-circle text-c-green f-10 m-r-15"></i>9 MAY
-                  17:38
-                </h6>
-              </td>
-              <td>
-                <a href="javascript:" class="label theme-bg2 text-white f-12"
-                  >Reject</a
-                ><a href="javascript:" class="label theme-bg text-white f-12"
-                  >Approve</a
-                >
-              </td>
-            </tr>
-            <tr class="unread">
-              <td>
-                <img
-                  class="rounded-circle"
-                  style="width: 40px"
-                  src="assets/images/user/avatar-1.jpg"
-                  alt="activity-user"
-                />
-              </td>
-              <td>
-                <h6 class="mb-1">Ida Jorgensen</h6>
-                <p class="m-0">Lorem Ipsum is simply</p>
-              </td>
-              <td>
-                <h6 class="text-muted f-w-300">
-                  <i class="fas fa-circle text-c-red f-10 m-r-15"></i>19 MAY
-                  12:56
-                </h6>
-              </td>
-              <td>
-                <a href="javascript:" class="label theme-bg2 text-white f-12"
-                  >Reject</a
-                ><a href="javascript:" class="label theme-bg text-white f-12"
-                  >Approve</a
-                >
-              </td>
-            </tr>
-            <tr class="unread">
-              <td>
-                <img
-                  class="rounded-circle"
-                  style="width: 40px"
-                  src="assets/images/user/avatar-2.jpg"
-                  alt="activity-user"
-                />
-              </td>
-              <td>
-                <h6 class="mb-1">Albert Andersen</h6>
-                <p class="m-0">Lorem Ipsum is</p>
-              </td>
-              <td>
-                <h6 class="text-muted">
-                  <i class="fas fa-circle text-c-green f-10 m-r-15"></i>21 July
-                  12:56
+                  <mat-icon>calendar_today</mat-icon>{{ticket.date_creation}}
                 </h6>
               </td>
               <td>

@@ -9,7 +9,6 @@
           class="btn dropdown-toggle btn-icon"
           ngbDropdownToggle
         >
-          <i class="feather icon-more-horizontal"></i>
         </button>
         <ul
           class="list-unstyled card-option dropdown-menu dropdown-menu-right"
@@ -21,7 +20,7 @@
           >
             <a href="javascript:"
               ><span
-                ><i class="feather" [ngClass]="fullIcon"></i>
+                ><mat-icon>fullscreen</mat-icon>
                 {{
                   this.cardClass === "full-card" ? "Restore" : "Maximize"
                 }}</span
@@ -34,20 +33,20 @@
           >
             <a href="javascript:"
               ><span
-                ><i class="feather" [ngClass]="collapsedIcon"></i>
+                ><mat-icon>minimize</mat-icon>
                 {{ this.collapsedCard === "collapsed" ? "Expand" : "Collapse" }}
               </span>
               <span style="display: none"
-                ><i class="feather icon-plus"></i></span
+                ><mat-icon>fullscreen_exit</mat-icon>                </span
             ></a>
           </li>
           <li class="dropdown-item reload-card" (click)="cardRefresh()">
             <a href="javascript:"
-              ><i class="feather icon-refresh-cw"></i> Reload</a
+              ><mat-icon>autorenew</mat-icon> Reload</a
             >
           </li>
           <li class="dropdown-item close-card" (click)="cardRemoveAction()">
-            <a href="javascript:"><i class="feather icon-trash"></i> Remove</a>
+            <a href="javascript:"><mat-icon>delete</mat-icon> Remove</a>
           </li>
         </ul>
       </div>

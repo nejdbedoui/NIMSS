@@ -37,9 +37,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     DetailsComponent,
     SignUpComponent,
     CardComponent,
-   
-   
-    
+
+
+
   ],
   imports: [
     BrowserModule,
@@ -61,11 +61,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     }),
     AngularFireStorageModule,
 
-    MaterialModule
+    MaterialModule,
 
     NgbModule
 
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent]
