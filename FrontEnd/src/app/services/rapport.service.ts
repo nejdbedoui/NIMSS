@@ -18,7 +18,10 @@ export class RapportService {
     
     return this._http.post<any>(`${this.url}/newR`,body);
   }
-  getallrep(id){
+  getrep(id) {
     return this._http.get(`${this.url}/allreports/${id}`);
+  }
+  getallrep() {
+    return this._http.get(`${this.url}/allreports2`);
   }
 }

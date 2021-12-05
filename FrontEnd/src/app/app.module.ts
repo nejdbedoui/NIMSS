@@ -18,7 +18,8 @@ import {AngularFireStorageModule} from '@angular/fire/storage'
 import {AngularFireModule} from '@angular/fire';
 import { SignUpComponent } from './components/sign-up.component';
 import { MaterialModule } from './material/material.module';
-
+import { DialigComponent } from './dialig/dialig.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { MaterialModule } from './material/material.module';
     LoginComponent,
     DetailsComponent,
     SignUpComponent,
+    DialigComponent,
    
    
     
@@ -54,7 +56,8 @@ import { MaterialModule } from './material/material.module';
       measurementId: "G-7L0J935EWV"
     }),
     AngularFireStorageModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
     
   ],
   providers: [],

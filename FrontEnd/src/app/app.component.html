@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand">
           <img src="assets\n.png" alt="" width="70" height="50">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,7 +11,7 @@
       <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link " [routerLink]="['/home']">Home
+            <a class="nav-link " [routerLink]="['/home'] " *ngIf="identity && user">Home
               <span class="visually-hidden" >(current)</span>
             </a>
           </li>
@@ -40,25 +40,21 @@
         <form class="d-flex">
        
           <button class="btn btn-primary my-2 my-sm-0" [routerLink]="['/login'] "*ngIf="!identity" >Login</button>
-          <input type="button" value="Logout" class="btn btn-danger" *ngIf="identity" (click)='logout()' />
+          
         </form>
       </div>
     </div>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <button *ngIf="identity" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
       <mat-icon style="color: white;">settings</mat-icon>
     </button>
-    <mat-menu #menu="matMenu">
+    <mat-menu  #menu="matMenu">
       <button mat-menu-item>
-        <mat-icon>dialpad</mat-icon>
-        <span>Redial</span>
+        <mat-icon>account_circle</mat-icon>
+        <span>Profile</span>
       </button>
-      <button mat-menu-item disabled>
-        <mat-icon>voicemail</mat-icon>
-        <span>Check voice mail</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon>
-        <span>Disable alerts</span>
+      <button  (click)='logout()'  mat-menu-item >
+        <mat-icon color="warn">exit_to_app</mat-icon>
+        <span style="color: #F44336;">Log Out</span>
       </button>
     </mat-menu>
 </nav>

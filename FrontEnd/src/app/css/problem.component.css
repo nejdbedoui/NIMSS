@@ -1,5 +1,5 @@
 .center {
-    margin-top: 5%;
+    
     text-align: center;
   }
   span{
@@ -20,3 +20,7 @@
     
   
   }
+  .mat-success {
+    background-color: green;
+    color: #fff;
+}

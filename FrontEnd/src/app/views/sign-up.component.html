@@ -5,28 +5,60 @@
             <label for="exampleFormControlSelect1">How can we help you ?</label>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlTextarea1">Full_name</label>
-            <input class="form-control" rows="3" name="Full_name" #Full_name="ngModel" [(ngModel)]="Us.Full_name"required>
-            <span *ngIf="!Full_name.valid && Full_name.touched"> Not valid Name<br></span>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Full_name</mat-label>
+                <input name="Full_name" #Full_name="ngModel" [(ngModel)]="Us.Full_name"required type="text" matInput 
+                       placeholder="Saif Hachana">
+                <mat-hint>Errors appear instantly!</mat-hint>
+                <mat-error *ngIf="!Full_name.valid && Full_name.touched">
+                  Please enter a valid Full Name 
+                </mat-error>
+              </mat-form-field>
 
-            <label for="exampleFormControlTextarea1">email</label>
-            <input class="form-control" rows="3" name="email" #email="ngModel" [(ngModel)]="Us.email" required>
-            <span *ngIf="!email.valid && email.touched">Not valid email<br></span>
 
-            <label for="exampleFormControlTextarea1">phone_number</label>
-            <input class="form-control" rows="3" name="phone_number" #phone_number="ngModel" [(ngModel)]="Us.phone_number" required>
-            <span *ngIf="!phone_number.valid && phone_number.touched">Not valid phone_number<br></span>
 
-            <label for="exampleFormControlTextarea1">password</label>
-            <input class="form-control" rows="3" name="password" #password="ngModel" [(ngModel)]="Us.password" required>
-            <span *ngIf="!password.valid && password.touched">Not valid password<br></span>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Email</mat-label>
+                <input name="email" #email="ngModel" [email]="true" [(ngModel)]="Us.email" required type="email" matInput 
+                       placeholder="Ex. pat@example.com">
+                <mat-hint>Errors appear instantly!</mat-hint>
+                <mat-error *ngIf="email.invalid && email.touched">
+                  Please enter a valid email address
+                </mat-error>
+                
+              </mat-form-field>
 
+             
+
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Telephone</mat-label>
+                <span style="color: black;" matPrefix>+216 &nbsp;</span>
+                <input name="phone_number" #phone_number="ngModel" [(ngModel)]="Us.phone_number" required type="tel" matInput placeholder="51 316 603">
+                <mat-icon matSuffix>mode_edit</mat-icon>
+              </mat-form-field>
+           
+
+
+              
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Password</mat-label>
+                <input  name="password" #password="ngModel" [(ngModel)]="Us.password" required type="password" matInput 
+                       placeholder="**********">
+                <mat-hint>Errors appear instantly!</mat-hint>
+                <mat-error *ngIf="!password.valid && password.touched">
+                  Please enter a password
+                </mat-error>
+               
+              </mat-form-field>
+
+
+          
             <label for="file">File:</label>
             <input type="file"  (change)="handleFiles($event)" accept=".png,.jpg" />
             <br>
 
 
-            <button type="button" class="btn btn-danger" [routerLink]="['/']">Cancel</button>
+            <button type="button" (click)="onNoClick()" class="btn btn-danger" >Cancel</button>
             <input type="submit"  value="Send" name="send" class="btn btn-success" [disabled]="!updateForm.form.valid">
         </div>
 

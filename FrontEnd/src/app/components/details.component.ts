@@ -95,7 +95,7 @@ this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).the
 }
 getall(){
   
-  this._rapportservice.getallrep(this.idr).subscribe(values=>{
+  this._rapportservice.getrep(this.idr).subscribe(values=>{
     
     if(values[0].stat=='success'){
     this.report=values;
@@ -105,7 +105,7 @@ getall(){
   else{
 this.show=false;
 this.loading = 'hide';}});
-  this._rapportservice.getallrep(this.idr).subscribe(values=>{this.report=values});
+  this._rapportservice.getrep(this.idr).subscribe(values=>{this.report=values});
   
 }
 

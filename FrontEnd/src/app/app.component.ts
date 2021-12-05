@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { DialigComponent } from './dialig/dialig.component';
 import { ProblemService } from './services/problem.service';
 
 @Component({
@@ -36,10 +37,11 @@ export class AppComponent {
   }}
   
   logout(){
-    
     localStorage.removeItem('identity');
     this.identity = null;
+    
     window.location.href ="home";
+    
     
   }
  
