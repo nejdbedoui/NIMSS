@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class RapportService {
   public url: string;
   constructor(private _http: HttpClient) {
-    this.url = "https://127.0.0.1:8000";
+    this.url = "http://127.0.0.1:8000";
   }
 
 

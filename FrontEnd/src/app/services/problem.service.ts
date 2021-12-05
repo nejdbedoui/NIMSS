@@ -11,7 +11,7 @@ export class ProblemService {
 
 
   constructor(private _http: HttpClient) {
-    this.url = "https://127.0.0.1:8000";
+    this.url = "http://127.0.0.1:8000";
 
    }
    getAll(){

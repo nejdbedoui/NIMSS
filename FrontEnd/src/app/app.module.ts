@@ -72,14 +72,8 @@ import {ReactiveFormsModule} from '@angular/forms';
       measurementId: "G-7L0J935EWV"
     }),
     AngularFireStorageModule,
-
-
     MaterialModule,
-
-    NgbModule
-
-
-
+    NgbModule,
     MaterialModule,
     ReactiveFormsModule
     
