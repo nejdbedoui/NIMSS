@@ -20,35 +20,36 @@
         <tbody>
             <tr>
 
-                <td>{{problem[0][0].type}}</td>
-                <td>{{problem[0][0].description}} </td>
-                <td *ngIf="employe "><select class="form-select" [(ngModel)]="problem[0][0].statut">
+                <td>{{problem[0].type}}</td>
+                <td>{{problem[0].description}} </td>
+                <td *ngIf="employe  "><select class="form-select" [(ngModel)]="problem[0].statut">
                     <option value="New">New</option>
                     <option value="Inprogress">In progress</option>
                     <option value="Treated">Treated</option>
                   </select></td>
                  
-                  <td *ngIf="user || admin"> <div *ngIf="problem[0][0].statut === 'Treated'" class="example-button-container">
+                  <td *ngIf="(user || admin) && problem[0].statut=='Treated' ">
+                     <div *ngIf="problem[0].statut === 'Treated'" class="example-button-container">
                     <button mat-mini-fab color="success" aria-label="Example icon button with a filter list icon">
                       <mat-icon>done_outline</mat-icon>
                     </button>
                   </div>
   
-                  <div *ngIf="problem[0][0].statut === 'Inprogress'" class="example-button-container">
+                  <div *ngIf="problem[0].statut === 'Inprogress'" class="example-button-container">
                     <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
                       <mat-icon>hourglass_empty</mat-icon>
                     </button>
                   </div>
   
-                  <div *ngIf="problem[0][0].statut === 'New'" class="example-button-container">
+                  <div *ngIf="problem[0].statut === 'New'" class="example-button-container">
                     <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
                       <mat-icon>visibility_off</mat-icon>
                     </button>
                   </div> </td>
-                <td>{{problem[0].user}}</td>
-                <td><span *ngIf="problem[0][0].date_creation!=null">{{problem[0][0].date_creation.date | date:'mediumDate'}}</span></td>
+                <td>{{problem.user}}</td>
+                <td><span *ngIf="problem[0].date_creation!=null">{{problem[0].date_creation.date | date:'mediumDate'}}</span></td>
 
-                <td><a *ngIf="employe " (click)=update() role="button" class="btn btn-danger" data-toggle="modal">Update</a></td>
+                <td><a *ngIf="(employe || admin ) " (click)=update() role="button" class="btn btn-danger" data-toggle="modal">Update</a></td>
 
 
         </tr>
@@ -88,8 +89,8 @@
                                 <a href="#!" class="link-muted"
                                   ><i class="fas fa-pencil-alt ms-2"></i
                                 ></a>
-                                <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i>a</a>
-                                <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
+                                <a (click)=delete(report.idr) class="link-muted"><i class="fas fa-redo-alt ms-2">a</i></a>
+                                
                               </div>
                               <p class="mb-0">
                                 {{report.desc}}
@@ -108,21 +109,14 @@
             </cdk-virtual-scroll-viewport>
 
 
-            <div class="center1" *ngIf="user">
+            <div class="center1" *ngIf="user && show ">
               <h3 class="center1">Rate our services :</h3>
-            <div class="rate">
-
-              <input type="radio" id="star5" name="rate" value="5" />
-              <label for="star5" title="text">5 stars</label>
-              <input type="radio" id="star4" name="rate" value="4" />
-              <label for="star4" title="text">4 stars</label>
-              <input type="radio" id="star3" name="rate" value="3" />
-              <label for="star3" title="text">3 stars</label>
-              <input type="radio" id="star2" name="rate" value="2" />
-              <label for="star2" title="text">2 stars</label>
-              <input type="radio" id="star1" name="rate" value="1" />
-              <label for="star1" title="text">1 star</label>
-            </div><br>
+              <button mat-icon-button [color]="color" *ngFor="let ratingId of ratingArr;index as i" [id]="'star_'+i" (click)="onClick(i+1)" [matTooltip]="ratingId+1" matTooltipPosition="above">
+                <mat-icon>
+                  {{showIcon(i)}}
+                </mat-icon>
+              </button>
+              
           </div>
           <form *ngIf="employe || admin "  #updateForm="ngForm"  #taskNewForm="ngForm" (ngSubmit)="onSubmit();">
             <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">

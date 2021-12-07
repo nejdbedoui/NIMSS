@@ -10,7 +10,7 @@ import { SignUpComponent } from './sign-up.component';
 })
 export class LoginComponent implements OnInit {
   public user;
-  public identity: any;
+  public identity;
   public ident;
   public nope=false;
   token: any;
@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
         "password" : "",
         "getHash" : "true"
     };
+    
     }
 
   ngOnInit(): void {
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
         this.nope=false;
         this.identity = data;
         localStorage.setItem('identity', JSON.stringify(this.identity));
-        console.log('identity'+ JSON.stringify(this.identity));
+       
         this.user.getHash = null;
         this._problemservice.login(this.user).subscribe(
           response => {
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit {
             }{
               if(!this.identity.status){
                 localStorage.setItem('token', JSON.stringify(this.token))
-                console.log("Token : "+JSON.stringify(this.token));										
+                window.location.href ="home";								
               }
             }
           },

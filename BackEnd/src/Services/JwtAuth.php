@@ -37,6 +37,7 @@ class JwtAuth{
                 'name' => $user->getFullName(),
                 'phone'=>$user->getPhoneNumber(),
                 'image'=>$user->getImage(),
+				"role"=>$user->getRole(),
 				"iat" => time(),
 				"exp" => time() + (7*24*60*60),
 			);
@@ -51,12 +52,44 @@ class JwtAuth{
 			}
 
 		}else{
-			$data = array(
-				'status' => 'error',
-				'data'	 => 'Login failed!!'
-			);
+			$user = $this->manager->getRepository(User::class)->findOneBy(array(
+				"email" => $email,
+				"password" => $password
+			));
+			if(is_object($user)){
+				$signup = true;
+			}
+			if($signup){
+				//generate token
+				$token = array(
+					'id' => $user->getId(),
+					'email' => $user->getEmail(),
+					'name' => $user->getFullName(),
+					'phone'=>$user->getPhoneNumber(),
+					'image'=>$user->getImage(),
+					"role"=>'user',
+					"iat" => time(),
+					"exp" => time() + (7*24*60*60),
+				);
+	
+				$jwt 		= JWT::encode($token, $this->key, 'HS256');
+				$decoded 	= JWT::decode($jwt, $this->key, array('HS256'));
+	
+				if($getHash == null){
+					$data = $jwt;
+				}else{
+					$data = $decoded;
+				}
+	
+			}else{
+				$data = array(
+					'status' => '404',
+					'data'	 => 'Login failed!!'
+				);
+			}
+	
 		}
-
+		
 		return $data;
 	}
 

@@ -1,0 +1,16 @@
+
+.left{
+    float: left;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+.right{
+    float: right;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+.parent {
+    display: flex;
+    flex-direction: column;
+  }
+  
