@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DialigComponent } from './dialig/dialig.component';
+import { DialogComponent } from './dialog/dialog.component';
 import { ProblemService } from './services/problem.service';
 
 @Component({
@@ -38,6 +38,7 @@ export class AppComponent {
   
   logout(){
     localStorage.removeItem('identity');
+    localStorage.removeItem('token');
     this.identity = null;
     
     window.location.href ="home";

@@ -19,19 +19,19 @@ class Rating
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ratings")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $idClient;
 
     /**
      * @ORM\ManyToOne(targetEntity=Employe::class, inversedBy="ratings")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $idEmploye;
 
     /**
      * @ORM\ManyToOne(targetEntity=Reclamation::class, inversedBy="ratings")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $idReclamation;
 
