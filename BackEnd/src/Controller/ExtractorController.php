@@ -660,4 +660,34 @@ else{
 
         return $response;
     }
-}
+/**
+     * @Route("/getrating", name="rating")
+     */
+    public function getrating(Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(Rating::class)->findall();
+        $data = array();
+
+        if($repository)
+        {
+        foreach($repository as $key=>$rec){
+            $data[$key]['nomE']= $rec->getIdEmploye()->getFullName();
+            $data[$key]['photo']= $rec->getIdEmploye()->getImage();
+            $data[$key]['nomC']= $rec->getIdClient()->getFullName();
+            $data[$key]['rating']= $rec->getRating();
+        }
+        
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+    }else{
+        $data = array();
+        $data[0]['stat']= '404';
+
+        $response = new jsonResponse($data);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }
+    }}
