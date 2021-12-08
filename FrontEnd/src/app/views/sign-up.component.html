@@ -1,67 +1,62 @@
-<div class="top">
 
-    <form #updateForm="ngForm" #taskNewForm="ngForm" (ngSubmit)="onSubmit();">
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">How can we help you ?</label>
+
+<div class="container ps-md-0">
+  <div class="row g-0">
+    <div class="col-md-6 col-lg-6 col-sm-12">
+        <div style="min-width: 200px; max-width: 400px; margin: 15px 0px;">
+            <h1 class="titling">Create a new account now, and you will unlock all features below</h1>
         </div>
-        <div class="form-group">
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Full_name</mat-label>
-                <input name="Full_name" #Full_name="ngModel" [(ngModel)]="Us.Full_name"required type="text" matInput 
-                       placeholder="Saif Hachana">
-                <mat-hint>Errors appear instantly!</mat-hint>
-                <mat-error *ngIf="!Full_name.valid && Full_name.touched">
-                  Please enter a valid Full Name 
-                </mat-error>
-              </mat-form-field>
-
-
-
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Email</mat-label>
-                <input name="email" #email="ngModel" [email]="true" [(ngModel)]="Us.email" required type="email" matInput 
-                       placeholder="Ex. pat@example.com">
-                <mat-hint>Errors appear instantly!</mat-hint>
-                <mat-error *ngIf="email.invalid && email.touched">
-                  Please enter a valid email address
-                </mat-error>
-                
-              </mat-form-field>
-
-             
-
-              <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Telephone</mat-label>
-                <span style="color: black;" matPrefix>+216 &nbsp;</span>
-                <input name="phone_number" #phone_number="ngModel" [(ngModel)]="Us.phone_number" required type="tel" matInput placeholder="51 316 603">
-                <mat-icon matSuffix>mode_edit</mat-icon>
-              </mat-form-field>
-           
-
-
-              
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Password</mat-label>
-                <input  name="password" #password="ngModel" [(ngModel)]="Us.password" required type="password" matInput 
-                       placeholder="**********">
-                <mat-hint>Errors appear instantly!</mat-hint>
-                <mat-error *ngIf="!password.valid && password.touched">
-                  Please enter a password
-                </mat-error>
-               
-              </mat-form-field>
-
-
-          
-            <label for="file">File:</label>
-            <input type="file"  (change)="handleFiles($event)" accept=".png,.jpg" />
-            <br>
-
-
-            <button type="button" (click)="onNoClick()" class="btn btn-danger" >Cancel</button>
-            <input type="submit"  value="Send" name="send" class="btn btn-success" [disabled]="!updateForm.form.valid">
+        <div class="row" style="padding-right: 15px;">
+          <div class="col-md-6 col-sm-12">
+              <img src="https://maxinet.themerex.net/wp-content/uploads/2017/12/network_icon_1.png" height="48px" style="filter: grayscale(1) contrast(1.5); margin: 10px 0px;" />
+              <div class="titling">Fully Staffed 24/7/365</div>
+              <div class="paragraph">Our expert technical support team maintain a full presence around-the-clock every day of the year, so they’re always available when you need them.</div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+              <img src="https://maxinet.themerex.net/wp-content/uploads/2017/12/network_icon_2.png" height="48px" style="filter: grayscale(1) contrast(1.5); margin: 10px 0px;" />
+              <div class="titling">Full Network Visibility</div>
+              <div class="paragraph">Our Network Operations Centre allows us to identify, diagnose, and respond to any potential network issues promptly – often before our customers are affected.</div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+              <img src="https://maxinet.themerex.net/wp-content/uploads/2017/12/network_icon_3.png" height="48px" style="filter: grayscale(1) contrast(1.5); margin: 10px 0px;" />
+              <div class="titling">Resilient Connectivity</div>
+              <div class="paragraph">NOC operations are protected by resilient pure fibre connections direct to our core network, reinforced by emergency power supplies.</div>
+          </div>
         </div>
+    </div>
+    <div class="col-md-6 col-lg-6 signup">
+      <form #updateForm="ngForm" #taskNewForm="ngForm" (ngSubmit)="onSubmit();">
+          <div class="form-group">
+              <label for="exampleFormControlSelect1" style="margin: 35px 0;">Please fill the form below to create an account.</label>
+          </div>
+          <div class="form-group">
+              <label for="exampleFormControlTextarea1">Fullname</label>
+              <input class="form-control" rows="3" name="Full_name" #Full_name="ngModel" [(ngModel)]="Us.Full_name"required>
+              <span *ngIf="!Full_name.valid && Full_name.touched"> Not valid Name<br></span>
 
-    </form>
+              <label for="exampleFormControlTextarea1">E-mail</label>
+              <input class="form-control" rows="3" name="email" #email="ngModel" [(ngModel)]="Us.email" required>
+              <span *ngIf="!email.valid && email.touched">Not valid email<br></span>
+
+              <label for="exampleFormControlTextarea1">Phone Number</label>
+              <input class="form-control" rows="3" name="phone_number" #phone_number="ngModel" [(ngModel)]="Us.phone_number" required>
+              <span *ngIf="!phone_number.valid && phone_number.touched">Not valid phone_number<br></span>
+
+              <label for="exampleFormControlTextarea1">Password</label>
+              <input class="form-control" rows="3" name="password" #password="ngModel" [(ngModel)]="Us.password" required>
+              <span *ngIf="!password.valid && password.touched">Not valid password<br></span>
+
+              <label for="file">File</label>
+              <input type="file" style="margin: 15px 0px;"  (change)="handleFiles($event)" accept=".png,.jpg" />
+              <br>
+
+
+              <button type="button" class="btn btn-danger" [routerLink]="['/']">Cancel</button>
+              <input type="submit"  value="Send" name="send" class="btn btn-success" [disabled]="!updateForm.form.valid">
+          </div>
+
+      </form>
+    </div>
+  </div>
 </div>
 

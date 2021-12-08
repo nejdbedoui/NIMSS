@@ -1,13 +1,11 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { DialigComponent } from './dialig/dialig.component';
+import { Component, HostListener } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { ProblemService } from './services/problem.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css',
-]
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'FrontEnd';
@@ -15,33 +13,47 @@ export class AppComponent {
   public admin;
   public employe;
   public user;
-  public name;
-  public photo;
- 
+  isHome: boolean = false;
   constructor(
-  	private _userService:ProblemService
+  	private _userService:ProblemService,
+    private router: Router
   ){
   	this.identity = this._userService.getIdentity();
-    
+    this.router.events.subscribe(event => {
+      if(event instanceof NavigationEnd) {
+        // event is an instance of NavigationEnd, get url!  
+        const url = event.urlAfterRedirects;
+        this.isHome = (url === '/' || url === '/home' || url === '/login') ? true : false
+      }
+    })
+
   }
+  
+  scrolled: boolean = false;
+  
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+      this.scrolled = window.scrollY > 0;
+  }
+
   ngOnInit(){
     if(this.identity != null){
-    if(this._userService.getIdentity()['role']=='admin')
-  this.admin= true
-  else if(this._userService.getIdentity()['role']=='employe')
-  this.employe= true
-  else if(this._userService.getIdentity()['role']=='user')
-  this.user= true
-  this.name=this._userService.getIdentity()['name'];
-  this.photo=this._userService.getIdentity()['image'];
-  }}
+      if(this._userService.getIdentity()['role']=='admin')
+        this.admin= true
+      else if(this._userService.getIdentity()['role']=='employe')
+        this.employe= true
+      else if(this._userService.getIdentity()['role']=='user')
+        this.user= true
+    }
+    
+
+  }
   
   logout(){
+    
     localStorage.removeItem('identity');
     this.identity = null;
-    
     window.location.href ="home";
-    
     
   }
  

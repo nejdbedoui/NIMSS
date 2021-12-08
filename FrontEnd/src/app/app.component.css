@@ -1,21 +1,71 @@
-#img {
+#img{
   height: 100px;
   width: 100px;
 }
-
-nav {
-  overflow: hidden;
-  background-color: #333;
-
-  position: auto; 
-  top: 0; 
-  width: 100%; 
-
-  z-index: 100;
+nav{
+overflow: hidden;
+background-color: transparent;
+position: fixed; 
+top: 0; 
+width: 100%;
+z-index: 100;
 }
-.main {
+nav.scrolled {
+box-shadow: 0 15px 35px rgb(0 0 0 / 5%);
+} 
+.main{
   z-index: 0;
+  overflow-x: hidden;
+  padding-top: 200px;
 }
-.name1{
-    color: white;
+.main.home {
+  padding-top: 0px !important;
+}
+
+* {
+  font-family: 'Inter', sans-serif;
+  transition: all .4s ease-in-out;
+}
+.nav-link {
+  font-weight: 700 !important;
+  color: black;
+  letter-spacing: -1px;
+  font-size: 16px;
+}
+.btn-login, .btn-logout {
+  background: linear-gradient(45deg, #fe8227, #ffb356);
+  border-color: transparent;
+  color: white;
+  font-weight: 700;
+}
+.scrolled {
+  padding: 0px !important;
+}
+
+.logo-text {
+  background: -webkit-linear-gradient( 45deg, #e56609, #e9a046);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  font-size: 22px;
+}
+.logo-sub {
+  font-size: 12px;
+  line-height: 1;
+  color: black;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+.navbar-brand {
+  display: flex;
+}
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.nav-item {
+  padding: 0px 10px;
+  margin: 0px 8px;
 }

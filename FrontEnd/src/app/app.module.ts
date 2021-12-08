@@ -22,7 +22,7 @@ import { MaterialModule } from './material/material.module';
 
 
 import { CardComponent } from './uiElem/card/card/card.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -73,7 +73,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     }),
     AngularFireStorageModule,
     MaterialModule,
-    NgbModule,
+    //NgbModule,
     MaterialModule,
     ReactiveFormsModule
     
