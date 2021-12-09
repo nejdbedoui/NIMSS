@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 export class SignupService {
   public url: string;
   identity: String;
+  token: any;
   constructor(private _http: HttpClient) {
     this.url = "http://127.0.0.1:8000";
   }
@@ -18,4 +19,10 @@ export class SignupService {
 
     return this._http.post<any>(`${this.url}/signup`,body);
   }
+
+  getToken(){
+		this.token = JSON.parse(localStorage.getItem('token'));
+
+		return this.token;
+	}
 }

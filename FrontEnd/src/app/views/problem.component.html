@@ -4,7 +4,11 @@
       <img class="center" src="assets/YCZH.gif" />
   </div>
 
-<div fxLayoutAlign="center center" fxFlexFill class="main-div" *ngIf="loading == 'hide'">
+
+  <mat-card *ngIf="create == 'showu'"><a [routerLink]="['/add']" >Add Problem</a></mat-card>
+  <mat-card *ngIf="create == 'showa'"><a >No problem is available</a></mat-card>
+
+<div fxLayoutAlign="center center" fxFlexFill class="main-div" *ngIf="loading == 'hide' && create != 'showu' && create != 'showa'">
   <table class="table table-striped center" >
       <thead>
         <tr >
@@ -46,14 +50,19 @@
             <td >
               
               
-              <div class="example-button-container">
+              <div *ngIf="user || problem.statut === 'Treated' || problem.statut === 'Inprogress'" class="example-button-container">
                 <button  [routerLink]="['/Details',problem.id]" mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
                   <mat-icon>info</mat-icon>
                 </button>
               </div>
+              <div *ngIf="(employe || admin) && problem.statut === 'New'" class="example-button-container">
+                <button  [routerLink]="['/Details',problem.id]" mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
         </td> 
         <td>
-        	<div class="example-button-container">
+        	<div *ngIf="user" class="example-button-container">
             <button (click)="openDialog(problem.id)" mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
               <mat-icon >delete</mat-icon>
             </button>

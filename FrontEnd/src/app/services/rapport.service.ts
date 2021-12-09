@@ -19,9 +19,18 @@ export class RapportService {
     return this._http.post<any>(`${this.url}/newR`, body);
   }
   getrep(id) {
-    return this._http.get(`${this.url}/allreports/${id}`);
+    let body = new HttpParams();
+    body = body.set('id', id);
+    return this._http.post(`${this.url}/getrep`,body);
   }
   getallrep() {
     return this._http.get(`${this.url}/allreports2`);
+  }
+  sendr(a){
+    const json = JSON.stringify(a);
+    let body = new HttpParams();
+    body = body.set('json', json);
+
+    return this._http.post<any>(`${this.url}/rating`, body);
   }
 }

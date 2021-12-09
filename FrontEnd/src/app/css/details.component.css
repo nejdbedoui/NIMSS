@@ -85,3 +85,8 @@ img{
 .example-item {
   height: 50px;
 }
+
+.mat-success {
+  background-color: green;
+  color: #fff;
+}

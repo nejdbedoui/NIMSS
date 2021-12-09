@@ -8,26 +8,42 @@ import { Injectable } from '@angular/core';
 export class ProblemService {
   public url: string;
   identity: String;
+  token: any;
 
 
   constructor(private _http: HttpClient) {
     this.url = "http://127.0.0.1:8000";
 
    }
-   getAll(){
-    return this._http.get(`${this.url}/extractor`);
+   getAll(token){
+    let body = new HttpParams()
+    .set('authorization', token);
+    return this._http.post(`${this.url}/extractor`,body);
   }
   getList(id){
-    return this._http.get(`${this.url}/extractor1/${id}`);
+    let body = new HttpParams()
+    .set('id', id);
+    return this._http.post(`${this.url}/extractor1`,body);
   }
 
   create(compl){
     const json 	= JSON.stringify(compl);
-    let body = new HttpParams();
-    body = body.set('json', json);
+    let body = new HttpParams()
+    .set('json', json);
+   
 
     return this._http.post<any>(`${this.url}/newC`,body);
   }
+
+
+ /* create(compl,token){
+    const json 	= JSON.stringify(compl);
+    let body = new HttpParams()
+    .set('json', json)
+    .set('authorization',token);
+
+    return this._http.post<any>(`${this.url}/newC`,body);
+  }*/
 
   getType(){
     return this._http.get(`${this.url}/dashboard`);
@@ -45,19 +61,31 @@ export class ProblemService {
 
     return this.identity;
   }
+  getToken(){
+		this.token = JSON.parse(localStorage.getItem('token'));
+
+		return this.token;
+	}
   deleteprob(id){
-    return this._http.get(`${this.url}/supp/${id}`);
+  
+    let body = new HttpParams()
+    .set('id', id);
+    return this._http.post(`${this.url}/supp`,body);
   }
 
   deleteR(id){
-    return this._http.get(`${this.url}/deleteR/${id}`);
+    let body = new HttpParams()
+    .set('id', id);
+    return this._http.post(`${this.url}/deleteR`,body);
   }
   getProblem(id){
-    return this._http.get<any>(`${this.url}/detail/${id}`);
+    let body = new HttpParams()
+    .set('id', id);
+    return this._http.post<any>(`${this.url}/detail`,body);
 
   }
   updateProblem(problem){
-    const json     = JSON.stringify(problem[0][0]);
+    const json     = JSON.stringify(problem[0]);
     let body = new HttpParams()
     .set('json', json);
     return this._http.post<any>(`${this.url}/update`,body);

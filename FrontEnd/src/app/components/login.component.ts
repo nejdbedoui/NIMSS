@@ -10,14 +10,17 @@ import { SignUpComponent } from './sign-up.component';
 })
 export class LoginComponent implements OnInit {
   public user;
-  public identity: any;
+  public identity;
   public ident;
   public nope=false;
+  token: any;
   constructor(private _problemservice: ProblemService,private router: Router,public dialog: MatDialog) { 
       this.user = {
         "email" : "",
-        "password" : ""
+        "password" : "",
+        "getHash" : "true"
     };
+    
     }
 
   ngOnInit(): void {
@@ -31,8 +34,26 @@ export class LoginComponent implements OnInit {
         this.nope=false;
         this.identity = data;
         localStorage.setItem('identity', JSON.stringify(this.identity));
-        console.log(this._problemservice.getIdentity())
-        window.location.href ="home";
+       
+        this.user.getHash = null;
+        this._problemservice.login(this.user).subscribe(
+          response => {
+            this.token = response;
+
+            if(this.identity.lenght <= 1){
+              console.log("Server error");
+            }{
+              if(!this.identity.status){
+                localStorage.setItem('token', JSON.stringify(this.token))
+                window.location.href ="home";								
+              }
+            }
+          },
+          error => {
+            console.log(<any>error);
+          }
+        );
+
         }
       }
     );}
@@ -48,7 +69,7 @@ export class LoginComponent implements OnInit {
    }
    openDialog(): void {
     const dialogRef = this.dialog.open(SignUpComponent, {
-      width: '350px',
+      width: '400px',
       
     });
   

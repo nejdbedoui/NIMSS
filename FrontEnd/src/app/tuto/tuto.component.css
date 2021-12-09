@@ -1,0 +1,35 @@
+
+.left{
+    float: left;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+.right{
+    float: right;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+.parent {
+    display: flex;
+    flex-direction: column;
+  }
+  .mat-success {
+    background-color: green;
+    color: #fff;
+  }
+  .example-button-container,.in{
+      display: inline;
+      
+  }
+  .p{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  table{
+      width: 100%;
+      text-align: center;
+  }
+  .cent{
+      text-align: center;
+  }
