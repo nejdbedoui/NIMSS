@@ -90,12 +90,13 @@
                                 <a href="#!" class="link-muted"
                                   ><i class="fas fa-pencil-alt ms-2"></i
                                 ></a>
-                                <a (click)=delete(report.idr) class="link-muted"><i class="fas fa-redo-alt ms-2">a</i></a>
+                               
                                 
                               </div>
                               <p class="mb-0">
                                 {{report.desc}}
                               </p>
+                              <a *ngIf="admin" (click)=delete(report.idr) style="color: red; float: right;" class="link-muted"><i class="fas fa-redo-alt ms-2">delete</i></a>
                              <!--  <a (click)=delete(report.id) role="button"  data-toggle="modal">Delete</a> -->
                                </div>
                             <br>
