@@ -1,0 +1,14 @@
+.mat-success {
+    background-color: green;
+    color: #fff;
+  }
+ 
+  .row{
+    
+    width: 100%;
+    padding-top: 40px;
+  }
+  .col-md-6{
+    padding-top: 80px;
+    position: relative;
+  }

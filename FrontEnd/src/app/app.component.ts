@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogComponent } from './dialog/dialog.component';
 import { ProblemService } from './services/problem.service';
-
+import * as $ from 'jquery';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -34,7 +34,19 @@ export class AppComponent {
   this.user= true
   this.name=this._userService.getIdentity()['name'];
   this.photo=this._userService.getIdentity()['image'];
-  }}
+ 
+  }
+  var navOffset = $("#nav-bar").offset().top;
+  var navBar = $("#nav-bar");
+  
+  var $win = $(window).scroll(function () {
+    if ($win.scrollTop() >navOffset) {
+      navBar.addClass("nav-bar-top").removeClass("nav-bar-scrolled");
+    } else if ($win.scrollTop() == 0) {
+      navBar.addClass("nav-bar-scrolled").removeClass("nav-bar-top");
+    }
+  });
+}
   
   logout(){
     localStorage.removeItem('identity');

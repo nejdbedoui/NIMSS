@@ -616,7 +616,7 @@ else{
 
         }
 
-    }   
+       
 
         
         $response = new jsonResponse($data);

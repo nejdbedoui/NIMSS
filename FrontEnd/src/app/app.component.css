@@ -12,10 +12,50 @@ nav {
   width: 100%; 
 
   z-index: 100;
+
+  -webkit-transition: width 0.2s ease-in-out;
+  -moz-transition: width 0.2s ease-in-out;
+  -o-transition: width 0.2s ease-in-out;
+  -ms-transition: width 0.2s ease-in-out;
+  transition: width 0.2s ease-in-out;
+  background-color: #fff;
 }
 .main {
   z-index: 0;
 }
 .name1{
     color: white;
+}
+.nav-bar-top {
+  width: 80%;
+  position: fixed;
+  min-height: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 1%;
+}
+
+.nav-bar-scrolled {
+  position: absolute;
+  
+  width: 100%;
+  left: 50%;
+  top: 0%;
+  transform: translateX(-50%);
+}
+.logo-text {
+  background: -webkit-linear-gradient( 45deg, #e56609, #e9a046);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  font-size: 22px;
+}
+.logo-sub {
+  font-size: 12px;
+  line-height: 1;
+  color: black;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
 }

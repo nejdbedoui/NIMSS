@@ -1,3 +1,4 @@
+<div class="top">
 <div class="all-prob">
 
     <div class="center"  *ngIf="loading == 'show'">
@@ -28,7 +29,7 @@
                     <option value="Treated">Treated</option>
                   </select></td>
                  
-                  <td *ngIf="(user || admin) && problem[0].statut=='Treated' ">
+                  <td *ngIf="(user || admin) ">
                      <div *ngIf="problem[0].statut === 'Treated'" class="example-button-container">
                     <button mat-mini-fab color="success" aria-label="Example icon button with a filter list icon">
                       <mat-icon>done_outline</mat-icon>
@@ -151,3 +152,4 @@
 
 
 
+  </div>
