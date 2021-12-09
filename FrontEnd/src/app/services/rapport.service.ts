@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class RapportService {
   public url: string;
   constructor(private _http: HttpClient) {
-    this.url = "http://127.0.0.1:8000";
+    this.url = "https://127.0.0.1:8000";
   }
 
 
@@ -21,16 +21,22 @@ export class RapportService {
   getrep(id) {
     let body = new HttpParams();
     body = body.set('id', id);
-    return this._http.post(`${this.url}/getrep`,body);
+    return this._http.post(`${this.url}/getrep`, body);
   }
   getallrep() {
     return this._http.get(`${this.url}/allreports2`);
   }
-  sendr(a){
+  sendr(a) {
     const json = JSON.stringify(a);
     let body = new HttpParams();
     body = body.set('json', json);
 
     return this._http.post<any>(`${this.url}/rating`, body);
+  }
+  getrating() {
+    return this._http.get(`${this.url}/getrating`);
+  }
+  getmoyrating() {
+    return this._http.get(`${this.url}/moyrating`);
   }
 }

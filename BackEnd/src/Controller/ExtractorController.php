@@ -613,7 +613,11 @@ else{
             $data[$key]['image']= $rec->getIdEmploye()->getImage();
             $data[$key]['stat']= 'success';
         }
+
         }
+
+    }   
+
         
         $response = new jsonResponse($data);
     $response->headers->set('Access-Control-Allow-Origin', '*');
@@ -663,7 +667,8 @@ else{
 
         return $response;
     }
-/**
+
+    /**
      * @Route("/getrating", name="getrating")
      */
     public function getrating(Request $request): Response
@@ -696,7 +701,7 @@ else{
     }
     }
 
- /**
+    /**
      * @Route("/moyrating", name="moyrating")
      */
 
@@ -714,9 +719,11 @@ else{
         if($problem){
             $data = array(
             'status'=>'success',
+
             'code'	=>200,
             'data'	=>$problem,
             'msg'	=>'Task detail'
+
         );
 
         $response = new jsonResponse($data);
@@ -735,6 +742,7 @@ else{
         }
    
     }
+
 /**
      * @Route("/suppUser/{id}", name="suppUser")
      */
@@ -816,4 +824,5 @@ else{
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
+
 }
