@@ -9,20 +9,20 @@ export class SignupService {
   identity: String;
   token: any;
   constructor(private _http: HttpClient) {
-    this.url = "http://127.0.0.1:8000";
+    this.url = "https://127.0.0.1:8000";
   }
-  create(report){
-    console.log('hh',report);
-    const json 	= JSON.stringify(report);
+  create(report) {
+    console.log('hh', report);
+    const json = JSON.stringify(report);
     let body = new HttpParams()
-    .set('json', json);
+      .set('json', json);
 
-    return this._http.post<any>(`${this.url}/signup`,body);
+    return this._http.post<any>(`${this.url}/signup`, body);
   }
 
-  getToken(){
-		this.token = JSON.parse(localStorage.getItem('token'));
+  getToken() {
+    this.token = JSON.parse(localStorage.getItem('token'));
 
-		return this.token;
-	}
+    return this.token;
+  }
 }
