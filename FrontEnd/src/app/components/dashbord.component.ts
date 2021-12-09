@@ -68,8 +68,11 @@ export class DashbordComponent implements OnInit {
   public ticket;
   public ticketToShow;
   timerSubscription: any;
+  public ratingToShow;
+  public rating;
+  data1: any;
 
-  constructor(private _http: HttpClient, private _problemService: ProblemService, private router: Router, private _rapportService: RapportService) {
+  constructor(private _http: HttpClient, private _problemService: ProblemService, private router: Router, private _rapportService: RapportService,) {
     this.identity = this._problemService.getIdentity();
 
     if (this.identity == null) {
@@ -94,6 +97,7 @@ export class DashbordComponent implements OnInit {
     this._rapportService.getallrep().subscribe(data => {
       this.ticket = Object.values(data)
       this.ticketToShow = this.ticket.slice(0, 5)
+      console.log(this.ticket);
     })
 
     setInterval(() => {
@@ -104,14 +108,16 @@ export class DashbordComponent implements OnInit {
 
 
 
-    this._rapportService.getallrep().subscribe(data => {
-      this.ticket = Object.values(data)
-      this.ticketToShow = this.ticket.slice(0, 5)
+    this._rapportService.getmoyrating().subscribe(data => {
+      this.data1 = ((data["data"]))
+      this.rating = Object.values(this.data1)
+      console.log(this.rating);
+      this.ratingToShow = this.rating.slice(0, 5)
     })
 
     setInterval(() => {
-      this.ticket = _.shuffle(this.ticket);
-      this.ticketToShow = this.ticket.slice(0, 5)
+      this.rating = _.shuffle(this.rating);
+      this.ratingToShow = this.rating.slice(0, 5)
     }, 20000);
 
 

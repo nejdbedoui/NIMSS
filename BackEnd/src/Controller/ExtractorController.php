@@ -603,6 +603,7 @@ else{
         if($repository)
         {
         foreach($repository as $key=>$rec){
+            if($rec->getIdEmploye()->getRole()=='employe'){
             $data[$key]['nom']= $rec->getIdEmploye()->getFullName();
             $data[$key]['desc']= $rec->getDescription();
             $data[$key]['id']= $rec->getIdReclamation();
@@ -611,6 +612,7 @@ else{
             $data[$key]['image']= $rec->getIdEmploye()->getImage();
             $data[$key]['stat']= 'success';
         }
+    }   
         
         $response = new jsonResponse($data);
     $response->headers->set('Access-Control-Allow-Origin', '*');
@@ -659,5 +661,76 @@ else{
     $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response;
+    }
+    /**
+     * @Route("/getrating", name="getrating")
+     */
+    public function getrating(Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(Rating::class)->findall();
+        $data = array();
+
+        if($repository)
+        {
+        foreach($repository as $key=>$rec){
+            $data[$key]['nomE']= $rec->getIdEmploye()->getFullName();
+            $data[$key]['photo']= $rec->getIdEmploye()->getImage();
+            $data[$key]['nomC']= $rec->getIdClient()->getFullName();
+            $data[$key]['rating']= $rec->getRating();
+            
+        }
+        
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+    }else{
+        $data = array();
+        $data[0]['stat']= '404';
+
+        $response = new jsonResponse($data);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }
+    }
+    /**
+     * @Route("/moyrating", name="moyrating")
+     */
+
+    public function moyrating(Request $request): Response{
+        $id = $request->get('id');
+        $em = $this->getDoctrine()->getManager();
+        $dql = "SELECT R,AVG(R.rating) as moy,E.Full_name,E.image  FROM App\Entity\Rating R LEFT JOIN App\Entity\Employe E"
+        ." WITH IDENTITY(R.idEmploye) = E.id"
+                ." Group By R.idEmploye";
+                
+        $query = $em->createQuery($dql);
+
+
+        $problem = $query->getArrayResult();
+        if($problem){
+            $data = array(
+            'status'=>'success',
+            'code'    =>200,
+            'data'    =>$problem,
+            'msg'    =>'Task detail'
+        );
+
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+    }else
+        {
+            $data = array(
+                'stat'=>'404',
+            );
+            $response = new jsonResponse($data);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+        
+                return $response;
+        }
+   
     }
 }
