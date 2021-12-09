@@ -165,11 +165,9 @@
           <tbody>
             <tr class="unread" *ngFor="let ticket of ticketToShow">
               <td>
-                <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" style="background-color: #ad655f;" >
-                  <section >
+                
 
-                          <div class="card text-dark">
-                            <div class="card-body p-4" >
+                          
                               <div class="d-flex flex-start"  >
                                 <img
                                   class="rounded-circle shadow-1-strong me-3"
@@ -184,13 +182,12 @@
                                     <p class="mb-0">
                                       {{ticket.nom}}
 
-                                      <span  class="badge bg-danger">{{ticket.role}}</span>
+                                      
                                     </p>
                                     <a href="#!" class="link-muted"
                                       ><i class="fas fa-pencil-alt ms-2"></i
                                     ></a>
-                                    <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i>a</a>
-                                    <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
+                                   
                                   </div>
                                   <p class="mb-0">
                                     {{ticket.desc}}
@@ -198,13 +195,7 @@
 
                                    </div>
                                 <br>
-                              </div>
-                            </div>
-
-                          </div>
-
-                  </section>
-                </cdk-virtual-scroll-viewport>
+                              </div> 
               </td>
               <td>
                 <h6 class="text-muted">

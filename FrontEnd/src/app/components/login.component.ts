@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
    }
    openDialog(): void {
     const dialogRef = this.dialog.open(SignUpComponent, {
-      width: '350px',
+      width: '400px',
       
     });
   

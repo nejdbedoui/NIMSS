@@ -2,7 +2,7 @@
 <div mat-dialog-content>
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="firstFormGroup">
-        <p>first of all you need to add your problem</p>
+        <p class="cent"><b>first of all you need to add a problem</b></p>
         <form #updateForm="ngForm"  #taskNewForm="ngForm" (ngSubmit)="onSubmit();" class="top">
             <div class="form-group">
                
@@ -22,22 +22,52 @@
           
         
        <div>
-        <button  class="right" mat-button matStepperNext>No Thanks</button>
+        <button type="button"  class="right" mat-button matStepperNext>Skip</button>
         <button type="submit" value="Add" name="send" [disabled]="!updateForm.form.valid" class="right" mat-button matStepperNext>Add</button>
         
     </div>
 </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
-    
 
+      <p class="cent">After adding a problem it will pass with three states</p>
+      <table>
+        <tr>
+          <td>
+      <div class="in"><span class="p"><b>New</b></span></div>
+      <div  class="example-button-container">
+        <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
+          <mat-icon>visibility_off</mat-icon>
+        </button>
+      </div> 
+    </td>
+          <td>
+      <div >
+<div class="in"><span class="p"><b>In progress</b></span></div>
+
+      <div  class="example-button-container">
+        <button mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
+          <mat-icon>hourglass_empty</mat-icon>
+        </button>
+      </div>
+    </div>
+  </td>
+  <td>
+      
+      <div class="in "><span class="p"><b>Treated</b></span></div>
+      <div class="example-button-container">
+        <button mat-mini-fab color="success" aria-label="Example icon button with a filter list icon">
+          <mat-icon>done_outline</mat-icon>
+        </button>
+      </div>
+    
+  </td>
+  </tr>
+  </table>
 <div>
         <div class="left">
           <button  mat-button matStepperPrevious>Back</button>
         </div>
-        
-        
-
         <div class="right">
           <button  mat-button matStepperNext>Next</button>
         </div>
@@ -47,6 +77,10 @@
     <mat-step>
       <ng-template matStepLabel></ng-template>
      
+
+      <p class="cent">After adding your problem it's just matter of time before its treated we have 24/7 support team</p>
+
+
       <div>
       <div class="left">
         <button  mat-button matStepperPrevious>Back</button>

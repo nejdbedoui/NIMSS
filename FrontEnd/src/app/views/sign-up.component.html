@@ -2,9 +2,7 @@
   <mat-progress-bar mode="indeterminate" *ngIf="check"></mat-progress-bar>
   <p *ngIf="used" style="color: red;">Email already used </p>
     <form #updateForm="ngForm" #taskNewForm="ngForm" (ngSubmit)="onSubmit();">
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">How can we help you ?</label>
-        </div>
+        
         <div class="form-group">
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Full_name</mat-label>
@@ -15,7 +13,7 @@
                   Please enter a valid Full Name 
                 </mat-error>
               </mat-form-field>
-
+<p></p>
 
            
             <mat-form-field class="example-full-width" appearance="fill">
@@ -53,12 +51,15 @@
                
               </mat-form-field>
 
-
+<br/>
           
-            <label for="file">File:</label>
-            <input type="file"  (change)="handleFiles($event)" accept=".png,.jpg" />
-            <br>
+            
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Default file input example</label>
+              <input (change)="handleFiles($event)" accept=".png,.jpg" class="form-control" type="file" id="formFile">
+            </div>
 
+            
 
             <button type="button" (click)="onNoClick()" class="btn btn-danger" >Cancel</button>
             <input type="submit"  value="Send" name="send" class="btn btn-success" [disabled]="!updateForm.form.valid ">
