@@ -475,15 +475,16 @@ else{
         
 
         $rating = $this->getDoctrine()->getRepository(Rating::class)->findOneBy(array(
-			'idEmploye' => $params->idEmploye,'idReclamation' => $params->idProbleme
+			'idReclamation' => $params->idProbleme
 		));
         if($rating==null && ($emp->getRole()=='employe')){
             
             $rati = new Rating();
             $rati->setIdReclamation($rec);
-            $rati->setRating(5);
             $rati->setIdEmploye($emp);
             $em->persist($rati);
+            $rec->setStatut('Inprogress');
+            $em->persist($rec);
         }
 
         $em->flush();
@@ -612,7 +613,11 @@ else{
             $data[$key]['image']= $rec->getIdEmploye()->getImage();
             $data[$key]['stat']= 'success';
         }
+
+        }
+
     }   
+
         
         $response = new jsonResponse($data);
     $response->headers->set('Access-Control-Allow-Origin', '*');
@@ -627,7 +632,7 @@ else{
         return $response;
     }
     }
-    /**
+/**
      * @Route("/rating", name="rating")
      */
     public function rating(Request $request): Response
@@ -662,6 +667,7 @@ else{
 
         return $response;
     }
+
     /**
      * @Route("/getrating", name="getrating")
      */
@@ -694,6 +700,7 @@ else{
         return $response;
     }
     }
+
     /**
      * @Route("/moyrating", name="moyrating")
      */
@@ -712,9 +719,11 @@ else{
         if($problem){
             $data = array(
             'status'=>'success',
-            'code'    =>200,
-            'data'    =>$problem,
-            'msg'    =>'Task detail'
+
+            'code'	=>200,
+            'data'	=>$problem,
+            'msg'	=>'Task detail'
+
         );
 
         $response = new jsonResponse($data);
@@ -733,4 +742,87 @@ else{
         }
    
     }
+
+/**
+     * @Route("/suppUser/{id}", name="suppUser")
+     */
+    public function suppUser($id): Response{
+        $em = $this->getDoctrine()->getManager();
+        $User = $em->getRepository(User::class)->findOneBy(['id' => $id]);
+        if($User!=null)
+        {
+            $em->remove($User);
+            $em->flush();
+            $data = array(
+                'status'=>'success',
+            );
+            $response = new jsonResponse($data);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+        }
+        else
+        {
+            $data = array(
+                'status'=>'error',
+            );
+            $response = new jsonResponse($data);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+                return $response;
+        }
+    }
+    /**
+     * @Route("/EditUser/{id}", name="EDITUSER" , methods="POST")
+     */
+    public function editUser(Request $request,$id): Response{
+        $em = $this->getDoctrine()->getManager();
+        $User = $em->getRepository(User::class)->findOneBy(['id' => $id]);
+
+        $json = $request->get('json');
+        $params = json_decode($json);
+
+        if($User!=null)
+        {
+            $User->setFullName($params->Full_name);
+            $User->setEmail($params->email);
+            $User->setPhoneNumber($params->phone_number);
+            $User->setPassword($params->password);
+            $User->setImage($params->image);
+
+            $em->persist($User);
+            $em->flush();
+            
+            $response = new jsonResponse('success');
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+        }
+        else
+        {
+            $response = new jsonResponse('Failed');
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+        }
+        return $response;
+    }
+    /**
+     * @Route("/getListUser", name="getUSERS" , methods="POST")
+     */
+    public function getAllList(Request $request): Response{
+        $em = $this->getDoctrine()->getManager();
+        $User = $em->getRepository(User::class)->findAll();
+
+        $response = new Response(json_encode($User));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+    /**
+     * @Route("/getUserByID/{id}", name="getUserByID" , methods="POST")
+     */
+    public function getMe(Request $request,$id): Response{
+        $em = $this->getDoctrine()->getManager();
+        $User = $em->getRepository(User::class)->findOneBy(['id' => $id]);
+
+        $response = new Response(json_encode($User));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
 }
