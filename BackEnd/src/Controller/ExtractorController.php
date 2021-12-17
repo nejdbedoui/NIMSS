@@ -783,11 +783,22 @@ else{
 
         if($User!=null)
         {
+            if($params->Full_name !=''){
             $User->setFullName($params->Full_name);
+            }
+            if($params->email !=''){
             $User->setEmail($params->email);
+            }
+            if($params->phone_number !=''){
             $User->setPhoneNumber($params->phone_number);
-            $User->setPassword($params->password);
+            }
+            if($params->password !=''){
+            $password = hash('sha256',$params->password);
+            $User->setPassword($password);
+            }
+            if($params->image !=''){
             $User->setImage($params->image);
+            }
 
             $em->persist($User);
             $em->flush();
@@ -824,5 +835,62 @@ else{
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
+
+
+    
+    /**
+     * @Route("/addc", name="addc")
+     */
+    public function addcAction(Request $request): Response{
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $json = $request->get('json');
+        $params = json_decode($json);
+        $password = hash('sha256',$params->password);
+        $user = $this->getDoctrine()->getRepository(Employe::class)->findOneBy(array(
+			'email' => $params->email
+		));
+        $used=true;
+        if($user){
+            $used=false;
+
+        }else{
+            $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(array(
+                'email' => $params->email
+            ));
+            if($user){
+                $used=false;
+        }}
+        if($used){
+            $rec = new Employe();
+            $rec->setFullName($params->Full_name);
+            $rec->setEmail($params->email);
+            $rec->setPhoneNumber($params->phone_number);
+            $rec->setPassword($password);
+            $rec->setImage($params->image);
+            $rec->setRole('employe');
+            $rec->setImage($params->image);
+            $em->persist($rec);
+		    $em->flush();
+            $data = array(
+                'stat'=>'success',
+                'code'	=>200,
+                'data'	=>$rec,
+                 'msg'	=>'detail'
+               );
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }else{
+        $data = array(
+            'stat'=>'402',
+        );
+
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }
+
+}
 
 }

@@ -25,4 +25,12 @@ export class SignupService {
 
     return this.token;
   }
+
+  update(user,id){
+    const json = JSON.stringify(user);
+    let body = new HttpParams()
+      .set('json', json);
+
+    return this._http.post<any>(`${this.url}/EditUser/${id}`, body);
+  }
 }

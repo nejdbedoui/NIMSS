@@ -29,6 +29,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DialogComponent } from './dialog/dialog.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { TutoComponent } from './tuto/tuto.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -45,6 +46,7 @@ import { TutoComponent } from './tuto/tuto.component';
     CardComponent,
     DialogComponent,
     TutoComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

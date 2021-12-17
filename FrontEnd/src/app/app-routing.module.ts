@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login.component';
 import { DetailsComponent } from './components/details.component';
 import { SignUpComponent } from './components/sign-up.component';
 import { TutoComponent } from './tuto/tuto.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'list',component : ProblemComponent},
   {path: 'add',component : CreateproblemComponent},
   {path: 'dashbord',component : DashbordComponent},
+  {path: 'profile',component : ProfileComponent},
   {path: 'login',component : LoginComponent},
   {path: 'Details/:id',component : DetailsComponent},
   {path: 'signup',component:SignUpComponent},
