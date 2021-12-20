@@ -1,3 +1,136 @@
+.caption {
+  background: -webkit-linear-gradient( 45deg, #e56609, #e9a046);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  font-size: 16px;
+}
+.titling {
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+.btn{
+  color: white;
+  box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+.paragraph {
+  font-size: 18px;
+  margin: 15px 0px;
+  margin-right: 15px;
+  letter-spacing: 1px;
+  line-height: 2;
+}
+
+.about-image {
+  text-align: right;
+  background: #feab4e;
+}
+
+.first-section {
+  width: 100%;
+  min-height: 100vh;
+  background: url('/assets/serv.png') center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding-top: 200px;
+  font-weight: 700 !important;
+  text-transform: capitalize;
+}
+
+.second-section {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  color: black;
+  margin: 75px 0px;
+  font-weight: 700 !important;
+  text-transform: capitalize;
+}
+
+.third-section {
+  width: 100%;
+  min-height: 100vh;
+  background: #ececec;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 75px 0px;
+  color: black;
+  font-weight: 700 !important;
+  text-transform: capitalize;
+}
+.team-member {
+  margin-bottom: 40px;
+}
+.team-member h5 {
+  font-size: 24px !important;
+  font-weight: 700;
+  margin: 5px 0px !important;
+}
+.team-member p {
+  margin: 0px !important;
+  font-size: 16px !important;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.team-member .btn-link {
+  background: linear-gradient(45deg, #fe8227, #ffb356);
+  border-color: transparent;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  border-radius: 8px !important;
+  display: inline-block;
+  padding: 8px;
+  margin: 8px;
+  text-transform: uppercase;
+}
+.fourth-section {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: black;
+  font-weight: 700 !important;
+  text-transform: capitalize;
+}
+
+.service-details {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-right: 15px;
+}
+
+.service-image {
+  text-align: center;
+  height: 250px;
+}
+
+.service-titling {
+  font-weight: 600;
+  margin: 15px 0px;
+  font-size: 22px;
+}
+
+.service-description {
+  color: gray;
+  text-align: center;
+  font-size: 18px;
+  line-height: 2;
+}
 
 html {
   font-size: 62.5%;
@@ -108,7 +241,6 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: 'Work Sans', sans-serif;
   margin-top: 0; }
 
 p {
@@ -157,7 +289,8 @@ a:hover {
   background-color: #f7f8f9; }
 
 .bg-transparent {
-  background: transparent; }
+  background: transparent; 
+}
 
 .btn-link {
   color: #f15e75; }
@@ -509,3 +642,4 @@ footer {
     width: 100%; }
   .card-deck {
     flex-direction: column; } }
+  

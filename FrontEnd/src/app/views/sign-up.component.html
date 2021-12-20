@@ -7,7 +7,7 @@
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Full_name</mat-label>
                 <input name="Full_name" #Full_name="ngModel" [(ngModel)]="Us.Full_name"required type="text" matInput 
-                       placeholder="Saif Hachana">
+                       placeholder="First name Second name">
                
                 <mat-error *ngIf="!Full_name.valid && Full_name.touched">
                   Please enter a valid Full Name 
@@ -55,7 +55,7 @@
           
             
             <div class="mb-3">
-              <label for="formFile" class="form-label">Default file input example</label>
+              
               <input (change)="handleFiles($event)" accept=".png,.jpg" class="form-control" type="file" id="formFile">
             </div>
 

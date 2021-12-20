@@ -1,0 +1,14 @@
+.left{
+    float: left;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+.right{
+    float: right;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+
+mat-form-field{
+    width: 100%;
+}

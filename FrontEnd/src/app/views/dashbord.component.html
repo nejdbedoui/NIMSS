@@ -1,6 +1,10 @@
-<div class="row">
+<div class="center"  *ngIf="loading == 'show'">
+  <img class="center" src="assets/YCZH.gif" />
+</div>
+<div class="row" *ngIf="loading == 'hide'">
+
   <div class="col-md-6 col-xl-4">
-    <app-card cardTitle="New" [hidHeader]="false">
+    <app-card cardTitle="New" [hidHeader]="true">
       <h2 class="mb-4">New ticket</h2>
       <div class="row d-flex align-items-center">
         <div class="col-9">
@@ -19,8 +23,10 @@
       </div>
     </app-card>
   </div>
+  
   <div class="col-md-6 col-xl-4">
-    <app-card cardTitle="Inprogress" [hidHeader]="false">
+    
+    <app-card cardTitle="Inprogress" [hidHeader]="true">
       <h2 class="mb-4">Inprogress</h2>
       <div class="row d-flex align-items-center">
         <div class="col-9">
@@ -35,10 +41,12 @@
       <div class="progress m-t-30" style="height: 7px">
         <mat-progress-bar mode="determinate" value={{inProgressP}}></mat-progress-bar>
       </div>
+      
     </app-card>
+    
   </div>
-  <div class="col-md-12 col-xl-4">
-    <app-card cardTitle="Treated" [hidHeader]="false">
+  <div class="col-md-6 col-xl-4">
+    <app-card cardTitle="Treated" [hidHeader]="true">
       <h2 class="mb-4">Treated</h2>
       <div class="row d-flex align-items-center">
         <div class="col-9">
@@ -51,11 +59,14 @@
           <p class="m-b-0">{{ treatedP }}%</p>
         </div>
       </div>
-      <div class="progress m-t-30" style="height: 7px">
-        <mat-progress-bar mode="determinate" value={{treatedP}}></mat-progress-bar>
+      <div color="success" class="progress m-t-30" style="height: 7px">
+        <mat-progress-bar style="color: green;"  mode="determinate" value={{treatedP}}></mat-progress-bar>
       </div>
     </app-card>
+  
   </div>
+  
+  
   <div class="col-xl-4 col-md-6">
   <app-card
       cardTitle="Recent ticket"
@@ -122,10 +133,13 @@
                                   height="60"
                                 />
                                 <div>
+                                  <h6 class="fw-bold mb-1"> {{ticket.date_creation}}</h6>
                                   <div class="d-flex align-items-center mb-3">
+                                   
                                     <p class="mb-0">
                                       {{ticket.nom}}
-
+                                      
+                                     
                                     </p>
                                     <a href="#!" class="link-muted"
                                       ><i class="fas fa-pencil-alt ms-2"></i
@@ -141,16 +155,12 @@
 
                               </div> 
 
-                           
+
 
 
 
               </td>
-              <td>
-                <h6 class="text-muted">
-                  <mat-icon>calendar_today</mat-icon>{{ticket.date_creation}}
-                </h6>
-              </td>
+            
             </tr>
           </tbody>
         </table>
@@ -159,4 +169,5 @@
   </div>
 
 </div>
+
 

@@ -1,12 +1,11 @@
 
-<div class="all-prob">
+<div class="all-prob top">
   <div class="center"  *ngIf="loading == 'show'">
       <img class="center" src="assets/YCZH.gif" />
   </div>
 
 
   <mat-card *ngIf="create == 'showu'"><a [routerLink]="['/add']" >Add Problem</a></mat-card>
-  <mat-card *ngIf="create == 'showa'"><a >No problem is available</a></mat-card>
 
 <div fxLayoutAlign="center center" fxFlexFill class="main-div" *ngIf="loading == 'hide' && create != 'showu' && create != 'showa'">
   <table class="table table-striped center" >
@@ -50,12 +49,12 @@
             <td >
               
               
-              <div *ngIf="user || problem.statut === 'Treated' || problem.statut === 'Inprogress'" class="example-button-container">
+              <div *ngIf="user || problem.statut === 'Treated'  "class="example-button-container">
                 <button  [routerLink]="['/Details',problem.id]" mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
                   <mat-icon>info</mat-icon>
                 </button>
               </div>
-              <div *ngIf="(employe || admin) && problem.statut === 'New'" class="example-button-container">
+              <div *ngIf="(employe || admin) && ( problem.statut === 'New' || problem.statut === 'Inprogress')" class="example-button-container">
                 <button  [routerLink]="['/Details',problem.id]" mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
                   <mat-icon>edit</mat-icon>
                 </button>

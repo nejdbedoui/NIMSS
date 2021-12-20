@@ -1,6 +1,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 
@@ -21,10 +22,12 @@ import {
   ApexLegend,
   ApexTooltip
 } from "ng-apexcharts";
+import { AddComponent } from '../add/add.component';
 import { Rapport } from '../models/rapport';
 import { Reclamation } from '../models/reclamation';
 import { ProblemService } from '../services/problem.service';
 import { RapportService } from '../services/rapport.service';
+import { SignUpComponent } from './sign-up.component';
 
 
 export type ChartOptions = {
@@ -72,6 +75,7 @@ export class DashbordComponent implements OnInit {
   public rating;
   data1: any;
 
+
   constructor(private _http: HttpClient, private _problemService: ProblemService, private router: Router, private _rapportService: RapportService,) {
     this.identity = this._problemService.getIdentity();
 
@@ -84,6 +88,7 @@ export class DashbordComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.loading="show"
     this._problemService.getType().subscribe(value => {
       this.newN = value["New"];
       this.inProgressN = value["Inprogress"];
@@ -95,9 +100,14 @@ export class DashbordComponent implements OnInit {
 
 
     this._rapportService.getallrep().subscribe(data => {
+      if(data[1]["stat"]=='success'){
+       
+        
+        this.loading = 'hide';
       this.ticket = Object.values(data)
       this.ticketToShow = this.ticket.slice(0, 5)
-      console.log(this.ticket);
+      }
+       
     })
 
     setInterval(() => {
@@ -123,4 +133,7 @@ export class DashbordComponent implements OnInit {
 
 
   }
+
+ 
+
 }

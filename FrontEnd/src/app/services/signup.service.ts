@@ -12,7 +12,7 @@ export class SignupService {
     this.url = "http://127.0.0.1:8000";
   }
   create(report) {
-    console.log('hh', report);
+   
     const json = JSON.stringify(report);
     let body = new HttpParams()
       .set('json', json);
@@ -25,4 +25,23 @@ export class SignupService {
 
     return this.token;
   }
+  create1(report) {
+    
+    const json = JSON.stringify(report);
+    let body = new HttpParams()
+      .set('json', json);
+
+    return this._http.post<any>(`${this.url}/addc`, body);
+  }
+  employe() {
+    return this._http.get(`${this.url}/employe`);
+  }
+  update(user,id){
+    const json = JSON.stringify(user);
+    let body = new HttpParams()
+      .set('json', json);
+
+    return this._http.post<any>(`${this.url}/EditUser/${id}`, body);
+  }
+
 }
