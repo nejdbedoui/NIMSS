@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
 import { Reclamation } from '../models/reclamation';
 import { ProblemService } from '../services/problem.service';
 
@@ -17,7 +18,7 @@ export class TutoComponent implements OnInit {
   public Rec:Reclamation;
   public identity: any;
   constructor(private _formBuilder: FormBuilder,  public dialogRef: MatDialogRef<TutoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: TutoComponent,private _problemservice: ProblemService,private router: Router) {
+    @Inject(MAT_DIALOG_DATA) public data: AppComponent,private _problemservice: ProblemService,private router: Router) {
       this.identity = this._problemservice.getIdentity();
      }
 
@@ -33,7 +34,9 @@ export class TutoComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+   console.log( this.data)
   }}
+  
   onNoClick(): void {
     this.dialogRef.close();
   }

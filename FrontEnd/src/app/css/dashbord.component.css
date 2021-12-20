@@ -2,13 +2,26 @@
     background-color: green;
     color: #fff;
   }
- 
+  .center {
+    padding-top: 80px;
+    position: relative;
+    text-align: center;
+  }
   .row{
-    
     width: 100%;
-    padding-top: 40px;
+    padding-top: 80px;
   }
   .col-md-6{
     padding-top: 80px;
     position: relative;
   }
+  .cent{
+      position: relative;
+      justify-content: center;
+      text-align: center;
+     
+  }
+  .mat-success {
+    background-color: green;
+    color: #fff;
+}

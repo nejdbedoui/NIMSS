@@ -27,8 +27,8 @@ class ExtractorController extends AbstractController
         $identity = $jwt_auth->checkToken($token,true);
         if($authCheck){
             
-        $repository = $this->getDoctrine()->getRepository(Reclamation::class)->findall();
-
+        $repository = $this->getDoctrine()->getRepository(Reclamation::class)->findAll();
+     
         $data = array();   
         if($repository) {
         foreach($repository as $key=>$rec){
@@ -39,9 +39,6 @@ class ExtractorController extends AbstractController
             $data[$key]['id_user']= $rec->getIdu()->getID();
             $data[$key]['id']= $rec->getId();
             $data[$key]['stat']= 'success';
-
-            //identit wa7adha timchich
-            //7ot nayik$identity->(il colonne)
         }
         
         
@@ -110,6 +107,9 @@ else{
      */
     public function newAction(Request $request): Response{
         $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        
+
         $repository = $this->getDoctrine()->getRepository(User::class);
         
 
@@ -611,9 +611,9 @@ else{
             $data[$key]['date_creation']= $rec->getCreationDate()->format('d/m/y');
             $data[$key]['role']= $rec->getIdEmploye()->getRole();
             $data[$key]['image']= $rec->getIdEmploye()->getImage();
-            $data[$key]['stat']= 'success';
+            $data[$key]['stat']='success';  
         }
-
+       
         }
 
        
@@ -625,7 +625,7 @@ else{
         return $response;
     }else{
         $data = array();
-        $data[0]['stat']= '404';
+        $data['stat']= '404';
 
         $response = new jsonResponse($data);
         $response->headers->set('Access-Control-Allow-Origin', '*');
@@ -783,11 +783,22 @@ else{
 
         if($User!=null)
         {
+            if($params->Full_name !=''){
             $User->setFullName($params->Full_name);
+            }
+            if($params->email !=''){
             $User->setEmail($params->email);
+            }
+            if($params->phone_number !=''){
             $User->setPhoneNumber($params->phone_number);
-            $User->setPassword($params->password);
+            }
+            if($params->password !=''){
+            $password = hash('sha256',$params->password);
+            $User->setPassword($password);
+            }
+            if($params->image !=''){
             $User->setImage($params->image);
+            }
 
             $em->persist($User);
             $em->flush();
@@ -802,23 +813,115 @@ else{
         }
         return $response;
     }
-    /**
-     * @Route("/getListUser", name="getUSERS" , methods="POST")
-     */
-    public function getAllList(Request $request): Response{
-        $em = $this->getDoctrine()->getManager();
-        $User = $em->getRepository(User::class)->findAll();
-
-        $response = new Response(json_encode($User));
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
-    }
+   
     /**
      * @Route("/getUserByID/{id}", name="getUserByID" , methods="POST")
      */
     public function getMe(Request $request,$id): Response{
         $em = $this->getDoctrine()->getManager();
         $User = $em->getRepository(User::class)->findOneBy(['id' => $id]);
+
+        $response = new Response(json_encode($User));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+
+    
+    /**
+     * @Route("/addc", name="addc")
+     */
+    public function addcAction(Request $request): Response{
+        $em = $this->getDoctrine()->getManager();
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $json = $request->get('json');
+        $params = json_decode($json);
+        $password = hash('sha256',$params->password);
+        $user = $this->getDoctrine()->getRepository(Employe::class)->findOneBy(array(
+			'email' => $params->email
+		));
+        $used=true;
+        if($user){
+            $used=false;
+
+        }else{
+            $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(array(
+                'email' => $params->email
+            ));
+            if($user){
+                $used=false;
+        }}
+        if($used){
+            $rec = new Employe();
+            $rec->setFullName($params->Full_name);
+            $rec->setEmail($params->email);
+            $rec->setPhoneNumber($params->phone_number);
+            $rec->setPassword($password);
+            $rec->setImage($params->image);
+            $rec->setRole('employe');
+            $rec->setImage($params->image);
+            $em->persist($rec);
+		    $em->flush();
+            $data = array(
+                'stat'=>'success',
+                'code'	=>200,
+                'data'	=>$rec,
+                 'msg'	=>'detail'
+               );
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }else{
+        $data = array(
+            'stat'=>'402',
+        );
+
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }
+
+}
+
+    /**
+     * @Route("/employe", name="employe ")
+     */
+    public function employeAction(Request $request): Response
+    {
+       
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository(Employe::class)->findBy(array('role'=>'employe'));
+
+        $data = array();  
+        if($repository) { 
+        foreach($repository as $key=>$rec){
+            $data[$key]['id']= $rec->getID();
+            $data[$key]['name']= $rec->getFullName();
+            $data[$key]['photo']= $rec->getImage();
+            $data[$key]['stat']='success';
+        }
+        
+        
+        $response = new jsonResponse($data);
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }else{
+        $data['stat']['stat']= '404';
+        $response = new jsonResponse($data);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+    
+            return $response;
+        }
+        
+    }
+
+     /**
+     * @Route("/User", name="User" , methods="POST")
+     */
+    public function getAllList(Request $request): Response{
+        $em = $this->getDoctrine()->getManager();
+        $User = $em->getRepository(User::class)->findAll();
 
         $response = new Response(json_encode($User));
         $response->headers->set('Content-Type', 'application/json');

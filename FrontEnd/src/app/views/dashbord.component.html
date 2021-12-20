@@ -1,4 +1,8 @@
-<div class="row">
+<div class="center"  *ngIf="loading == 'show'">
+  <img class="center" src="assets/YCZH.gif" />
+</div>
+<div class="row" *ngIf="loading == 'hide'">
+
   <div class="col-md-6 col-xl-4">
     <app-card cardTitle="New" [hidHeader]="true">
       <h2 class="mb-4">New ticket</h2>
@@ -19,7 +23,9 @@
       </div>
     </app-card>
   </div>
+  
   <div class="col-md-6 col-xl-4">
+    
     <app-card cardTitle="Inprogress" [hidHeader]="true">
       <h2 class="mb-4">Inprogress</h2>
       <div class="row d-flex align-items-center">
@@ -35,7 +41,9 @@
       <div class="progress m-t-30" style="height: 7px">
         <mat-progress-bar mode="determinate" value={{inProgressP}}></mat-progress-bar>
       </div>
+      
     </app-card>
+    
   </div>
   <div class="col-md-6 col-xl-4">
     <app-card cardTitle="Treated" [hidHeader]="true">
@@ -51,11 +59,14 @@
           <p class="m-b-0">{{ treatedP }}%</p>
         </div>
       </div>
-      <div  class="progress m-t-30" style="height: 7px">
-        <mat-progress-bar   mode="determinate" value={{treatedP}}></mat-progress-bar>
+      <div color="success" class="progress m-t-30" style="height: 7px">
+        <mat-progress-bar style="color: green;"  mode="determinate" value={{treatedP}}></mat-progress-bar>
       </div>
     </app-card>
+  
   </div>
+  
+  
   <div class="col-xl-4 col-md-6">
   <app-card
       cardTitle="Recent ticket"
@@ -158,4 +169,5 @@
   </div>
 
 </div>
+
 

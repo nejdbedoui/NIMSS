@@ -1,31 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DashbordComponent } from '../components/dashbord.component';
+import { MyErrorStateMatcher, SignUpComponent } from '../components/sign-up.component';
 import { User } from '../models/user';
 import { SignupService } from '../services/signup.service';
-import { LoginComponent } from './login.component';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
-
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: '../views/sign-up.component.html',
-  styleUrls: ['../css/sign-up.component.css']
+  selector: 'app-add',
+  templateUrl: './add.component.html',
+  styleUrls: ['./add.component.css']
 })
-export class SignUpComponent implements OnInit {
+export class AddComponent implements OnInit {
+  isLinear = false;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+
   public Us:User;
   private basePath = '/images';
   private p='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTV0zscYTnOxutaPDaZ9Un0Ak-y0yR8jw40qA&usqp=CAU'
   file: File;
   url = '';
+  emp;
+  loading;
   public ready;
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -37,9 +35,16 @@ export class SignUpComponent implements OnInit {
   used= false;
 
 
-  constructor(private afStorage: AngularFireStorage,private _SignupService:SignupService, public dialogRef: MatDialogRef<LoginComponent>) { }
+  constructor(public dialog: MatDialog,private _formBuilder: FormBuilder,private afStorage: AngularFireStorage,private _SignupService:SignupService, public dialogRef: MatDialogRef<DashbordComponent>) { }
   ngOnInit(): void {
     this.Us = new User('','',null,'',this.url);
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
+  
   }
 
   handleFiles(event) {
@@ -54,7 +59,7 @@ export class SignUpComponent implements OnInit {
       await this.getUrl(snap);
     }else{
       this.Us.image = 'https://icon-library.com/images/unknown-person-icon/unknown-person-icon-10.jpg'; 
-   this._SignupService.create(this.Us).subscribe(data=>{
+   this._SignupService.create1(this.Us).subscribe(data=>{
         console.log(data['stat']);
         if(data['stat']=='402'){
           this.used=true;
@@ -74,7 +79,7 @@ export class SignUpComponent implements OnInit {
     this.url = url; 
     this.ready="true";
     this.Us.image=this.url;
-    await this._SignupService.create(this.Us).subscribe(data=>{
+    await this._SignupService.create1(this.Us).subscribe(data=>{
       console.log(data['stat']);
       if(data['stat']=='402'){
         this.used=true;
@@ -82,6 +87,7 @@ export class SignUpComponent implements OnInit {
     }else{
       this.dialogRef.close();
     }
+  
   }
     );
   }
@@ -94,5 +100,5 @@ export class SignUpComponent implements OnInit {
     onNoClick(): void {
       this.dialogRef.close();
     }
-  
+   
 }

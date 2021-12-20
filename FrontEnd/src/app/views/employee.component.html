@@ -1,0 +1,28 @@
+<br><br><br><br><br><br>
+<div fxLayoutAlign="center center" fxFlexFill class="main-div" >
+    <table class="table table-striped center" >
+        <thead>
+          <tr >
+            <th scope="col">image</th>
+            <th scope="col">Full Name</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let empp of empppp">
+                <td>
+                    <img
+                  class="rounded-circle shadow-1-strong me-3"
+                  src={{empp.photo}}
+                  alt="avatar"
+                  width="40"
+                  height="40"
+                />
+                </td>
+                <td>{{empp.name}}</td>
+              
+            </tr>
+        </tbody>
+    </table>
+</div>
+                    
